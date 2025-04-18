@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 調頻</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/ritual.css">
+    <!-- 引入共用腳本和頁面特定腳本 -->
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/ritual.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">調頻</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 調頻內容 -->
+    <div class="ritual-content">
+        <div class="ritual-header">
+            <div class="ritual-title">放鬆調頻模式</div>
+            <div class="ritual-subtitle">使用產品: 撓定</div>
+        </div>
+        
+        <div class="ritual-timer-container">
+            <div class="timer-display">15:00</div>
+            <div class="timer-label">剩餘時間</div>
+        </div>
+        
+        <div class="breathing-animation-container">
+            <div class="breathing-circle">
+                <div class="breathing-inner-circle"></div>
+                <div class="breathing-instruction">吸氣</div>
+            </div>
+        </div>
+        
+        <div class="ritual-instruction">
+            <div class="instruction-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <div class="instruction-text">
+                跟隨動畫節奏呼吸，讓您的心靈與「撓定」產品同步，進入深度放鬆狀態。
+            </div>
+        </div>
+        
+        <div class="ritual-controls">
+            <button class="ritual-button start-button">
+                <i class="fas fa-play"></i>
+                開始
+            </button>
+            <button class="ritual-button stop-button">
+                <i class="fas fa-stop"></i>
+                停止
+            </button>
+        </div>
+        
+        <div class="ritual-progress">
+            <div class="progress-label">調頻進度</div>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 0%;"></div>
+            </div>
+            <div class="progress-value">0%</div>
+        </div>
+    </div>
+</body>
+</html> 

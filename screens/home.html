@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 首頁</title>
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/home.css">
+    <!-- 引入共用腳本和頁面特定腳本 -->
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/home.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主內容區域 -->
+    <div class="content">
+        <!-- Aqive 使用者區塊 -->
+        <div class="header">
+            <div class="greeting">您好，使用者</div>
+            <div class="date">2023年8月15日 週二</div>
+        </div>
+        
+        <!-- 產品選擇區塊 -->
+        <div class="product-selection">
+            <div class="product-header">
+                <div class="product-title">選擇您的產品</div>
+                <a href="#" class="product-action">管理</a>
+            </div>
+            
+            <div class="product-dropdown-container">
+                <div class="product-dropdown-label">選擇您的產品</div>
+                <select class="product-dropdown">
+                    <option value="無">無</option>
+                    <option value="撓定">撓定</option>
+                    <option value="撓氣源寶">撓氣源寶</option>
+                    <option value="盒炁">盒炁</option>
+                    <option value="炁環">炁環</option>
+                    <option value="晶炁">晶炁</option>
+                </select>
+            </div>
+            
+            <div class="product-usage-display">
+                <i class="fas fa-info-circle product-usage-icon"></i> 請在調頻前選擇您使用的 Aqive 產品，這將幫助我們為您提供最佳體驗
+            </div>
+        </div>
+        
+        <div class="main-button-container">
+            <button class="main-button" onclick="window.location.href='ritual.html'">
+                <div class="main-button-icon">
+                    <i class="fas fa-spa"></i>
+                </div>
+                開始調頻
+            </button>
+        </div>
+        
+        <div class="stats-summary">
+            <div class="stats-card">
+                <div class="stats-header">
+                    <div class="stats-title">本週概況</div>
+                    <a href="stats.html" class="stats-action">查看詳情</a>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stats-item">
+                        <div class="stats-value">5</div>
+                        <div class="stats-label">調頻次數</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-value">-25%</div>
+                        <div class="stats-label">焦慮減少</div>
+                    </div>
+                    <div class="stats-item">
+                        <div class="stats-value">+18%</div>
+                        <div class="stats-label">專注提升</div>
+                    </div>
+                </div>
+                
+                <div class="mood-summary">
+                    <div class="mood-icon">
+                        <i class="fas fa-smile"></i>
+                    </div>
+                    <div class="mood-text">
+                        <div class="mood-title">您的狀態正在改善</div>
+                        <div class="mood-description">與上週相比，您的整體狀態提升了15%</div>
+                    </div>
+                </div>
+                
+                <!-- 產品使用統計 -->
+                <div class="product-stats">
+                    <div class="product-stats-title">產品使用情況</div>
+                    <div class="product-stats-items">
+                        <div class="product-stats-item">
+                            <div class="product-stats-icon"><i class="fas fa-hands-praying"></i></div>
+                            <div>撓定 • 3次</div>
+                        </div>
+                        <div class="product-stats-item">
+                            <div class="product-stats-icon"><i class="fas fa-gem"></i></div>
+                            <div>撓氣源寶 • 1次</div>
+                        </div>
+                        <div class="product-stats-item">
+                            <div class="product-stats-icon"><i class="fas fa-cube"></i></div>
+                            <div>盒炁 • 1次</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tip-card">
+                <div class="tip-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="tip-content">
+                    <div class="tip-title">今日調頻小提示</div>
+                    <div class="tip-text">嘗試在使用「撓定」時配合深呼吸，每次吸氣5秒，呼氣6秒，可以加強調頻效果。</div>
+                </div>
+            </div>
+            
+            <div class="recent-sessions">
+                <div class="stats-title">近期調頻記錄</div>
+                <div class="session-list">
+                    <div class="session-item">
+                        <div class="session-icon">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="session-details">
+                            <div class="session-title">放鬆調頻 • 撓定</div>
+                            <div class="session-time">今天 14:30</div>
+                        </div>
+                        <div class="session-duration">15分鐘</div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div class="session-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="session-details">
+                            <div class="session-title">睡眠調頻 • 撓氣源寶</div>
+                            <div class="session-time">昨天 22:45</div>
+                        </div>
+                        <div class="session-duration">20分鐘</div>
+                    </div>
+                    
+                    <div class="session-item">
+                        <div class="session-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="session-details">
+                            <div class="session-title">專注調頻 • 盒炁</div>
+                            <div class="session-time">昨天 10:15</div>
+                        </div>
+                        <div class="session-duration">10分鐘</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+</body>
+</html> 

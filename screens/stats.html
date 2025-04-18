@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 數據統計</title>
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/stats.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- 狀態欄 -->
+    <div class="status-bar">
+        <div class="time">9:41</div>
+        <div class="icons">
+            <span class="signal"><i class="fas fa-signal"></i></span>
+            <span class="wifi"><i class="fas fa-wifi"></i></span>
+            <span class="battery"><i class="fas fa-battery-full"></i></span>
+        </div>
+    </div>
+
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <h1>數據統計</h1>
+    </div>
+
+    <!-- 主要內容 -->
+    <div class="stats-container">
+        <!-- 標題區域 -->
+        <div class="stats-header">
+            <div>
+                <h2 class="stats-title">您的健康狀態</h2>
+                <p class="stats-subtitle">查看您的進度和趨勢</p>
+            </div>
+            <div class="current-date" id="current-date">2023年11月15日</div>
+        </div>
+
+        <!-- 過濾選項 -->
+        <div class="filter-options">
+            <div class="filter-option active" data-period="week">本週</div>
+            <div class="filter-option" data-period="month">本月</div>
+            <div class="filter-option" data-period="3months">3個月</div>
+            <div class="filter-option" data-period="6months">6個月</div>
+            <div class="filter-option" data-period="year">今年</div>
+            <div class="filter-option" data-period="custom">自定義</div>
+        </div>
+
+        <!-- 圖表卡片 -->
+        <div class="chart-card">
+            <h3 class="chart-title">使用統計</h3>
+            <p class="chart-subtitle">您每天的調頻時間</p>
+            <div class="chart-container">
+                <canvas id="usageChart"></canvas>
+            </div>
+        </div>
+
+        <div class="chart-card">
+            <h3 class="chart-title">情緒變化</h3>
+            <p class="chart-subtitle">焦慮、專注力和睡眠質量的變化</p>
+            <div class="chart-container">
+                <canvas id="moodChart"></canvas>
+            </div>
+        </div>
+
+        <!-- 摘要數據 -->
+        <div class="summary-section">
+            <div class="summary-card">
+                <div class="summary-info">
+                    <h3>目標達成率</h3>
+                    <div class="summary-value">86%</div>
+                </div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>12%</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-info">
+                    <h3>連續使用天數</h3>
+                    <div class="summary-value">12</div>
+                </div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>3 天</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-info">
+                    <h3>焦慮減少</h3>
+                    <div class="summary-value">40%</div>
+                </div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>5%</span>
+                </div>
+            </div>
+
+            <div class="summary-card">
+                <div class="summary-info">
+                    <h3>總使用分鐘數</h3>
+                    <div class="summary-value">450</div>
+                </div>
+                <div class="trend up">
+                    <i class="fas fa-arrow-up"></i>
+                    <span>75 分鐘</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 個人洞察 -->
+        <div class="insights-section">
+            <h2 class="section-title">個人洞察</h2>
+            
+            <div class="insight-card">
+                <div class="insight-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <div class="insight-content">
+                    <h3>最佳調頻時間</h3>
+                    <p>根據您的數據，早上 7-8 點進行調頻效果最好，焦慮減少幅度達到 45%。</p>
+                </div>
+            </div>
+            
+            <div class="insight-card">
+                <div class="insight-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="insight-content">
+                    <h3>焦慮改善趨勢</h3>
+                    <p>過去 30 天，您的平均焦慮指數從 7 降至 4，持續進步中！</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 相關性分析 -->
+        <div class="correlation-section">
+            <h2 class="section-title">相關性分析</h2>
+            <p class="section-subtitle">以下因素如何影響您的指標</p>
+            
+            <div class="correlation-grid">
+                <div class="correlation-item">
+                    <div class="correlation-header">
+                        <h3>冥想時長與睡眠質量</h3>
+                        <span class="correlation-score high">高相關性</span>
+                    </div>
+                    <p>當您進行至少 20 分鐘的調頻時，睡眠質量提高 35%。</p>
+                </div>
+                
+                <div class="correlation-item">
+                    <div class="correlation-header">
+                        <h3>睡前調頻與焦慮</h3>
+                        <span class="correlation-score medium">中等相關性</span>
+                    </div>
+                    <p>睡前 30 分鐘進行調頻可以使第二天早晨的焦慮指數降低 25%。</p>
+                </div>
+                
+                <div class="correlation-item">
+                    <div class="correlation-header">
+                        <h3>調頻頻率與專注力</h3>
+                        <span class="correlation-score high">高相關性</span>
+                    </div>
+                    <p>每週至少進行 5 次調頻的週期，您的專注力提高了 40%。</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部導航 -->
+    <div class="bottom-nav">
+        <a href="home.html" class="nav-item">
+            <i class="fas fa-home"></i>
+            <span>首頁</span>
+        </a>
+        <a href="ritual.html" class="nav-item">
+            <i class="fas fa-spa"></i>
+            <span>調頻</span>
+        </a>
+        <a href="tracking.html" class="nav-item">
+            <i class="fas fa-chart-bar"></i>
+            <span>記錄</span>
+        </a>
+        <a href="stats.html" class="nav-item active">
+            <i class="fas fa-chart-line"></i>
+            <span>統計</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-cog"></i>
+            <span>設定</span>
+        </a>
+    </div>
+
+    <script src="assets/js/pages/stats.js"></script>
+</body>
+</html> 

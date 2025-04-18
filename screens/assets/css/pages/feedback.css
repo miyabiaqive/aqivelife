@@ -1,0 +1,191 @@
+/* 調頻結束反饋頁面樣式 */
+
+/* 設置整個頁面背景 */
+body {
+    background: linear-gradient(135deg, var(--primary-color), var(--quaternary-color));
+    color: white;
+}
+
+/* 主容器 */
+.feedback-content {
+    padding: 16px;
+    min-height: calc(100vh - 91px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* 反饋頁面標題 */
+.feedback-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.feedback-title {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.feedback-subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+}
+
+/* 會話摘要 */
+.session-summary {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 24px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.summary-value {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* 心情選擇區塊 */
+.mood-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+}
+
+.mood-options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.mood-option {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 16px 8px;
+    width: calc(20% - 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mood-option:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.mood-option.selected {
+    background-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 0 2px white;
+}
+
+.mood-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.mood-label {
+    font-size: 12px;
+    text-align: center;
+}
+
+/* 評論區塊 */
+.comments-section {
+    margin-bottom: 24px;
+}
+
+.comments-input {
+    width: 100%;
+    height: 120px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    padding: 16px;
+    font-size: 14px;
+    resize: none;
+}
+
+.comments-input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.comments-input:focus {
+    outline: none;
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 儲存按鈕 */
+.save-button {
+    background-color: white;
+    color: var(--primary-color);
+    border: none;
+    border-radius: 25px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.save-button:active {
+    transform: scale(0.98);
+}
+
+/* 特定應用欄樣式 */
+.app-bar {
+    background-color: transparent;
+    border-bottom: none;
+    position: relative;
+    z-index: 10;
+}
+
+.app-title {
+    color: white;
+    font-weight: 600;
+}
+
+.back-button {
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+/* 狀態欄樣式 */
+.status-bar {
+    background-color: transparent;
+    color: white;
+}
+
+/* 響應式調整 */
+@media (max-width: 350px) {
+    .mood-option {
+        width: calc(33.33% - 8px);
+        margin-bottom: 8px;
+    }
+} 

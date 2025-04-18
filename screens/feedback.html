@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 調頻結束</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/feedback.css">
+    <!-- 引入共用腳本和頁面特定腳本 -->
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/feedback.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">調頻結束</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 回饋內容 -->
+    <div class="feedback-content">
+        <div class="feedback-header">
+            <div class="feedback-title">恭喜您完成調頻！</div>
+            <div class="feedback-subtitle">請告訴我們您的感受</div>
+        </div>
+        
+        <div class="session-summary">
+            <div class="summary-item">
+                <div class="summary-label">調頻類型</div>
+                <div class="summary-value">放鬆調頻</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">調頻時長</div>
+                <div class="summary-value">15分鐘</div>
+            </div>
+            <div class="summary-item">
+                <div class="summary-label">完成時間</div>
+                <div class="summary-value">2023/10/25 15:30</div>
+            </div>
+        </div>
+        
+        <div class="mood-section">
+            <div class="section-title">您現在的心情如何？</div>
+            <div class="mood-options">
+                <div class="mood-option" data-mood="very-relaxed">
+                    <div class="mood-icon">
+                        <i class="far fa-laugh-beam"></i>
+                    </div>
+                    <div class="mood-label">非常放鬆</div>
+                </div>
+                <div class="mood-option" data-mood="relaxed">
+                    <div class="mood-icon">
+                        <i class="far fa-smile"></i>
+                    </div>
+                    <div class="mood-label">放鬆</div>
+                </div>
+                <div class="mood-option" data-mood="neutral">
+                    <div class="mood-icon">
+                        <i class="far fa-meh"></i>
+                    </div>
+                    <div class="mood-label">一般</div>
+                </div>
+                <div class="mood-option" data-mood="tense">
+                    <div class="mood-icon">
+                        <i class="far fa-frown"></i>
+                    </div>
+                    <div class="mood-label">緊張</div>
+                </div>
+                <div class="mood-option" data-mood="very-tense">
+                    <div class="mood-icon">
+                        <i class="far fa-tired"></i>
+                    </div>
+                    <div class="mood-label">非常緊張</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="comments-section">
+            <div class="section-title">有什麼想分享的嗎？（選填）</div>
+            <textarea class="comments-input" placeholder="請輸入您的感受或建議..."></textarea>
+        </div>
+        
+        <button class="save-button">
+            <i class="fas fa-check"></i>
+            儲存並返回首頁
+        </button>
+    </div>
+</body>
+</html> 

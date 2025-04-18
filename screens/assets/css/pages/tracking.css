@@ -1,0 +1,458 @@
+/* 狀態追蹤頁面樣式 */
+
+/* 日期頭部 */
+.date-header {
+    background-color: white;
+    border-radius: 15px;
+    padding: 16px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.date-title {
+    font-size: 16px;
+    color: var(--dark-gray);
+    margin-bottom: 4px;
+}
+
+.date-value {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* 追蹤內容 */
+.tracking-content {
+    padding: 1rem;
+    padding-bottom: 5.5rem;
+    overflow-y: auto;
+    max-width: 100%;
+}
+
+/* 追蹤區塊 */
+.tracking-sections {
+    margin-bottom: 1.5rem;
+}
+
+.tracking-section {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.section-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.section-icon {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 0.75rem;
+    color: white;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.anxiety-icon {
+    background-color: var(--quaternary-color);
+}
+
+.focus-icon {
+    background-color: var(--tertiary-color);
+}
+
+.sleep-icon {
+    background-color: var(--secondary-color);
+}
+
+.notes-icon {
+    background-color: var(--primary-color);
+}
+
+.section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    flex: 1;
+}
+
+.section-value {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+/* 滑塊容器和標籤 */
+.slider-container {
+    width: 100%;
+    padding: 0 0.625rem;
+}
+
+.tracking-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 5px;
+    background: var(--light-gray);
+    outline: none;
+    margin-bottom: 0.625rem;
+}
+
+.tracking-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--primary-color);
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.slider-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--medium-gray);
+}
+
+/* 筆記區域 */
+.notes-section {
+    margin-bottom: 1.875rem;
+}
+
+.notes-input {
+    width: 100%;
+    height: 7.5rem;
+    border: 1px solid var(--light-gray);
+    border-radius: 15px;
+    padding: 1rem;
+    font-size: 1rem;
+    resize: none;
+    font-family: 'Noto Sans TC', sans-serif;
+    background-color: #f9f9f9;
+}
+
+.notes-input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: white;
+}
+
+.notes-input::placeholder {
+    color: #bbb;
+}
+
+/* 日曆區域 */
+.calendar-section {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1.25rem;
+    margin-bottom: 1.5625rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.calendar-header {
+    margin-bottom: 1.25rem;
+}
+
+.month-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.month-nav-btn {
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.125rem;
+    cursor: pointer;
+    width: 2.25rem;
+    height: 2.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.current-month {
+    font-size: 1.125rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.calendar-day-header {
+    text-align: center;
+    font-size: 0.875rem;
+    color: var(--dark-gray);
+    font-weight: 600;
+    padding-bottom: 0.75rem;
+}
+
+.calendar-day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 1/1;
+    width: 100%;
+    max-width: 2.5rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    cursor: pointer;
+    margin: 0 auto;
+    position: relative;
+}
+
+.calendar-day.active {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+
+.calendar-day.today {
+    background-color: var(--primary-light);
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.calendar-day.other-month {
+    color: var(--medium-gray);
+}
+
+.calendar-day.has-data::after {
+    content: '';
+    position: absolute;
+    bottom: 0.125rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0.25rem;
+    height: 0.25rem;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+}
+
+.calendar-day.active.has-data::after {
+    background-color: white;
+}
+
+/* 提醒設置 */
+.reminder-section {
+    background-color: white;
+    border-radius: 15px;
+    padding: 1.25rem;
+    margin-bottom: 1.5625rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.reminder-header {
+    margin-bottom: 0.9375rem;
+}
+
+.reminder-title {
+    font-size: 1.125rem;
+    font-weight: 600;
+}
+
+.reminder-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reminder-toggle span {
+    font-size: 1rem;
+    color: var(--dark-gray);
+}
+
+/* 開關樣式 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 3.2rem;
+    height: 1.9rem;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #E6E6E6;
+    transition: .3s;
+    border-radius: 2.125rem;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 1.7rem;
+    width: 1.7rem;
+    left: 0.125rem;
+    bottom: 0.125rem;
+    background-color: white;
+    transition: .3s;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+input:checked + .slider {
+    background-color: #F4A460;
+}
+
+input:checked + .slider:before {
+    transform: translateX(1.3rem);
+}
+
+/* 行動按鈕 */
+.action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+.save-button, .back-home-button {
+    flex: 1;
+    padding: 1rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.save-button i, .back-home-button i {
+    margin-right: 0.5rem;
+}
+
+.save-button {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.back-home-button {
+    background-color: white;
+    color: var(--dark-gray);
+}
+
+/* 媒體查詢：小型設備 */
+@media screen and (max-width: 360px) {
+    .tracking-content {
+        padding: 0.75rem;
+    }
+    
+    .section-icon {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1rem;
+    }
+    
+    .section-title {
+        font-size: 0.875rem;
+    }
+    
+    .section-value {
+        font-size: 1.125rem;
+    }
+    
+    .calendar-day-header {
+        font-size: 0.75rem;
+    }
+    
+    .calendar-day {
+        font-size: 0.875rem;
+    }
+    
+    .calendar-grid {
+        gap: 0.25rem;
+    }
+    
+    .notes-input {
+        padding: 0.75rem;
+    }
+    
+    .reminder-title {
+        font-size: 1rem;
+    }
+    
+    .save-button, .back-home-button {
+        font-size: 0.875rem;
+        padding: 0.75rem;
+    }
+}
+
+/* 媒體查詢：中型設備 */
+@media screen and (min-width: 768px) {
+    .tracking-content {
+        max-width: 720px;
+        margin: 0 auto;
+    }
+    
+    .calendar-grid {
+        gap: 0.75rem;
+    }
+    
+    .calendar-day {
+        max-width: 3rem;
+    }
+    
+    .action-buttons {
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+/* 媒體查詢：大型設備 */
+@media screen and (min-width: 1024px) {
+    .tracking-content {
+        max-width: 960px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+    
+    .tracking-sections {
+        width: 48%;
+    }
+    
+    .calendar-section, .reminder-section {
+        width: 48%;
+    }
+    
+    .notes-section {
+        width: 100%;
+        order: -1;
+    }
+    
+    .action-buttons {
+        width: 100%;
+        max-width: none;
+    }
+} 

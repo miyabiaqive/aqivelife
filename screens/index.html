@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife 原型展示</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f5f5f7;
+            font-family: "Noto Sans TC", "Outfit", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        .prototype-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .phone-frame {
+            width: 390px;
+            height: 844px;
+            margin: 20px;
+            background: white;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            display: inline-block;
+        }
+        .phone-frame iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .screen-title {
+            text-align: center;
+            font-weight: 600;
+            margin-top: 10px;
+            color: #1d1d1f;
+        }
+    </style>
+</head>
+<body>
+    <div class="prototype-container">
+        <div class="py-6 text-center">
+            <h1 class="text-4xl font-bold text-gray-900">AqiveLife App 原型展示</h1>
+            <p class="mt-2 text-xl text-gray-600">以下是按照 iPhone 15 Pro 尺寸設計的高保真原型界面</p>
+        </div>
+        
+        <div class="flex flex-wrap justify-center">
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/login.html"></iframe>
+                </div>
+                <div class="screen-title">登入界面</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/onboarding.html"></iframe>
+                </div>
+                <div class="screen-title">初始設定界面</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/home.html"></iframe>
+                </div>
+                <div class="screen-title">首頁</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/ritual.html"></iframe>
+                </div>
+                <div class="screen-title">儀式模式</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/feedback.html"></iframe>
+                </div>
+                <div class="screen-title">儀式結束評分</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/tracking.html"></iframe>
+                </div>
+                <div class="screen-title">狀態追蹤</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/stats.html"></iframe>
+                </div>
+                <div class="screen-title">數據視覺化</div>
+            </div>
+            
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/settings.html"></iframe>
+                </div>
+                <div class="screen-title">設定</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

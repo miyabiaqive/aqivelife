@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 狀態追蹤</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/tracking.css">
+    <!-- 引入共用腳本和頁面特定腳本 -->
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/tracking.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">狀態追蹤</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 追蹤內容 -->
+    <div class="tracking-content">
+        <!-- 今日筆記區域 -->
+        <div class="tracking-section notes-section">
+            <div class="section-header">
+                <div class="section-icon notes-icon">
+                    <i class="fas fa-edit"></i>
+                </div>
+                <div class="section-title">今日筆記</div>
+            </div>
+            <textarea class="notes-input" placeholder="記錄今天的感覺和想法..."></textarea>
+        </div>
+        
+        <div class="tracking-sections">
+            <!-- 焦慮程度追蹤 -->
+            <div class="tracking-section">
+                <div class="section-header">
+                    <div class="section-icon anxiety-icon">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <div class="section-title">焦慮程度</div>
+                    <div class="section-value" id="anxiety-value">3</div>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="3" class="tracking-slider" id="anxiety-slider">
+                    <div class="slider-labels">
+                        <span>平靜</span>
+                        <span>中等</span>
+                        <span>極度焦慮</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 專注力追蹤 -->
+            <div class="tracking-section">
+                <div class="section-header">
+                    <div class="section-icon focus-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <div class="section-title">專注力</div>
+                    <div class="section-value" id="focus-value">7</div>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="7" class="tracking-slider" id="focus-slider">
+                    <div class="slider-labels">
+                        <span>分散</span>
+                        <span>中等</span>
+                        <span>高度專注</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 睡眠品質追蹤 -->
+            <div class="tracking-section">
+                <div class="section-header">
+                    <div class="section-icon sleep-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="section-title">睡眠品質</div>
+                    <div class="section-value" id="sleep-value">5</div>
+                </div>
+                <div class="slider-container">
+                    <input type="range" min="1" max="10" value="5" class="tracking-slider" id="sleep-slider">
+                    <div class="slider-labels">
+                        <span>不佳</span>
+                        <span>一般</span>
+                        <span>優質</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 行事曆部分 -->
+        <div class="calendar-section">
+            <div class="calendar-header">
+                <div class="month-nav">
+                    <button class="month-nav-btn" id="prev-month">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="current-month" id="current-month">2025年4月</div>
+                    <button class="month-nav-btn" id="next-month">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="calendar-grid" id="calendar-grid">
+                <!-- 星期列 -->
+                <div class="calendar-day-header">一</div>
+                <div class="calendar-day-header">二</div>
+                <div class="calendar-day-header">三</div>
+                <div class="calendar-day-header">四</div>
+                <div class="calendar-day-header">五</div>
+                <div class="calendar-day-header">六</div>
+                <div class="calendar-day-header">日</div>
+                
+                <!-- 月份的第一週 -->
+                <div class="calendar-day other-month">31</div>
+                <div class="calendar-day">1</div>
+                <div class="calendar-day">2</div>
+                <div class="calendar-day has-data">3</div>
+                <div class="calendar-day">4</div>
+                <div class="calendar-day">5</div>
+                <div class="calendar-day">6</div>
+                
+                <!-- 月份的第二週 -->
+                <div class="calendar-day has-data">7</div>
+                <div class="calendar-day">8</div>
+                <div class="calendar-day">9</div>
+                <div class="calendar-day">10</div>
+                <div class="calendar-day">11</div>
+                <div class="calendar-day has-data">12</div>
+                <div class="calendar-day">13</div>
+                
+                <!-- 月份的第三週 -->
+                <div class="calendar-day">14</div>
+                <div class="calendar-day">15</div>
+                <div class="calendar-day">16</div>
+                <div class="calendar-day active">17</div>
+                <div class="calendar-day has-data">18</div>
+                <div class="calendar-day">19</div>
+                <div class="calendar-day">20</div>
+                
+                <!-- 月份的第四週 -->
+                <div class="calendar-day">21</div>
+                <div class="calendar-day">22</div>
+                <div class="calendar-day">23</div>
+                <div class="calendar-day">24</div>
+                <div class="calendar-day has-data">25</div>
+                <div class="calendar-day">26</div>
+                <div class="calendar-day">27</div>
+                
+                <!-- 月份的第五週 -->
+                <div class="calendar-day">28</div>
+                <div class="calendar-day">29</div>
+                <div class="calendar-day">30</div>
+                <div class="calendar-day other-month">1</div>
+                <div class="calendar-day other-month">2</div>
+                <div class="calendar-day other-month">3</div>
+                <div class="calendar-day other-month">4</div>
+            </div>
+        </div>
+
+        <!-- 提醒設置 -->
+        <div class="reminder-section">
+            <div class="reminder-header">
+                <div class="reminder-title">每日狀態記錄提醒</div>
+            </div>
+            <div class="reminder-toggle">
+                <span>開啟提醒</span>
+                <label class="switch">
+                    <input type="checkbox" checked>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </div>
+
+        <!-- 控制按鈕 -->
+        <div class="action-buttons">
+            <button class="save-button">
+                <i class="fas fa-save"></i>
+                保存記錄
+            </button>
+            <button class="back-home-button">
+                <i class="fas fa-home"></i>
+                返回首頁
+            </button>
+        </div>
+    </div>
+</body>
+</html> 
