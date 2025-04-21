@@ -1,7 +1,7 @@
 /* 首頁特定樣式 */
 .header {
-    text-align: center;
-    padding: 20px 0;
+    text-align: left;
+    padding: 20px 20px;
 }
 .greeting {
     font-size: 24px;
@@ -23,7 +23,7 @@
     width: 160px;
     height: 160px;
     border-radius: 80px;
-    background: linear-gradient(135deg, var(--primary-color), var(--quaternary-color));
+    background: var(--tertiary-color);
     color: white;
     display: flex;
     flex-direction: column;
@@ -31,14 +31,14 @@
     align-items: center;
     font-size: 22px;
     font-weight: 600;
-    box-shadow: 0 10px 25px rgba(244, 164, 96, 0.3);
+    box-shadow: 0 10px 25px rgba(248, 212, 100, 0.3);
     border: none;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
 }
 .main-button:active {
     transform: scale(0.95);
-    box-shadow: 0 5px 15px rgba(244, 164, 96, 0.2);
+    box-shadow: 0 5px 15px rgba(248, 212, 100, 0.2);
 }
 .main-button-icon {
     font-size: 40px;
@@ -73,6 +73,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 12px;
+    margin-bottom: 16px;
 }
 .stats-item {
     text-align: center;
@@ -89,8 +90,8 @@
 .mood-summary {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 16px 0;
+    padding: 16px;
+    border-radius: 12px;
 }
 .mood-icon {
     font-size: 32px;
@@ -125,12 +126,20 @@
     width: 40px;
     height: 40px;
     border-radius: 20px;
-    background-color: var(--primary-color);
     color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 16px;
+}
+.relaxation-icon {
+    background-color: var(--quaternary-color);
+}
+.sleep-icon {
+    background-color: var(--secondary-color);
+}
+.focus-icon {
+    background-color: var(--tertiary-color);
 }
 .session-details {
     flex: 1;
@@ -149,7 +158,7 @@
     color: var(--primary-color);
 }
 .tip-card {
-    background-color: rgba(244, 164, 96, 0.1);
+    background-color: #FFF8EC;
     border-radius: 16px;
     padding: 16px;
     margin: 24px 0;
@@ -160,7 +169,7 @@
     width: 50px;
     height: 50px;
     border-radius: 25px;
-    background-color: var(--primary-color);
+    background-color: var(--tertiary-color);
     color: white;
     display: flex;
     align-items: center;
@@ -204,10 +213,9 @@
 }
 /* 下拉選單樣式 */
 .product-dropdown-container {
-    background-color: white;
+    background-color: var(--light-gray);
     border-radius: 16px;
     padding: 16px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     margin-bottom: 16px;
 }
 .product-dropdown-label {
@@ -236,6 +244,9 @@
 }
 .product-usage-display {
     margin-top: 12px;
+    padding: 12px;
+    border-radius: 12px;
+    background-color: #FFF1E1;
     font-size: 14px;
     color: var(--dark-gray);
     display: flex;
@@ -244,7 +255,7 @@
 .product-usage-icon {
     margin-right: 8px;
     font-size: 16px;
-    color: var(--primary-color);
+    color: #E57254;
 }
 /* 移除舊的產品卡片樣式 */
 .product-scroll {
@@ -254,7 +265,6 @@
 .product-stats {
     margin-top: 16px;
     padding: 12px;
-    background-color: var(--light-gray);
     border-radius: 12px;
 }
 .product-stats-title {
@@ -268,7 +278,8 @@
     gap: 8px;
 }
 .product-stats-item {
-    background-color: white;
+    background-color: transparent;
+    border: 1px solid var(--light-gray);
     border-radius: 10px;
     padding: 6px 10px;
     font-size: 12px;
