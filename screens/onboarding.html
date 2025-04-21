@@ -6,122 +6,14 @@
     <title>AqiveLife - 初始設定</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/onboarding.css">
     <script src="assets/js/shared.js" defer></script>
-    <style>
-        body {
-            background-color: #FFFFFF;
-        }
-        .onboarding-container {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 20px 32px 40px;
-        }
-        .progress-bar {
-            height: 4px;
-            width: 100%;
-            background-color: var(--light-gray);
-            border-radius: 2px;
-            margin: 16px 0 30px;
-        }
-        .progress-bar-inner {
-            height: 100%;
-            width: 33.3%;
-            background-color: var(--primary-color);
-            border-radius: 2px;
-            transition: width 0.3s;
-        }
-        .step-title {
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .step-description {
-            font-size: 16px;
-            color: var(--dark-gray);
-            margin-bottom: 40px;
-            line-height: 1.5;
-        }
-        .goal-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            margin: 20px 0;
-        }
-        .goal-card {
-            display: flex;
-            align-items: center;
-            padding: 20px;
-            border-radius: 16px;
-            border: 2px solid var(--light-gray);
-            transition: all 0.2s;
-            cursor: pointer;
-        }
-        .goal-card.selected {
-            border-color: var(--primary-color);
-            background-color: rgba(0, 122, 255, 0.05);
-        }
-        .goal-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin-right: 16px;
-            color: white;
-        }
-        .goal-relaxation .goal-icon {
-            background-color: #34C759;
-        }
-        .goal-focus .goal-icon {
-            background-color: #5856D6;
-        }
-        .goal-sleep .goal-icon {
-            background-color: #007AFF;
-        }
-        .goal-content {
-            flex: 1;
-        }
-        .goal-title {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .goal-description {
-            font-size: 14px;
-            color: var(--dark-gray);
-        }
-        .check-icon {
-            color: var(--primary-color);
-            font-size: 24px;
-            opacity: 0;
-        }
-        .goal-card.selected .check-icon {
-            opacity: 1;
-        }
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: auto;
-        }
-        .btn-skip {
-            color: var(--dark-gray);
-            background: none;
-            border: none;
-            font-size: 16px;
-            font-weight: 500;
-            padding: 12px;
-        }
-    </style>
 </head>
 <body>
     <!-- iOS 狀態欄 -->
     <div class="status-bar">
         <div class="status-bar-left">
-            <div class="status-bar-time">9:41</div>
+            <div class="status-bar-time">9:48</div>
         </div>
         <div class="status-bar-right">
             <div class="status-bar-signal">
@@ -149,7 +41,7 @@
             <div class="goal-cards">
                 <div class="goal-card goal-relaxation" onclick="selectGoal(this, 'relaxation')">
                     <div class="goal-icon">
-                        <i class="fas fa-spa"></i>
+                        <i class="fas fa-seedling"></i>
                     </div>
                     <div class="goal-content">
                         <div class="goal-title">放鬆減壓</div>
