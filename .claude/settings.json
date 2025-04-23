@@ -1,0 +1,15 @@
+{
+  "preferred_branch": "main",
+  "style_guide": {
+    "indentation": "2 spaces",
+    "naming": "camelCase",
+    "typescript": true,
+    "avoid_any": true
+  },
+  "edit_policy": "suggest_first",
+  "allowed_tools": [
+    "pnpm",
+    "git",
+    "bash"
+  ]
+}

@@ -1,0 +1,168 @@
+{
+  "templates": [
+    {
+      "type": "feature",
+      "name": "功能開發模板",
+      "description": "用於標準功能開發的模板",
+      "structure": {
+        "id": "feature-{unique-id}",
+        "title": "{功能名稱}",
+        "description": "{詳細功能描述}",
+        "priority": "medium",
+        "status": "todo",
+        "category": "feature",
+        "files": [],
+        "subtasks": [
+          {
+            "id": "design-{unique-id}",
+            "title": "設計 {功能名稱} UI/UX",
+            "status": "todo"
+          },
+          {
+            "id": "implement-{unique-id}",
+            "title": "實現 {功能名稱} 核心功能",
+            "status": "todo"
+          },
+          {
+            "id": "test-{unique-id}",
+            "title": "測試 {功能名稱}",
+            "status": "todo"
+          }
+        ],
+        "acceptance_criteria": [
+          "{功能應滿足的條件1}",
+          "{功能應滿足的條件2}"
+        ],
+        "estimated_effort": "medium"
+      }
+    },
+    {
+      "type": "bugfix",
+      "name": "錯誤修復模板",
+      "description": "用於錯誤修復任務的模板",
+      "structure": {
+        "id": "bug-{unique-id}",
+        "title": "修復 {問題簡述}",
+        "description": "{詳細問題描述}",
+        "priority": "high",
+        "status": "todo",
+        "category": "bugfix",
+        "files": [],
+        "steps_to_reproduce": [
+          "{重現步驟1}",
+          "{重現步驟2}"
+        ],
+        "expected_behavior": "{預期行為}",
+        "actual_behavior": "{實際行為}",
+        "possible_causes": [
+          "{可能原因1}",
+          "{可能原因2}"
+        ],
+        "estimated_effort": "small"
+      }
+    },
+    {
+      "type": "optimization",
+      "name": "優化任務模板",
+      "description": "用於性能或體驗優化的模板",
+      "structure": {
+        "id": "opt-{unique-id}",
+        "title": "優化 {優化目標}",
+        "description": "{詳細優化需求}",
+        "priority": "medium",
+        "status": "todo",
+        "category": "optimization",
+        "files": [],
+        "current_metrics": "{當前表現指標}",
+        "target_metrics": "{目標表現指標}",
+        "optimization_approaches": [
+          "{優化方法1}",
+          "{優化方法2}"
+        ],
+        "estimated_effort": "medium"
+      }
+    },
+    {
+      "type": "research",
+      "name": "技術研究模板",
+      "description": "用於技術調研任務的模板",
+      "structure": {
+        "id": "research-{unique-id}",
+        "title": "研究 {技術/功能}",
+        "description": "{研究目的和範圍}",
+        "priority": "low",
+        "status": "todo",
+        "category": "research",
+        "research_questions": [
+          "{研究問題1}",
+          "{研究問題2}"
+        ],
+        "possible_solutions": [
+          "{可能解決方案1}",
+          "{可能解決方案2}"
+        ],
+        "deliverables": [
+          "{交付物1}",
+          "{交付物2}"
+        ],
+        "estimated_effort": "large"
+      }
+    },
+    {
+      "type": "refactor",
+      "name": "代碼重構模板",
+      "description": "用於代碼重構任務的模板",
+      "structure": {
+        "id": "refactor-{unique-id}",
+        "title": "重構 {重構範圍}",
+        "description": "{詳細重構需求}",
+        "priority": "medium",
+        "status": "todo",
+        "category": "refactor",
+        "files": [],
+        "motivation": "{重構動機}",
+        "approach": "{重構方法}",
+        "risks": [
+          "{風險1}",
+          "{風險2}"
+        ],
+        "estimated_effort": "large"
+      }
+    }
+  ],
+  "usage_examples": [
+    {
+      "description": "創建用戶認證功能任務",
+      "template": "feature",
+      "filled_values": {
+        "id": "feature-auth",
+        "title": "用戶認證功能",
+        "description": "實現基於 Firebase Auth 的匿名登入與初始化流程",
+        "files": ["app/index.tsx", "components/AuthInit.tsx"],
+        "subtasks": [
+          {
+            "id": "design-auth-ui",
+            "title": "設計用戶認證UI界面",
+            "status": "todo"
+          },
+          {
+            "id": "implement-auth",
+            "title": "實現Firebase認證邏輯",
+            "status": "todo"
+          },
+          {
+            "id": "test-auth",
+            "title": "測試認證流程",
+            "status": "todo"
+          }
+        ],
+        "acceptance_criteria": [
+          "用戶可以匿名登入應用",
+          "初次登入時顯示目標選擇頁面",
+          "用戶可選擇性提供電子郵件"
+        ],
+        "estimated_effort": "medium"
+      }
+    }
+  ]
+} 

@@ -1,0 +1,54 @@
+[
+  {
+    "id": "auth-init",
+    "title": "建立匿名登入與使用目標初始化流程",
+    "description": "使用 Firebase Auth 建立匿名登入機制，並建立首次使用者目標選擇頁面。",
+    "priority": "high",
+    "status": "todo",
+    "files": [
+      "app/index.tsx",
+      "components/AuthInit.tsx"
+    ]
+  },
+  {
+    "id": "ritual-guide",
+    "title": "儀式流程與聲音引導介面",
+    "description": "建立調頻儀式的流程引導頁，支援 HTML5 音訊播放與儀式開始/結束邏輯。",
+    "priority": "high",
+    "status": "in_progress",
+    "files": [
+      "components/RitualPlayer.tsx"
+    ]
+  },
+  {
+    "id": "tracker-form",
+    "title": "每日焦慮/專注/睡眠記錄表單",
+    "description": "開發 dailyLogs 資料寫入表單，支援滑動打分與 300 字備註。",
+    "priority": "medium",
+    "status": "todo",
+    "files": [
+      "components/TrackerForm.tsx"
+    ]
+  },
+  {
+    "id": "chart-visualization",
+    "title": "資料視覺化模組",
+    "description": "建立折線圖顯示焦慮/睡眠/專注變化趨勢。",
+    "priority": "medium",
+    "status": "todo",
+    "files": [
+      "components/EmotionChart.tsx"
+    ]
+  },
+  {
+    "id": "push-notification",
+    "title": "每日推播提醒",
+    "description": "使用 FCM + Capacitor Plugin 建立每日提醒與裝置註冊。",
+    "priority": "medium",
+    "status": "todo",
+    "files": [
+      "firebase/push.ts",
+      "lib/notifications.ts"
+    ]
+  }
+]
