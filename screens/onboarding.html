@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqiveLife - 初始設定</title>
+    <title>AqiveLife - 調頻模式選擇</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/shared.css">
     <link rel="stylesheet" href="assets/css/pages/onboarding.css">
@@ -27,16 +27,21 @@
             </div>
         </div>
     </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">調頻模式</div>
+        <div class="app-bar-action"></div>
+    </div>
 
-    <!-- 初始設定內容 -->
+    <!-- 調頻模式選擇內容 -->
     <div class="onboarding-container">
         <div>
-            <div class="progress-bar">
-                <div class="progress-bar-inner"></div>
-            </div>
-            
-            <h1 class="step-title">選擇你的主要目標</h1>
-            <p class="step-description">AqiveLife 將根據你的目標提供個性化的體驗。你可以隨時在設定中變更。</p>
+            <h1 class="step-title">選擇調頻模式</h1>
+            <p class="step-description">選擇一種調頻模式，以獲得最適合您當前狀態的體驗</p>
             
             <div class="goal-cards">
                 <div class="goal-card goal-relaxation" onclick="selectGoal(this, 'relaxation')">
@@ -44,7 +49,7 @@
                         <i class="fas fa-seedling"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">放鬆減壓</div>
+                        <div class="goal-title">放鬆模式</div>
                         <div class="goal-description">減輕焦慮和壓力，提升平靜感</div>
                     </div>
                     <div class="check-icon">
@@ -57,7 +62,7 @@
                         <i class="fas fa-bullseye"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">專注效率</div>
+                        <div class="goal-title">專注模式</div>
                         <div class="goal-description">提高注意力與工作效率</div>
                     </div>
                     <div class="check-icon">
@@ -70,7 +75,7 @@
                         <i class="fas fa-moon"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">改善睡眠</div>
+                        <div class="goal-title">睡眠模式</div>
                         <div class="goal-description">幫助入睡與提升睡眠品質</div>
                     </div>
                     <div class="check-icon">
@@ -78,20 +83,23 @@
                     </div>
                 </div>
             </div>
+            
+            <div class="ritual-instruction">
+                <div class="instruction-icon">
+                    <i class="fas fa-info-circle"></i>
+                </div>
+                <div class="instruction-text">
+                    選擇最適合您當前需求的調頻模式，配合 Aqive 產品使用效果更佳
+                </div>
+            </div>
         </div>
         
         <div class="navigation-buttons">
-            <button class="btn-skip" onclick="window.location.href='home.html'">跳過</button>
-            <button class="btn btn-primary" onclick="window.location.href='home.html'">繼續</button>
+            <button class="btn btn-primary" onclick="window.location.href='ritual.html'" id="start-tuning-btn" disabled>開始調頻</button>
         </div>
     </div>
     
     <script>
-        // 初始化頁面時更新進度條
-        document.addEventListener('DOMContentLoaded', () => {
-            updateProgress(1, 3);
-        });
-        
         // 選擇目標
         function selectGoal(element, goal) {
             // 移除其他卡片的選中狀態
@@ -101,6 +109,12 @@
             
             // 添加當前卡片的選中狀態
             element.classList.add('selected');
+            
+            // 啟用開始按鈕
+            document.getElementById('start-tuning-btn').disabled = false;
+            
+            // 保存選擇的模式，可用於傳遞到下一頁
+            localStorage.setItem('selectedMode', goal);
         }
     </script>
 </body>

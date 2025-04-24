@@ -1,392 +1,639 @@
-/* 調頻頁面樣式 */
+/*
+ * 調頻頁面樣式
+ */
 
-/* 設置整個頁面背景 */
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', 'Segoe UI', sans-serif;
+}
+
 body {
-    background: linear-gradient(135deg, #fffde7 0%, #ffcc80 50%, #ffe0b2 100%);
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* iOS 狀態欄 */
+.status-bar {
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: #FFFFFF;
+    color: #000;
+}
+
+.status-bar-left {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.status-bar-right {
+    display: flex;
+    gap: 6px;
+    font-size: 16px;
+}
+
+/* 應用欄 */
+.app-bar {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background-color: rgba(255, 255, 255, 0.95);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.back-button {
+    color: #0062ff;
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.app-title {
+    font-size: 18px;
+    font-weight: 600;
     color: #333;
-    min-height: 100vh;
 }
 
-/* 移除所有文字陰影 */
-.ritual-content * {
-    text-shadow: none;
+.app-bar-action {
+    width: 24px;
 }
 
-/* 調頻內容容器 */
+/* 主內容區 */
 .ritual-content {
-    padding: 1.5rem;
-    max-width: 100%;
-    margin: 0 auto;
-    min-height: calc(100vh - 120px);
+    height: calc(100vh - 104px); /* 減去狀態欄和應用欄高度 */
+    background-image: url('../../images/backgrounds/breathing-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
 }
 
-/* 調頻選擇區域樣式 */
-.ritual-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    flex: 1;
-}
-
+/* 標題區塊 */
 .ritual-header {
     text-align: center;
-    margin-bottom: 1rem;
-}
-
-.ritual-title {
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 0.8rem;
-    color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.ritual-description {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.ritual-options {
-    display: flex;
-    justify-content: space-around;
-    gap: 0.5rem;
-    margin: 2rem 0;
-}
-
-.ritual-option {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 0.8rem;
-    padding: 1rem;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.ritual-option-icon {
-    width: 4rem;
-    height: 4rem;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.25);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 0.6rem;
-    transition: all 0.3s ease;
-}
-
-.ritual-option-icon i {
-    font-size: 1.8rem;
-    color: #ffffff;
-}
-
-.ritual-option-name {
-    font-size: 1rem;
-    font-weight: 500;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-}
-
-.ritual-option.selected .ritual-option-icon {
-    background-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.1);
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-}
-
-.ritual-instruction {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.8rem;
-    background-color: rgba(255, 255, 255, 0.2);
-    border-radius: 1rem;
-    padding: 1rem;
-    margin-top: auto;
-}
-
-.instruction-icon {
-    color: #ffffff;
-    font-size: 1.2rem;
-    margin-top: 0.1rem;
-}
-
-.instruction-text {
-    font-size: 0.95rem;
-    line-height: 1.4;
-    color: #ffffff;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-.ritual-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
+    margin-bottom: 30px;
     width: 100%;
-    border: none;
-    border-radius: 2rem;
-    padding: 1rem;
-    font-size: 1rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: 1.5rem;
+    padding-top: 20px;
 }
 
-.primary-button {
-    background-color: rgba(255, 255, 255, 0.25);
-    color: #ffffff;
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.primary-button:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.secondary-button {
-    background-color: rgba(255, 255, 255, 0.15);
-    color: #ffffff;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.secondary-button:hover {
-    background-color: rgba(255, 255, 255, 0.25);
-}
-
-.danger-button {
-    background-color: rgba(255, 0, 0, 0.1);
+.ritual-header h1 {
+    font-size: 34px;
+    font-weight: 600;
+    margin-bottom: 10px;
     color: white;
-    border: 1px solid rgba(255, 0, 0, 0.2);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
 }
 
-.danger-button:hover {
-    background-color: rgba(255, 0, 0, 0.15);
+.ritual-subtitle {
+    font-size: 18px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-/* 調頻進行中區域樣式 */
-.ritual-active {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    flex: 1;
-    height: 100%;
-}
-
-.ritual-timer-section {
+/* 計時器區塊 */
+.timer-section {
     text-align: center;
-    margin-bottom: 1rem;
+    margin-bottom: 40px;
 }
 
 .timer-label {
-    font-size: 1rem;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 0.5rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    font-size: 18px;
+    color: white;
+    margin-bottom: 10px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
 .timer-display {
-    font-size: 3rem;
-    font-weight: 600;
-    font-family: 'Outfit', sans-serif;
-    color: #ffffff;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 64px;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
-/* 呼吸圓圈樣式 */
+/* 呼吸圓環 */
 .breathing-circle-container {
+    position: relative;
+    width: 300px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 2rem 0;
+    margin: 20px 0 50px;
+}
+
+.breathing-circle-large {
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(5px);
+}
+
+.breathing-circle-medium {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(3px);
+}
+
+.breathing-circle-small {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(2px);
+}
+
+/* 提示文字區塊 */
+.ritual-instruction {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    padding: 15px;
+    margin: 20px 0;
+    max-width: 100%;
+    backdrop-filter: blur(5px);
+}
+
+.instruction-icon {
+    color: #fff;
+    font-size: 20px;
+    margin-right: 12px;
+    margin-top: 2px;
+}
+
+.instruction-text {
+    color: #fff;
+    font-size: 15px;
+    line-height: 1.5;
     flex: 1;
 }
 
-.breathing-circle {
-    width: 220px;
-    height: 220px;
-    border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.25);
+/* 控制按鈕 */
+.control-buttons {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    transition: transform 4s ease-in-out, background-color 4s ease-in-out;
-    box-shadow: 0 0 40px rgba(255, 255, 255, 0.3);
-}
-
-/* 定義呼吸動畫 */
-@keyframes expand {
-    from { 
-        transform: scale(0.8); 
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-    to { 
-        transform: scale(1.2); 
-        background-color: rgba(255, 255, 255, 0.4);
-        box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
-    }
-}
-
-@keyframes contract {
-    from { 
-        transform: scale(1.2); 
-        background-color: rgba(255, 255, 255, 0.4);
-        box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
-    }
-    to { 
-        transform: scale(0.8); 
-        background-color: rgba(255, 255, 255, 0.2);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-    }
-}
-
-.breathing-circle.inhale {
-    transform: scale(1.2);
-    background-color: rgba(255, 255, 255, 0.4);
-    box-shadow: 0 0 50px rgba(255, 255, 255, 0.4);
-}
-
-.breathing-circle.exhale {
-    transform: scale(0.8);
-    background-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-}
-
-.breathing-status {
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: #ffffff;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-}
-
-.ritual-controls {
-    display: flex;
-    gap: 1rem;
+    justify-content: space-around;
+    width: 100%;
     margin-top: auto;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 0;
 }
 
-/* 為不同主題設置背景漸變 */
-body.theme-relax {
-    background: linear-gradient(135deg, #fffde7 0%, #ffcc80 50%, #ffe0b2 100%);
+.control-btn {
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    color: #fff;
+    width: 45%;
+    backdrop-filter: blur(5px);
 }
 
-body.theme-focus {
-    background: linear-gradient(135deg, #e3f2fd 0%, #90caf9 50%, #bbdefb 100%);
+.control-btn i {
+    margin-right: 8px;
 }
 
-body.theme-sleep {
-    background: linear-gradient(135deg, #e8eaf6 0%, #9fa8da 50%, #c5cae9 100%);
+.start-btn {
+    background-color: #FF9B4A;
 }
 
-/* 響應式設計 */
-@media (max-width: 360px) {
-    .ritual-option-icon {
-        width: 3.5rem;
-        height: 3.5rem;
-    }
-    
-    .ritual-option-icon i {
-        font-size: 1.6rem;
+.stop-btn {
+    background-color: #FF9B4A;
+}
+
+.start-btn:hover, .stop-btn:hover {
+    opacity: 0.9;
+}
+
+/* 動畫效果 */
+@keyframes breathe {
+    0% { transform: scale(1); opacity: 0.6; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 0.6; }
+}
+
+.breathing-circle-large {
+    animation: breathe 10s infinite ease-in-out;
+}
+
+.breathing-circle-medium {
+    animation: breathe 10s infinite ease-in-out 0.5s;
+}
+
+.breathing-circle-small {
+    animation: breathe 10s infinite ease-in-out 1s;
+}
+
+/* 響應式調整 */
+@media (max-height: 700px) {
+    .ritual-header h1 {
+        font-size: 28px;
     }
     
     .timer-display {
-        font-size: 2.5rem;
+        font-size: 48px;
     }
     
-    .breathing-circle {
-        width: 180px;
-        height: 180px;
-    }
-    
-    .ritual-controls {
-        flex-direction: column;
-        gap: 0.8rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .ritual-content {
-        max-width: 500px;
-        padding: 2rem;
-        margin: 0 auto;
-    }
-    
-    .breathing-circle {
+    .breathing-circle-container {
         width: 250px;
         height: 250px;
+        margin: 15px 0 30px;
     }
     
-    .ritual-options {
-        gap: 2rem;
+    .breathing-circle-large {
+        width: 230px;
+        height: 230px;
     }
     
-    .ritual-option-icon {
-        width: 5rem;
-        height: 5rem;
-    }
-    
-    .ritual-option-icon i {
-        font-size: 2.2rem;
-    }
-    
-    .ritual-controls {
-        justify-content: center;
-    }
-    
-    .ritual-button {
-        max-width: 220px;
-        margin: 0 auto;
-    }
-}
-
-@media (min-width: 1024px) {
-    .ritual-content {
-        max-width: 600px;
-    }
-    
-    .ritual-title {
-        font-size: 2.2rem;
-    }
-    
-    .ritual-description {
-        font-size: 1.3rem;
-    }
-    
-    .breathing-circle {
-        width: 300px;
-        height: 300px;
-    }
-}
-
-/* 確保在較低高度的螢幕上也能正常顯示 */
-@media (max-height: 700px) {
-    .breathing-circle-container {
-        margin: 1rem 0;
-    }
-    
-    .breathing-circle {
+    .breathing-circle-medium {
         width: 160px;
         height: 160px;
     }
     
-    .ritual-content {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
+    .breathing-circle-small {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+/* 呼吸引導頁面樣式 */
+:root {
+    --primary-color: #E57254;
+    --secondary-color: #FFD485;
+    --accent-color: #E57254;
+    --bg-color: #FFEEC0;
+    --text-color: #333333;
+    --circle-size: 250px;
+    --transition-speed: 1s;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to bottom, #FFEEC0, #FFD485);
+    background-attachment: fixed;
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.ritual-container {
+    max-width: 100%;
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: calc(100vh - 104px); /* 減去狀態欄和應用欄高度 */
+    background: transparent;
+}
+
+.ritual-header {
+    text-align: center;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+.ritual-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.ritual-description {
+    font-size: 1.1rem;
+    color: #333;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.breathing-settings {
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 400px;
+}
+
+.breathing-mode-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.breathing-mode-selector label {
+    font-weight: bold;
+}
+
+.breathing-mode-selector select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+}
+
+.breathing-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    position: relative;
+    width: 100%;
+}
+
+.breathing-circle {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E57254, #FFCE73);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(229, 114, 84, 0.3);
+    transition: transform var(--transition-speed) ease-in-out;
+    position: relative;
+}
+
+.breathing-circle.inhale {
+    transform: scale(1.15);
+    background: linear-gradient(135deg, #E57254, #FFCE73);
+    box-shadow: 0 0 30px rgba(229, 114, 84, 0.4);
+}
+
+.breathing-circle.exhale {
+    transform: scale(1);
+    background: linear-gradient(135deg, #E57254, #FFCE73);
+    box-shadow: 0 0 20px rgba(229, 114, 84, 0.3);
+}
+
+.inner-circle {
+    width: 70%;
+    height: 70%;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.05);
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+.breathing-status {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    font-weight: 500;
+    text-align: center;
+    color: white;
+    z-index: 10;
+}
+
+.timer-container {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.timer-label {
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    margin-bottom: 10px;
+}
+
+.timer-display {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    padding: 10px 20px;
+}
+
+.instructions-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    width: 100%;
+    max-width: 700px;
+}
+
+.instruction-item {
+    width: 200px;
+    text-align: center;
+    margin: 10px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.instruction-item i {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.instruction-item p {
+    font-size: 0.95rem;
+}
+
+.controls-container {
+    display: flex;
+    gap: 20px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    padding: 0 20px;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.control-btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s;
+    min-width: 100px;
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.pause-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.pause-btn.resumed {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.stop-btn {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.control-btn:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+.control-btn:disabled {
+    background-color: #dadce0;
+    cursor: not-allowed;
+    opacity: 0.7;
+    transform: none;
+    box-shadow: none;
+}
+
+.confirm-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.3s;
+}
+
+.confirm-dialog.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.confirm-box {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+}
+
+.confirm-box h3 {
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.confirm-box p {
+    margin-bottom: 20px;
+    color: #5f6368;
+}
+
+.confirm-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.confirm-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.confirm-yes {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+.confirm-no {
+    background-color: #dadce0;
+    color: var(--text-color);
+}
+
+.confirm-buttons button:hover {
+    opacity: 0.9;
+    transform: translateY(-2px);
+}
+
+/* 響應式調整 */
+@media screen and (max-width: 768px) {
+    :root {
+        --circle-size: 200px;
     }
     
-    .ritual-selection,
-    .ritual-active {
-        gap: 1rem;
+    .ritual-header h1 {
+        font-size: 2rem;
     }
     
-    .ritual-instruction {
-        padding: 0.8rem;
+    .instruction-item {
+        width: 100%;
+        max-width: 300px;
+    }
+    
+    .controls-container {
+        flex-direction: column;
+        width: 80%;
+        max-width: 300px;
+    }
+    
+    .control-btn {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    :root {
+        --circle-size: 150px;
+    }
+    
+    .ritual-header h1 {
+        font-size: 1.8rem;
+    }
+    
+    .breathing-status {
+        font-size: 1.2rem;
+    }
+    
+    .timer-display {
+        font-size: 1.5rem;
     }
 } 

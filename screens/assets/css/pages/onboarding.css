@@ -53,20 +53,20 @@ body {
     align-items: center;
     padding: 20px;
     border-radius: 16px;
-    border: 1px solid var(--light-gray);
+    border: 2px solid var(--light-gray);
     transition: all 0.2s;
     cursor: pointer;
 }
 
 .goal-card.selected {
     border-color: var(--primary-color);
-    background-color: rgba(244, 164, 96, 0.05);
+    background-color: rgba(0, 122, 255, 0.05);
 }
 
 .goal-icon {
     width: 60px;
     height: 60px;
-    border-radius: 15px;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -76,15 +76,15 @@ body {
 }
 
 .goal-relaxation .goal-icon {
-    background-color: #E57254;
+    background-color: #34C759;
 }
 
 .goal-focus .goal-icon {
-    background-color: #F8D464;
+    background-color: #5856D6;
 }
 
 .goal-sleep .goal-icon {
-    background-color: #7FDEE3;
+    background-color: #007AFF;
 }
 
 .goal-content {
