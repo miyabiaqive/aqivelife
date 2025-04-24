@@ -9,26 +9,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化變數
     let selectedMood = null;
     
-    // 心情選項點擊事件
-    moodOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            // 移除其他選項的選中狀態
-            moodOptions.forEach(opt => {
-                opt.classList.remove('selected');
-            });
-            
-            // 設置當前選項為選中狀態
-            this.classList.add('selected');
-            
-            // 保存選中的心情
-            selectedMood = this.getAttribute('data-mood');
-            
-            // 啟用保存按鈕
-            if (saveButton) {
-                saveButton.classList.add('active');
-            }
-        });
-    });
+    // 設置自動選中第一個情緒選項（根據設計圖，看起來第一個選項已被選中）
+    if (moodOptions && moodOptions.length > 0) {
+        selectMood(moodOptions[0]);
+    }
     
     // 保存按鈕點擊事件
     if (saveButton) {
@@ -133,4 +117,28 @@ document.addEventListener('DOMContentLoaded', function() {
         // 保存更新後的統計數據
         localStorage.setItem('userStats', JSON.stringify(userStats));
     }
-}); 
+});
+
+// 選擇心情函數 (用於 onclick 屬性)
+function selectMood(element) {
+    // 獲取所有心情選項
+    const moodOptions = document.querySelectorAll('.mood-option');
+    
+    // 移除其他選項的選中狀態
+    moodOptions.forEach(opt => {
+        opt.classList.remove('selected');
+    });
+    
+    // 設置當前選項為選中狀態
+    element.classList.add('selected');
+    
+    // 保存選中的心情
+    const selectedMood = element.getAttribute('data-mood');
+    localStorage.setItem('selectedMood', selectedMood);
+    
+    // 啟用保存按鈕（如果之前被禁用）
+    const saveButton = document.querySelector('.save-button');
+    if (saveButton && saveButton.disabled) {
+        saveButton.disabled = false;
+    }
+} 

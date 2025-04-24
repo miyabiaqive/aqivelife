@@ -47,7 +47,7 @@
     <div class="feedback-content">
         <div class="feedback-header">
             <div class="feedback-title">恭喜您完成調頻！</div>
-            <div class="feedback-subtitle">請告訴我們您的感受</div>
+            <div class="feedback-subtitle">請記錄您的當下感受</div>
         </div>
         
         <div class="session-summary">
@@ -68,31 +68,31 @@
         <div class="mood-section">
             <div class="section-title">您現在的心情如何？</div>
             <div class="mood-options">
-                <div class="mood-option" data-mood="very-relaxed">
+                <div class="mood-option" data-mood="very-relaxed" onclick="selectMood(this)">
                     <div class="mood-icon">
                         <i class="far fa-laugh-beam"></i>
                     </div>
                     <div class="mood-label">非常放鬆</div>
                 </div>
-                <div class="mood-option" data-mood="relaxed">
+                <div class="mood-option" data-mood="relaxed" onclick="selectMood(this)">
                     <div class="mood-icon">
                         <i class="far fa-smile"></i>
                     </div>
                     <div class="mood-label">放鬆</div>
                 </div>
-                <div class="mood-option" data-mood="neutral">
+                <div class="mood-option" data-mood="neutral" onclick="selectMood(this)">
                     <div class="mood-icon">
                         <i class="far fa-meh"></i>
                     </div>
                     <div class="mood-label">一般</div>
                 </div>
-                <div class="mood-option" data-mood="tense">
+                <div class="mood-option" data-mood="tense" onclick="selectMood(this)">
                     <div class="mood-icon">
                         <i class="far fa-frown"></i>
                     </div>
                     <div class="mood-label">緊張</div>
                 </div>
-                <div class="mood-option" data-mood="very-tense">
+                <div class="mood-option" data-mood="very-tense" onclick="selectMood(this)">
                     <div class="mood-icon">
                         <i class="far fa-tired"></i>
                     </div>
@@ -102,13 +102,12 @@
         </div>
         
         <div class="comments-section">
-            <div class="section-title">有什麼想分享的嗎？（選填）</div>
-            <textarea class="comments-input" placeholder="請輸入您的感受或建議..."></textarea>
+            <div class="section-title">有什麼不一樣的感受嗎？（選填）</div>
+            <textarea class="comments-input" placeholder="請輸入您的感受..."></textarea>
         </div>
         
-        <button class="save-button">
-            <i class="fas fa-check"></i>
-            儲存並返回首頁
+        <button class="save-button" onclick="window.location.href='home.html'">
+            送出
         </button>
     </div>
 </body>
