@@ -46,48 +46,37 @@
     <!-- 調頻內容 -->
     <div class="ritual-content">
         <div class="ritual-header">
-            <div class="ritual-title">放鬆調頻模式</div>
-            <div class="ritual-subtitle">使用產品: 撓定</div>
+            <h1>放鬆調頻模式</h1>
+            <p class="ritual-subtitle">使用產品: 撓定</p>
         </div>
         
-        <div class="ritual-timer-container">
-            <div class="timer-display">15:00</div>
+        <div class="timer-section">
             <div class="timer-label">剩餘時間</div>
+            <div class="timer-display">15:00</div>
         </div>
         
-        <div class="breathing-animation-container">
-            <div class="breathing-circle">
-                <div class="breathing-inner-circle"></div>
-                <div class="breathing-instruction">吸氣</div>
+        <div class="breathing-circle-container">
+            <div class="breathing-circle-large"></div>
+            <div class="breathing-circle-medium"></div>
+            <div class="breathing-circle-small">
+                <span class="breathing-text">吸氣</span>
             </div>
         </div>
         
-        <div class="ritual-instruction">
-            <div class="instruction-icon">
+        <div class="bottom-info-container">
+            <div class="info-text">
                 <i class="fas fa-info-circle"></i>
+                跟隨動畫節奏呼吸，讓您的心靈與產品同步，進入深度放鬆狀態。
             </div>
-            <div class="instruction-text">
-                跟隨動畫節奏呼吸，讓您的心靈與「撓定」產品同步，進入深度放鬆狀態。
+            
+            <div class="control-buttons">
+                <button id="start-btn" class="control-btn start-btn">
+                    <i class="fas fa-play"></i> 開始
+                </button>
+                <button id="stop-btn" class="control-btn stop-btn">
+                    <i class="fas fa-stop"></i> 停止
+                </button>
             </div>
-        </div>
-        
-        <div class="ritual-controls">
-            <button class="ritual-button start-button">
-                <i class="fas fa-play"></i>
-                開始
-            </button>
-            <button class="ritual-button stop-button">
-                <i class="fas fa-stop"></i>
-                停止
-            </button>
-        </div>
-        
-        <div class="ritual-progress">
-            <div class="progress-label">調頻進度</div>
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: 0%;"></div>
-            </div>
-            <div class="progress-value">0%</div>
         </div>
     </div>
 </body>

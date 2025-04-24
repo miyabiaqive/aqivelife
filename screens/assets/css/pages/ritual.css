@@ -45,7 +45,7 @@ body {
     align-items: center;
     justify-content: space-between;
     padding: 0 16px;
-    background-color: rgba(255, 255, 255, 0.95);
+    background-color: rgba(255, 255, 255, 0.9);
     border-bottom: 1px solid rgba(0,0,0,0.05);
 }
 
@@ -83,54 +83,53 @@ body {
 /* 標題區塊 */
 .ritual-header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     width: 100%;
     padding-top: 20px;
 }
 
 .ritual-header h1 {
-    font-size: 34px;
+    font-size: 28px;
     font-weight: 600;
     margin-bottom: 10px;
-    color: white;
-    text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    color: #333;
 }
 
 .ritual-subtitle {
-    font-size: 18px;
-    color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    font-size: 16px;
+    color: #555;
+    margin: 0;
 }
 
 /* 計時器區塊 */
 .timer-section {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .timer-label {
     font-size: 18px;
     color: white;
-    margin-bottom: 10px;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    margin-bottom: 5px;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 .timer-display {
     font-size: 64px;
     font-weight: 700;
-    color: #fff;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 /* 呼吸圓環 */
 .breathing-circle-container {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 20px 0 50px;
+    margin: 30px 0;
 }
 
 .breathing-circle-large {
@@ -158,6 +157,16 @@ body {
     border-radius: 50%;
     background: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(2px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.breathing-text {
+    color: white;
+    font-size: 24px;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
 }
 
 /* 提示文字區塊 */
@@ -173,37 +182,64 @@ body {
 }
 
 .instruction-icon {
-    color: #fff;
+    color: white;
     font-size: 20px;
     margin-right: 12px;
     margin-top: 2px;
 }
 
 .instruction-text {
-    color: #fff;
+    color: white;
     font-size: 15px;
     line-height: 1.5;
     flex: 1;
 }
 
+/* 底部信息容器 */
+.bottom-info-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 提示文字 */
+.info-text {
+    display: flex;
+    align-items: flex-start;
+    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    color: rgba(100, 100, 100, 0.8);
+    font-size: 15px;
+    line-height: 1.5;
+    backdrop-filter: blur(5px);
+}
+
+.info-text i {
+    margin-right: 10px;
+    font-size: 18px;
+    margin-top: 2px;
+}
+
 /* 控制按鈕 */
 .control-buttons {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
-    margin-top: auto;
-    margin-bottom: 20px;
-    padding: 0 20px;
-    position: absolute;
-    bottom: 40px;
-    left: 0;
-    right: 0;
+    margin-bottom: 30px;
 }
 
 .control-btn {
-    padding: 12px 30px;
+    padding: 15px 0;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     font-size: 18px;
     font-weight: 500;
     display: flex;
@@ -211,9 +247,9 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: all 0.2s ease;
-    color: #fff;
-    width: 45%;
-    backdrop-filter: blur(5px);
+    color: #FF9B4A;
+    width: 48%;
+    background-color: transparent;
 }
 
 .control-btn i {
@@ -221,15 +257,11 @@ body {
 }
 
 .start-btn {
-    background-color: #FF9B4A;
+    color: #FF9B4A;
 }
 
 .stop-btn {
-    background-color: #FF9B4A;
-}
-
-.start-btn:hover, .stop-btn:hover {
-    opacity: 0.9;
+    color: #FF9B4A;
 }
 
 /* 動畫效果 */
@@ -254,7 +286,7 @@ body {
 /* 響應式調整 */
 @media (max-height: 700px) {
     .ritual-header h1 {
-        font-size: 28px;
+        font-size: 24px;
     }
     
     .timer-display {
@@ -262,19 +294,19 @@ body {
     }
     
     .breathing-circle-container {
-        width: 250px;
-        height: 250px;
-        margin: 15px 0 30px;
+        width: 240px;
+        height: 240px;
+        margin: 15px 0;
     }
     
     .breathing-circle-large {
-        width: 230px;
-        height: 230px;
+        width: 240px;
+        height: 240px;
     }
     
     .breathing-circle-medium {
-        width: 160px;
-        height: 160px;
+        width: 170px;
+        height: 170px;
     }
     
     .breathing-circle-small {
