@@ -13,89 +13,122 @@
     <script src="assets/js/shared.js" defer></script>
     <style>
         body {
-            background: linear-gradient(135deg, var(--primary-color), var(--quaternary-color));
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(to bottom, #B6E4E7, #FAD284, #F29E6F);
+            background-size: 100% 200%;
         }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background-color: transparent;
+            color: #000;
+        }
+
+        .status-bar-left {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .status-bar-right {
+            display: flex;
+            gap: 6px;
+            font-size: 16px;
+        }
+        
         .login-container {
-            height: 100%;
+            height: calc(100% - 44px); /* 減去狀態欄高度 */
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            padding: 0 32px;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 0 30px;
+            box-sizing: border-box;
         }
-        .logo {
-            text-align: center;
+        
+        .logo-section {
+            margin-top: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             margin-bottom: 60px;
         }
+        
         .logo-icon {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .hexagon-logo {
+            width: 100%;
+            height: 100%;
+            background-color: #F09C56;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .fish-icon {
+            width: 60%;
+            height: 60%;
+            color: white;
+            font-size: 40px;
+        }
+        
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 42px;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 5px;
+        }
+        
+        .logo-slogan {
+            font-size: 16px;
+            color: #777;
+            text-align: center;
+            margin-bottom: 120px;
+        }
+        
+        .email-login-btn {
+            width: 100%;
             background-color: white;
-            border-radius: 30px;
+            color: #777;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 0;
+            font-size: 18px;
+            font-weight: 400;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 60px;
-            color: var(--primary-color);
-            box-shadow: 0 8px 20px rgba(244, 164, 96, 0.2);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-        .logo-text {
-            color: white;
-            font-size: 32px;
-            font-weight: 700;
-            letter-spacing: 1px;
-            font-family: "Outfit", sans-serif;
-        }
-        .logo-tagline {
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 16px;
-            margin-top: 8px;
-            font-family: "Noto Sans TC", sans-serif;
-        }
-        .login-btn {
-            background-color: white;
-            color: var(--primary-color);
-            border-radius: 12px;
-            padding: 18px;
-            margin-bottom: 16px;
-            font-size: 18px;
-            font-weight: 600;
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-            font-family: "Noto Sans TC", sans-serif;
-        }
-        .login-btn i {
-            margin-right: 10px;
-        }
-        .login-anonymous {
-            background-color: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: none;
-            box-shadow: none;
-        }
-        .terms {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.8);
-            font-size: 13px;
-            margin-top: 40px;
-            font-family: "Noto Sans TC", sans-serif;
-        }
-        .terms a {
-            color: white;
-            text-decoration: underline;
-        }
-        .status-bar {
-            background-color: transparent;
-            color: white;
-        }
-        .aqive-slogan {
+        
+        .terms-text {
             position: absolute;
-            bottom: 25px;
-            width: 100%;
+            bottom: 60px;
+            width: 90%;
             text-align: center;
-            font-family: "Outfit", sans-serif;
-            font-size: 16px;
-            font-weight: 500;
-            opacity: 0.6;
+            font-size: 12px;
+            color: #777;
+            line-height: 1.5;
         }
     </style>
 </head>
@@ -103,7 +136,7 @@
     <!-- iOS 狀態欄 -->
     <div class="status-bar">
         <div class="status-bar-left">
-            <div class="status-bar-time">9:41</div>
+            <div class="status-bar-time">9:48</div>
         </div>
         <div class="status-bar-right">
             <div class="status-bar-signal">
@@ -120,37 +153,26 @@
 
     <!-- 登入內容 -->
     <div class="login-container">
-        <div class="logo">
+        <div class="logo-section">
             <div class="logo-icon">
-                <i class="fas fa-spa"></i>
+                <div class="hexagon-logo">
+                    <!-- 暫時使用字體圖標，之後可替換為實際的SVG logo -->
+                    <div class="fish-icon">
+                        <i class="fas fa-fish-fins"></i>
+                    </div>
+                </div>
             </div>
-            <div class="logo-text">AqiveLife</div>
-            <div class="logo-tagline">引導你的氣場，提升你的生活</div>
+            <div class="logo-text">Aqive</div>
+            <div class="logo-slogan">陪你找回內在安全感的導航</div>
         </div>
-
-        <button class="btn login-btn" onclick="window.location.href='onboarding.html'">
-            <i class="fab fa-apple"></i>使用 Apple 登入
+        
+        <button class="email-login-btn" onclick="window.location.href='onboarding.html'">
+            Email 登入
         </button>
         
-        <button class="btn login-btn" onclick="window.location.href='onboarding.html'">
-            <i class="fab fa-google"></i>使用 Google 登入
-        </button>
-        
-        <button class="btn login-btn" onclick="window.location.href='onboarding.html'">
-            <i class="far fa-envelope"></i>使用 Email 登入
-        </button>
-        
-        <button class="btn login-btn login-anonymous" onclick="window.location.href='onboarding.html'">
-            <i class="far fa-user-circle"></i>匿名使用
-        </button>
-
-        <div class="terms">
-            繼續使用即表示您同意我們的<a href="#">服務條款</a>和<a href="#">隱私政策</a>
+        <div class="terms-text">
+            繼續使用即表示您同意我們的服務條款和隱私政策
         </div>
-    </div>
-    
-    <div class="aqive-slogan">
-        Aqive, Achieve Qi.
     </div>
 </body>
 </html> 
