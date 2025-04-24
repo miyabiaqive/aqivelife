@@ -6,8 +6,9 @@
     <title>AqiveLife - 調頻模式選擇</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="assets/css/shared.css">
-    <link rel="stylesheet" href="assets/css/pages/onboarding.css">
+    <link rel="stylesheet" href="assets/css/pages/mode-selector.css">
     <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/mode-selector.js" defer></script>
 </head>
 <body>
     <!-- iOS 狀態欄 -->
@@ -28,78 +29,70 @@
         </div>
     </div>
     
-    <!-- 應用欄 -->
-    <div class="app-bar">
-        <a href="home.html" class="back-button">
-            <i class="fas fa-arrow-left"></i>
-        </a>
-        <div class="app-title">調頻模式</div>
-        <div class="app-bar-action"></div>
+    <!-- 進度條 -->
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
     </div>
 
     <!-- 調頻模式選擇內容 -->
-    <div class="onboarding-container">
+    <div class="mode-selector-container">
         <div>
-            <h1 class="step-title">選擇調頻模式</h1>
-            <p class="step-description">選擇一種調頻模式，以獲得最適合您當前狀態的體驗</p>
+            <h1 class="step-title">今天想要關注自己哪部份</h1>
+            <p class="step-description">AqiveLife 將根據你的目標提供個性化的體驗。你可以隨時在設定中變更。</p>
             
             <div class="goal-cards">
-                <div class="goal-card goal-relaxation" onclick="selectGoal(this, 'relaxation')">
+                <div class="goal-card goal-relaxation" onclick="selectGoal(this, 'relaxation')" data-goal="relaxation">
                     <div class="goal-icon">
-                        <i class="fas fa-seedling"></i>
+                        <i class="fas fa-leaf"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">放鬆模式</div>
+                        <div class="goal-title">放鬆減壓</div>
                         <div class="goal-description">減輕焦慮和壓力，提升平靜感</div>
                     </div>
                     <div class="check-icon">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-check"></i>
                     </div>
                 </div>
                 
-                <div class="goal-card goal-focus" onclick="selectGoal(this, 'focus')">
+                <div class="goal-card goal-focus" onclick="selectGoal(this, 'focus')" data-goal="focus">
                     <div class="goal-icon">
                         <i class="fas fa-bullseye"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">專注模式</div>
+                        <div class="goal-title">專注效率</div>
                         <div class="goal-description">提高注意力與工作效率</div>
                     </div>
                     <div class="check-icon">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-check"></i>
                     </div>
                 </div>
                 
-                <div class="goal-card goal-sleep" onclick="selectGoal(this, 'sleep')">
+                <div class="goal-card goal-sleep" onclick="selectGoal(this, 'sleep')" data-goal="sleep">
                     <div class="goal-icon">
                         <i class="fas fa-moon"></i>
                     </div>
                     <div class="goal-content">
-                        <div class="goal-title">睡眠模式</div>
+                        <div class="goal-title">改善睡眠</div>
                         <div class="goal-description">幫助入睡與提升睡眠品質</div>
                     </div>
                     <div class="check-icon">
-                        <i class="fas fa-check-circle"></i>
+                        <i class="fas fa-check"></i>
                     </div>
-                </div>
-            </div>
-            
-            <div class="ritual-instruction">
-                <div class="instruction-icon">
-                    <i class="fas fa-info-circle"></i>
-                </div>
-                <div class="instruction-text">
-                    選擇最適合您當前需求的調頻模式，配合 Aqive 產品使用效果更佳
                 </div>
             </div>
         </div>
         
         <div class="navigation-buttons">
-            <button class="btn btn-primary" onclick="window.location.href='ritual.html'" id="start-tuning-btn" disabled>開始調頻</button>
+            <button class="btn btn-primary" onclick="window.location.href='ritual.html'" id="start-tuning-btn" disabled>繼續</button>
         </div>
     </div>
     
     <script>
+        // 頁面加載時自動選擇一個默認模式（可選）
+        window.onload = function() {
+            // 不自動選擇，讓用戶主動選擇
+        };
+        
         // 選擇目標
         function selectGoal(element, goal) {
             // 移除其他卡片的選中狀態
@@ -111,9 +104,10 @@
             element.classList.add('selected');
             
             // 啟用開始按鈕
-            document.getElementById('start-tuning-btn').disabled = false;
+            const startButton = document.getElementById('start-tuning-btn');
+            startButton.disabled = false;
             
-            // 保存選擇的模式，可用於傳遞到下一頁
+            // 保存選擇的模式，用於傳遞到下一頁
             localStorage.setItem('selectedMode', goal);
         }
     </script>

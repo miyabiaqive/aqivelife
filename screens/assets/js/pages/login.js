@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', function() {
     loginButtons.forEach(button => {
         button.addEventListener('click', function() {
             // 這裡可以添加登入邏輯
-            // 目前只是簡單地轉到 onboarding 頁面
-            window.location.href = 'onboarding.html';
+            // 目前只是簡單地轉到 mode-selector 頁面
+            window.location.href = 'mode-selector.html';
         });
     });
 }); 
