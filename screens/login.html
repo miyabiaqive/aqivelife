@@ -19,8 +19,8 @@
             padding: 0;
             overflow: hidden;
             font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(to bottom, #B6E4E7, #FAD284, #F29E6F);
-            background-size: 100% 200%;
+            background: url('assets/images/backgrounds/login-bg.jpg') no-repeat center center;
+            background-size: cover;
         }
         
         .status-bar {
@@ -49,59 +49,52 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: center;
             padding: 0 30px;
             box-sizing: border-box;
+            position: relative;
         }
         
         .logo-section {
-            margin-top: 120px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
         
         .logo-icon {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
         }
         
-        .hexagon-logo {
+        .logo-symbol {
             width: 100%;
             height: 100%;
-            background-color: #F09C56;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-        }
-        
-        .fish-icon {
-            width: 60%;
-            height: 60%;
-            color: white;
-            font-size: 40px;
+            object-fit: contain;
         }
         
         .logo-text {
-            font-family: 'Outfit', sans-serif;
-            font-size: 42px;
-            font-weight: 600;
-            color: #555;
             margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-wordmark {
+            height: 50px;
+            object-fit: contain;
         }
         
         .logo-slogan {
             font-size: 16px;
-            color: #777;
+            color: #555;
             text-align: center;
-            margin-bottom: 120px;
+            margin-top: 10px;
+            margin-bottom: 80px;
         }
         
         .email-login-btn {
@@ -121,13 +114,17 @@
             margin-bottom: 20px;
         }
         
+        .email-login-btn i {
+            margin-right: 8px;
+        }
+        
         .terms-text {
             position: absolute;
-            bottom: 60px;
+            bottom: 40px;
             width: 90%;
             text-align: center;
             font-size: 12px;
-            color: #777;
+            color: #555;
             line-height: 1.5;
         }
     </style>
@@ -136,7 +133,7 @@
     <!-- iOS 狀態欄 -->
     <div class="status-bar">
         <div class="status-bar-left">
-            <div class="status-bar-time">9:48</div>
+            <div class="status-bar-time">17:02</div>
         </div>
         <div class="status-bar-right">
             <div class="status-bar-signal">
@@ -155,19 +152,18 @@
     <div class="login-container">
         <div class="logo-section">
             <div class="logo-icon">
-                <div class="hexagon-logo">
-                    <!-- 暫時使用字體圖標，之後可替換為實際的SVG logo -->
-                    <div class="fish-icon">
-                        <i class="fas fa-fish-fins"></i>
-                    </div>
-                </div>
+                <!-- 替換為實際的SVG標誌 -->
+                <img src="assets/images/logo/aqive-symbol.svg" alt="Aqive Symbol" class="logo-symbol">
             </div>
-            <div class="logo-text">Aqive</div>
+            <div class="logo-text">
+                <!-- 替換為實際的標準字 -->
+                <img src="assets/images/logo/aqive-wordmark.svg" alt="Aqive" class="logo-wordmark">
+            </div>
             <div class="logo-slogan">陪你找回內在安全感的導航</div>
         </div>
         
         <button class="email-login-btn" onclick="window.location.href='onboarding.html'">
-            Email 登入
+            <i class="far fa-user-circle"></i> 匿名登入
         </button>
         
         <div class="terms-text">
