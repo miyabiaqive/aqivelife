@@ -14,6 +14,192 @@
     <!-- 引入共用腳本和頁面特定腳本 -->
     <script src="assets/js/shared.js" defer></script>
     <script src="assets/js/pages/feedback.js" defer></script>
+    <style>
+        body {
+            background: url('assets/images/backgrounds/feedback-bg.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+            color: #333;
+            min-height: 100vh;
+        }
+        
+        .feedback-content {
+            padding: 0 20px 20px;
+        }
+        
+        .feedback-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .feedback-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .feedback-subtitle {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .session-summary {
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .mood-section {
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .mood-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .mood-title-wrapper {
+            display: flex;
+            align-items: center;
+        }
+        
+        .mood-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #E77C65;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-right: 12px;
+        }
+        
+        .mood-icon i {
+            color: white;
+            font-size: 24px;
+        }
+        
+        .mood-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FF9D4D;
+        }
+        
+        .mood-slider {
+            position: relative;
+            height: 40px;
+            margin: 20px 0;
+        }
+        
+        .mood-slider-track {
+            height: 5px;
+            background: linear-gradient(to right, #FF6B6B, #FFCC5C, #88D8B0);
+            border-radius: 5px;
+            position: relative;
+        }
+        
+        .mood-slider-thumb {
+            width: 25px;
+            height: 25px;
+            background-color: #FF9D4D;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            right: 0;
+            cursor: pointer;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .mood-level {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .mood-level span {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .mood-label-text {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: #F08C3A;
+            margin-top: 15px;
+            display: none; /* 將舊的標籤隱藏 */
+        }
+        
+        .comments-section {
+            background-color: #FFFFFF;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .comments-input {
+            width: 100%;
+            height: 100px;
+            border: 1px solid #E0E0E0;
+            border-radius: 10px;
+            padding: 12px;
+            font-family: 'Noto Sans TC', sans-serif;
+            resize: none;
+            box-sizing: border-box;
+            background-color: #FFF;
+        }
+        
+        .save-button {
+            background-color: #FF9D4D;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            max-width: 200px;
+            cursor: pointer;
+            margin: 0 auto;
+            display: block;
+            transition: background-color 0.3s;
+        }
+        
+        .save-button:hover {
+            background-color: #F08C3A;
+        }
+        
+        .app-title {
+            font-weight: 600;
+        }
+    </style>
 </head>
 <body>
     <!-- iOS 狀態欄 -->
@@ -46,8 +232,8 @@
     <!-- 回饋內容 -->
     <div class="feedback-content">
         <div class="feedback-header">
-            <div class="feedback-title">恭喜您完成調頻！</div>
-            <div class="feedback-subtitle">請記錄您的當下感受</div>
+            <div class="feedback-title">已完成今日調頻</div>
+            <div class="feedback-subtitle">請記錄你的當下感受</div>
         </div>
         
         <div class="session-summary">
@@ -61,54 +247,96 @@
             </div>
             <div class="summary-item">
                 <div class="summary-label">完成時間</div>
-                <div class="summary-value">2023/10/25 15:30</div>
+                <div class="summary-value">2025/10/25 15:30</div>
             </div>
         </div>
         
         <div class="mood-section">
-            <div class="section-title">您現在的心情如何？</div>
-            <div class="mood-options">
-                <div class="mood-option" data-mood="very-relaxed" onclick="selectMood(this)">
+            <div class="mood-header">
+                <div class="mood-title-wrapper">
                     <div class="mood-icon">
-                        <i class="far fa-laugh-beam"></i>
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <div class="mood-label">非常放鬆</div>
+                    <div class="section-title">焦慮程度</div>
                 </div>
-                <div class="mood-option" data-mood="relaxed" onclick="selectMood(this)">
-                    <div class="mood-icon">
-                        <i class="far fa-smile"></i>
-                    </div>
-                    <div class="mood-label">放鬆</div>
-                </div>
-                <div class="mood-option" data-mood="neutral" onclick="selectMood(this)">
-                    <div class="mood-icon">
-                        <i class="far fa-meh"></i>
-                    </div>
-                    <div class="mood-label">一般</div>
-                </div>
-                <div class="mood-option" data-mood="tense" onclick="selectMood(this)">
-                    <div class="mood-icon">
-                        <i class="far fa-frown"></i>
-                    </div>
-                    <div class="mood-label">緊張</div>
-                </div>
-                <div class="mood-option" data-mood="very-tense" onclick="selectMood(this)">
-                    <div class="mood-icon">
-                        <i class="far fa-tired"></i>
-                    </div>
-                    <div class="mood-label">非常緊張</div>
-                </div>
+                <div class="mood-value">3</div>
+            </div>
+            
+            <div class="mood-slider">
+                <div class="mood-slider-track"></div>
+                <div class="mood-slider-thumb"></div>
+            </div>
+            <div class="mood-level">
+                <span>焦慮</span>
+                <span>中等</span>
+                <span>極度平靜</span>
             </div>
         </div>
         
         <div class="comments-section">
-            <div class="section-title">有什麼不一樣的感受嗎？（選填）</div>
-            <textarea class="comments-input" placeholder="請輸入您的感受..."></textarea>
+            <div class="section-title">記錄你的感受</div>
+            <textarea class="comments-input" placeholder="請輸入今天的感覺和想法..."></textarea>
         </div>
         
-        <button class="save-button" onclick="window.location.href='home.html'">
-            送出
+        <button class="save-button">
+            保存記錄
         </button>
     </div>
+
+    <script>
+        // 簡易的滑塊功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const thumb = document.querySelector('.mood-slider-thumb');
+            const track = document.querySelector('.mood-slider-track');
+            const moodValue = document.querySelector('.mood-value');
+            
+            let isDragging = false;
+            
+            thumb.addEventListener('mousedown', startDrag);
+            thumb.addEventListener('touchstart', startDrag);
+            
+            function startDrag(e) {
+                e.preventDefault();
+                isDragging = true;
+                
+                document.addEventListener('mousemove', onDrag);
+                document.addEventListener('touchmove', onDrag);
+                document.addEventListener('mouseup', stopDrag);
+                document.addEventListener('touchend', stopDrag);
+            }
+            
+            function onDrag(e) {
+                if (!isDragging) return;
+                
+                const trackRect = track.getBoundingClientRect();
+                let clientX;
+                
+                if (e.type === 'touchmove') {
+                    clientX = e.touches[0].clientX;
+                } else {
+                    clientX = e.clientX;
+                }
+                
+                let position = (clientX - trackRect.left) / trackRect.width;
+                position = Math.max(0, Math.min(position, 1));
+                
+                const value = Math.round(position * 5);
+                moodValue.textContent = value;
+                
+                thumb.style.left = `${position * 100}%`;
+            }
+            
+            function stopDrag() {
+                isDragging = false;
+                document.removeEventListener('mousemove', onDrag);
+                document.removeEventListener('touchmove', onDrag);
+                document.removeEventListener('mouseup', stopDrag);
+                document.removeEventListener('touchend', stopDrag);
+            }
+            
+            // 初始化滑塊位置（值為3，位置在60%）
+            thumb.style.left = '60%';
+        });
+    </script>
 </body>
 </html> 
