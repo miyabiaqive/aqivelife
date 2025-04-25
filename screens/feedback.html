@@ -225,24 +225,24 @@
         <a href="home.html" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <div class="app-title">調頻結束</div>
+        <div class="app-title">超能力啟動完成</div>
         <div class="app-bar-action"></div>
     </div>
 
     <!-- 回饋內容 -->
     <div class="feedback-content">
         <div class="feedback-header">
-            <div class="feedback-title">已完成今日調頻</div>
-            <div class="feedback-subtitle">請記錄你的當下感受</div>
+            <div class="feedback-title">氣定神閒已成功啟動</div>
+            <div class="feedback-subtitle">記錄你的能力覺醒體驗</div>
         </div>
         
         <div class="session-summary">
             <div class="summary-item">
-                <div class="summary-label">調頻類型</div>
-                <div class="summary-value">放鬆調頻</div>
+                <div class="summary-label">超能力類型</div>
+                <div class="summary-value">氣定神閒模式</div>
             </div>
             <div class="summary-item">
-                <div class="summary-label">調頻時長</div>
+                <div class="summary-label">啟動時長</div>
                 <div class="summary-value">15分鐘</div>
             </div>
             <div class="summary-item">
@@ -257,9 +257,9 @@
                     <div class="mood-icon">
                         <i class="fas fa-brain"></i>
                     </div>
-                    <div class="section-title">焦慮程度</div>
+                    <div class="section-title">氣定神閒控制度</div>
                 </div>
-                <div class="mood-value">3</div>
+                <div class="mood-value">5</div>
             </div>
             
             <div class="mood-slider">
@@ -267,15 +267,15 @@
                 <div class="mood-slider-thumb"></div>
             </div>
             <div class="mood-level">
-                <span>焦慮</span>
-                <span>中等</span>
-                <span>極度平靜</span>
+                <span>波動</span>
+                <span>穩定</span>
+                <span>完全掌控</span>
             </div>
         </div>
         
         <div class="comments-section">
-            <div class="section-title">記錄你的感受</div>
-            <textarea class="comments-input" placeholder="請輸入今天的感覺和想法..."></textarea>
+            <div class="section-title">記錄能力變化</div>
+            <textarea class="comments-input" placeholder="描述你感知到的超能力變化和體驗..."></textarea>
         </div>
         
         <button class="btn-primary">
@@ -324,7 +324,7 @@
                 let position = (clientX - trackRect.left) / trackRect.width;
                 position = Math.max(0, Math.min(position, 1));
                 
-                const value = Math.round(position * 5);
+                const value = Math.round(position * 10);
                 moodValue.textContent = value;
                 
                 thumb.style.left = `${position * 100}%`;
@@ -338,8 +338,8 @@
                 document.removeEventListener('touchend', stopDrag);
             }
             
-            // 初始化滑塊位置（值為3，位置在60%）
-            thumb.style.left = '60%';
+            // 初始化滑塊位置（值為5，位置在50%）
+            thumb.style.left = '50%';
         });
     </script>
 </body>
