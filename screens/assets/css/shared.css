@@ -170,13 +170,48 @@ body {
 }
 
 .btn-primary {
-    background-color: var(--primary-color);
+    background-color: #FF9D4D;
     color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: background-color 0.3s;
+    text-align: center;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #F08C3A;
 }
 
 .btn-secondary {
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #EEEEEE;
+    border-radius: 25px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.btn-secondary:hover {
+    background-color: #F8F8F8;
 }
 
 .btn-tertiary {
@@ -387,4 +422,33 @@ body {
 
 .gradient-warm {
     background: linear-gradient(135deg, var(--quaternary-color), var(--tertiary-color));
+}
+
+/* 可調整按鈕寬度 */
+.btn-full {
+    max-width: 100%;
+}
+
+/* 統一按鈕樣式 */
+.btn-danger {
+    background-color: #FFFFFF;
+    color: #FF5A5A;
+    border: 1px solid #EEEEEE;
+    border-radius: 25px;
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    max-width: 200px;
+    cursor: pointer;
+    margin: 0 auto;
+    display: block;
+    transition: all 0.3s;
+    text-align: center;
+    text-decoration: none;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.btn-danger:hover {
+    background-color: #FFF8F8;
 } 
