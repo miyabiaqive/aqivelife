@@ -257,7 +257,9 @@ body {
 }
 
 .start-btn {
-    color: #FF9B4A;
+    color: white;
+    background-color: #FF9D4D;
+    border-radius: 8px;
 }
 
 .stop-btn {
