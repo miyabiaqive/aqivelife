@@ -53,64 +53,64 @@
                 </div>
                 <div class="section-title">今日筆記</div>
             </div>
-            <textarea class="notes-input" placeholder="記錄今天的感覺和想法..."></textarea>
+            <div class="notes-card">
+                <textarea class="notes-input" placeholder="記錄今天的感覺和想法..."></textarea>
+            </div>
         </div>
         
-        <div class="tracking-sections">
-            <!-- 焦慮程度追蹤 -->
-            <div class="tracking-section">
-                <div class="section-header">
-                    <div class="section-icon anxiety-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <div class="section-title">焦慮程度</div>
-                    <div class="section-value" id="anxiety-value">3</div>
+        <!-- 焦慮程度追蹤 -->
+        <div class="tracking-section">
+            <div class="section-header">
+                <div class="section-icon anxiety-icon">
+                    <i class="fas fa-brain"></i>
                 </div>
-                <div class="slider-container">
-                    <input type="range" min="1" max="10" value="3" class="tracking-slider" id="anxiety-slider">
-                    <div class="slider-labels">
-                        <span>平靜</span>
-                        <span>中等</span>
-                        <span>極度焦慮</span>
-                    </div>
+                <div class="section-title">焦慮程度</div>
+                <div class="section-value" id="anxiety-value">3</div>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="1" max="10" value="3" class="tracking-slider" id="anxiety-slider">
+                <div class="slider-labels">
+                    <span>焦慮</span>
+                    <span></span>
+                    <span>極度平靜</span>
                 </div>
             </div>
+        </div>
 
-            <!-- 專注力追蹤 -->
-            <div class="tracking-section">
-                <div class="section-header">
-                    <div class="section-icon focus-icon">
-                        <i class="fas fa-bullseye"></i>
-                    </div>
-                    <div class="section-title">專注力</div>
-                    <div class="section-value" id="focus-value">7</div>
+        <!-- 專注力追蹤 -->
+        <div class="tracking-section">
+            <div class="section-header">
+                <div class="section-icon focus-icon">
+                    <i class="fas fa-dot-circle"></i>
                 </div>
-                <div class="slider-container">
-                    <input type="range" min="1" max="10" value="7" class="tracking-slider" id="focus-slider">
-                    <div class="slider-labels">
-                        <span>分散</span>
-                        <span>中等</span>
-                        <span>高度專注</span>
-                    </div>
+                <div class="section-title">專注力</div>
+                <div class="section-value" id="focus-value">7</div>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="1" max="10" value="7" class="tracking-slider" id="focus-slider">
+                <div class="slider-labels">
+                    <span>分散</span>
+                    <span></span>
+                    <span>高度專注</span>
                 </div>
             </div>
+        </div>
 
-            <!-- 睡眠品質追蹤 -->
-            <div class="tracking-section">
-                <div class="section-header">
-                    <div class="section-icon sleep-icon">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <div class="section-title">睡眠品質</div>
-                    <div class="section-value" id="sleep-value">5</div>
+        <!-- 睡眠品質追蹤 -->
+        <div class="tracking-section">
+            <div class="section-header">
+                <div class="section-icon sleep-icon">
+                    <i class="fas fa-moon"></i>
                 </div>
-                <div class="slider-container">
-                    <input type="range" min="1" max="10" value="5" class="tracking-slider" id="sleep-slider">
-                    <div class="slider-labels">
-                        <span>不佳</span>
-                        <span>一般</span>
-                        <span>優質</span>
-                    </div>
+                <div class="section-title">睡眠品質</div>
+                <div class="section-value" id="sleep-value">5</div>
+            </div>
+            <div class="slider-container">
+                <input type="range" min="1" max="10" value="5" class="tracking-slider" id="sleep-slider">
+                <div class="slider-labels">
+                    <span>不佳</span>
+                    <span></span>
+                    <span>優質</span>
                 </div>
             </div>
         </div>
@@ -118,27 +118,24 @@
         <!-- 行事曆部分 -->
         <div class="calendar-section">
             <div class="calendar-header">
-                <div class="month-nav">
-                    <button class="month-nav-btn" id="prev-month">
-                        <i class="fas fa-chevron-left"></i>
-                    </button>
-                    <div class="current-month" id="current-month">2025年4月</div>
-                    <button class="month-nav-btn" id="next-month">
-                        <i class="fas fa-chevron-right"></i>
-                    </button>
-                </div>
+                <button class="month-nav-btn" id="prev-month">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <div class="current-month" id="current-month">2025年4月</div>
+                <button class="month-nav-btn" id="next-month">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
             </div>
-            <div class="calendar-grid" id="calendar-grid">
-                <!-- 星期列 -->
-                <div class="calendar-day-header">一</div>
-                <div class="calendar-day-header">二</div>
-                <div class="calendar-day-header">三</div>
-                <div class="calendar-day-header">四</div>
-                <div class="calendar-day-header">五</div>
-                <div class="calendar-day-header">六</div>
-                <div class="calendar-day-header">日</div>
-                
-                <!-- 月份的第一週 -->
+            <div class="calendar-weekdays">
+                <div>一</div>
+                <div>二</div>
+                <div>三</div>
+                <div>四</div>
+                <div>五</div>
+                <div>六</div>
+                <div>日</div>
+            </div>
+            <div class="calendar-days">
                 <div class="calendar-day other-month">31</div>
                 <div class="calendar-day">1</div>
                 <div class="calendar-day">2</div>
@@ -147,7 +144,6 @@
                 <div class="calendar-day">5</div>
                 <div class="calendar-day">6</div>
                 
-                <!-- 月份的第二週 -->
                 <div class="calendar-day has-data">7</div>
                 <div class="calendar-day">8</div>
                 <div class="calendar-day">9</div>
@@ -156,16 +152,14 @@
                 <div class="calendar-day has-data">12</div>
                 <div class="calendar-day">13</div>
                 
-                <!-- 月份的第三週 -->
                 <div class="calendar-day">14</div>
                 <div class="calendar-day">15</div>
                 <div class="calendar-day">16</div>
-                <div class="calendar-day active">17</div>
+                <div class="calendar-day active has-data">17</div>
                 <div class="calendar-day has-data">18</div>
                 <div class="calendar-day">19</div>
                 <div class="calendar-day">20</div>
                 
-                <!-- 月份的第四週 -->
                 <div class="calendar-day">21</div>
                 <div class="calendar-day">22</div>
                 <div class="calendar-day">23</div>
@@ -174,7 +168,6 @@
                 <div class="calendar-day">26</div>
                 <div class="calendar-day">27</div>
                 
-                <!-- 月份的第五週 -->
                 <div class="calendar-day">28</div>
                 <div class="calendar-day">29</div>
                 <div class="calendar-day">30</div>
@@ -187,28 +180,17 @@
 
         <!-- 提醒設置 -->
         <div class="reminder-section">
-            <div class="reminder-header">
-                <div class="reminder-title">每日狀態記錄提醒</div>
-            </div>
-            <div class="reminder-toggle">
-                <span>開啟提醒</span>
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider"></span>
-                </label>
-            </div>
+            <div class="reminder-title">每日狀態記錄提醒</div>
+            <label class="toggle-switch">
+                <input type="checkbox" checked>
+                <span class="toggle-slider"></span>
+            </label>
         </div>
 
         <!-- 控制按鈕 -->
         <div class="action-buttons">
-            <button class="save-button">
-                <i class="fas fa-save"></i>
-                保存記錄
-            </button>
-            <button class="back-home-button">
-                <i class="fas fa-home"></i>
-                返回首頁
-            </button>
+            <button class="save-button">保存記錄</button>
+            <button class="home-button">返回首頁</button>
         </div>
     </div>
 </body>
