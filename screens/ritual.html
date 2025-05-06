@@ -83,21 +83,17 @@
         }
         
         .fullscreen-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
+            position: relative;
+            background: transparent;
             border: none;
-            border-radius: 50%;
             width: 40px;
             height: 40px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 18px;
+            color: #0062ff;
+            font-size: 22px;
             cursor: pointer;
-            backdrop-filter: blur(2px);
         }
         
         .first-time-guide {
@@ -166,6 +162,31 @@
             width: 80px;
             cursor: pointer;
         }
+        
+        /* 應用欄樣式更新 */
+        .app-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .back-button {
+            color: #0062ff;
+            font-size: 24px;
+            text-decoration: none;
+        }
+        
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -193,9 +214,11 @@
             <i class="fas fa-arrow-left"></i>
         </a>
         <div class="app-title">開啟超能力</div>
-        <button id="fullscreen-btn" class="fullscreen-btn">
-            <i class="fas fa-expand"></i>
-        </button>
+        <div class="app-bar-action">
+            <button id="fullscreen-btn" class="fullscreen-btn">
+                <i class="fas fa-expand"></i>
+            </button>
+        </div>
     </div>
 
     <!-- 調頻內容 -->
