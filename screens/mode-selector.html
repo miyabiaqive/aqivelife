@@ -82,19 +82,33 @@
             </div>
         </div>
         
-        <div class="navigation-buttons">
-            <button class="btn btn-primary" onclick="window.location.href='ritual.html'" id="start-tuning-btn" disabled>繼續</button>
+        <!-- 隱藏導航按鈕區域，因為選擇後會自動進入下一頁 -->
+        <div class="navigation-buttons" style="display: none;">
+            <button class="btn btn-primary" id="start-tuning-btn" disabled>繼續</button>
         </div>
     </div>
     
     <script>
-        // 頁面加載時自動選擇一個默認模式（可選）
+        // 頁面加載時設置進度條動畫
         window.onload = function() {
-            // 不自動選擇，讓用戶主動選擇
+            // 初始化進度條動畫
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.width = '33%';
+            }, 300);
+            
+            // 為所有目標卡片添加點擊事件
+            document.querySelectorAll('.goal-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const goal = this.getAttribute('data-goal');
+                    selectGoal(this, goal);
+                });
+            });
         };
         
         // 選擇目標
         function selectGoal(element, goal) {
+            console.log('目標已選擇：' + goal + '，準備跳轉...');
+            
             // 移除其他卡片的選中狀態
             document.querySelectorAll('.goal-card').forEach(card => {
                 card.classList.remove('selected');
@@ -103,12 +117,51 @@
             // 添加當前卡片的選中狀態
             element.classList.add('selected');
             
-            // 啟用開始按鈕
-            const startButton = document.getElementById('start-tuning-btn');
-            startButton.disabled = false;
-            
             // 保存選擇的模式，用於傳遞到下一頁
-            localStorage.setItem('selectedMode', goal);
+            try {
+                localStorage.setItem('selectedMode', goal);
+            } catch (e) {
+                console.error('localStorage可能不可用:', e);
+            }
+            
+            // 顯示跳轉狀態
+            const navigationButtons = document.querySelector('.navigation-buttons');
+            navigationButtons.style.display = 'flex';
+            navigationButtons.innerHTML = '<div style="width:100%; text-align:center; color:#FF9D4D;">已選擇，點擊跳轉到下一頁 →</div>';
+            navigationButtons.onclick = function() {
+                goToNextPage();
+            };
+            
+            // 添加新按鈕用於手動跳轉
+            const jumpButton = document.createElement('button');
+            jumpButton.textContent = '繼續到下一步';
+            jumpButton.className = 'btn btn-primary';
+            jumpButton.style.marginTop = '20px';
+            jumpButton.style.width = '100%';
+            jumpButton.onclick = function() {
+                goToNextPage();
+            };
+            
+            // 找個位置放置按鈕
+            element.closest('.goal-cards').insertAdjacentElement('afterend', jumpButton);
+            
+            // 自動嘗試跳轉(但在本地文件系統可能會失敗)
+            try {
+                setTimeout(goToNextPage, 800);
+            } catch (e) {
+                console.error('自動跳轉失敗:', e);
+            }
+        }
+        
+        // 跳轉到下一頁
+        function goToNextPage() {
+            console.log('執行頁面跳轉...');
+            try {
+                window.location.href = 'ritual.html';
+            } catch (e) {
+                console.error('跳轉失敗，請手動點擊按鈕:', e);
+                alert('請點擊「繼續到下一步」按鈕前往下一頁');
+            }
         }
     </script>
 </body>
