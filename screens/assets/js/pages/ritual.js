@@ -214,8 +214,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 檢查音頻檔案是否可用，顯示錯誤消息如果不可用
     breathingAudio.addEventListener('error', function() {
-        console.error('音頻檔案加載失敗。請確保以下路徑存在：assets/audio/breathing-guide.mp3');
+        console.error('音頻檔案加載失敗。請確保以下路徑存在：assets/audio/breathing-guide.m4a 或 assets/audio/breathing-guide.mp3');
         // 提示用戶需要上傳音頻文件
-        alert('請上傳呼吸引導音頻到 assets/audio/breathing-guide.mp3');
+        alert('請上傳呼吸引導音頻到 assets/audio/ 目錄，支援 m4a 或 mp3 格式');
     });
 }); 
