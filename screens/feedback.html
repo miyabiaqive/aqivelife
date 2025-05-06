@@ -199,6 +199,16 @@
         .app-title {
             font-weight: 600;
         }
+        
+        /* 頁面進入動畫 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .feedback-content {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
     </style>
 </head>
 <body>
@@ -239,15 +249,15 @@
         <div class="session-summary">
             <div class="summary-item">
                 <div class="summary-label">超能力類型</div>
-                <div class="summary-value">氣定神閒模式</div>
+                <div class="summary-value" id="mode-type">氣定神閒模式</div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">啟動時長</div>
-                <div class="summary-value">15分鐘</div>
+                <div class="summary-value" id="session-duration">3分鐘</div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">完成時間</div>
-                <div class="summary-value">2025/10/25 15:30</div>
+                <div class="summary-value" id="completion-time">2025/10/25 15:30</div>
             </div>
         </div>
         
@@ -340,7 +350,42 @@
             
             // 初始化滑塊位置（值為5，位置在50%）
             thumb.style.left = '50%';
+            
+            // 從 localStorage 讀取會話數據並填充表單
+            loadSessionData();
         });
+        
+        // 載入會話數據
+        function loadSessionData() {
+            try {
+                const sessionDataString = localStorage.getItem('lastSessionData');
+                if (sessionDataString) {
+                    const sessionData = JSON.parse(sessionDataString);
+                    
+                    // 填充數據到表單
+                    const modeType = document.getElementById('mode-type');
+                    const sessionDuration = document.getElementById('session-duration');
+                    const completionTime = document.getElementById('completion-time');
+                    const feedbackTitle = document.querySelector('.feedback-title');
+                    
+                    if (modeType && sessionData.mode) {
+                        modeType.textContent = sessionData.mode;
+                        // 同時更新標題
+                        feedbackTitle.textContent = sessionData.mode.replace('模式', '') + '已成功啟動';
+                    }
+                    
+                    if (sessionDuration && sessionData.duration) {
+                        sessionDuration.textContent = sessionData.duration;
+                    }
+                    
+                    if (completionTime && sessionData.completedAt) {
+                        completionTime.textContent = sessionData.completedAt;
+                    }
+                }
+            } catch (e) {
+                console.error('無法載入會話數據：', e);
+            }
+        }
     </script>
 </body>
 </html> 

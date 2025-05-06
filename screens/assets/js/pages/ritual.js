@@ -193,8 +193,151 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 完成呼吸練習
     function completeSession() {
-        stopBreathing();
-        alert('恭喜您完成了調頻！');
+        // 停止所有活動
+        isActive = false;
+        pauseAudio();
+        
+        // 清除所有計時器
+        if (breathingCycleInterval) {
+            clearInterval(breathingCycleInterval);
+        }
+        
+        // 收集練習數據
+        const sessionData = {
+            mode: getModeFromTitle(),
+            duration: "3分鐘",
+            completedAt: getCurrentDateTime()
+        };
+        
+        // 保存到會話存儲中
+        try {
+            localStorage.setItem('lastSessionData', JSON.stringify(sessionData));
+        } catch (e) {
+            console.error('無法保存會話數據', e);
+        }
+        
+        // 顯示完成動畫
+        showCompletionAnimation().then(() => {
+            // 完成動畫後導向到 feedback 頁面
+            window.location.href = 'feedback.html';
+        });
+    }
+    
+    // 從標題獲取練習模式
+    function getModeFromTitle() {
+        const titleElement = document.querySelector('.ritual-header h1');
+        return titleElement ? titleElement.textContent : '氣定神閒模式';
+    }
+    
+    // 獲取當前日期時間格式化字符串
+    function getCurrentDateTime() {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        
+        return `${year}/${month}/${day} ${hours}:${minutes}`;
+    }
+    
+    // 顯示完成動畫
+    function showCompletionAnimation() {
+        return new Promise((resolve) => {
+            // 創建完成提示元素
+            const completionOverlay = document.createElement('div');
+            completionOverlay.className = 'completion-overlay';
+            completionOverlay.innerHTML = `
+                <div class="completion-container">
+                    <div class="completion-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="completion-message">調頻完成</div>
+                    <div class="completion-submessage">即將進入狀態紀錄</div>
+                </div>
+            `;
+            
+            // 添加樣式
+            const style = document.createElement('style');
+            style.textContent = `
+                .completion-overlay {
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background-color: rgba(0, 0, 0, 0.7);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                    opacity: 0;
+                    transition: opacity 0.5s ease;
+                }
+                .completion-container {
+                    text-align: center;
+                    color: white;
+                    padding: 30px;
+                }
+                .completion-icon {
+                    font-size: 80px;
+                    color: #FF9D4D;
+                    margin-bottom: 20px;
+                    transform: scale(0);
+                    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                }
+                .completion-message {
+                    font-size: 24px;
+                    font-weight: 600;
+                    margin-bottom: 10px;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.5s ease 0.3s;
+                }
+                .completion-submessage {
+                    font-size: 16px;
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: all 0.5s ease 0.5s;
+                }
+            `;
+            
+            // 添加到 DOM
+            document.body.appendChild(style);
+            document.body.appendChild(completionOverlay);
+            
+            // 觸發動畫
+            setTimeout(() => {
+                completionOverlay.style.opacity = '1';
+                
+                setTimeout(() => {
+                    const icon = completionOverlay.querySelector('.completion-icon');
+                    const message = completionOverlay.querySelector('.completion-message');
+                    const submessage = completionOverlay.querySelector('.completion-submessage');
+                    
+                    icon.style.transform = 'scale(1)';
+                    message.style.opacity = '1';
+                    message.style.transform = 'translateY(0)';
+                    submessage.style.opacity = '1';
+                    submessage.style.transform = 'translateY(0)';
+                    
+                    // 添加觸覺反饋
+                    if (navigator.vibrate) {
+                        navigator.vibrate([50, 100, 50]);
+                    }
+                    
+                    // 2.5秒後完成動畫
+                    setTimeout(() => {
+                        completionOverlay.style.opacity = '0';
+                        setTimeout(() => {
+                            completionOverlay.remove();
+                            style.remove();
+                            resolve();
+                        }, 500);
+                    }, 2500);
+                }, 100);
+            }, 100);
+        });
     }
     
     // 控制按鈕處理
