@@ -41,44 +41,50 @@
             <p class="step-description">AqiveLife 將根據你的目標提供個性化的體驗。你可以隨時在設定中變更。</p>
             
             <div class="goal-cards">
-                <div class="goal-card goal-relaxation" onclick="selectGoal(this, 'relaxation')" data-goal="relaxation">
-                    <div class="goal-icon">
-                        <i class="fas fa-leaf"></i>
+                <a href="ritual.html" class="goal-card-link" onclick="saveGoal('relaxation'); return true;">
+                    <div class="goal-card goal-relaxation" data-goal="relaxation">
+                        <div class="goal-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己氣定神閒</div>
+                            <div class="goal-description">減輕焦慮和壓力，提升平靜感</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <div class="goal-content">
-                        <div class="goal-title">讓自己氣定神閒</div>
-                        <div class="goal-description">減輕焦慮和壓力，提升平靜感</div>
-                    </div>
-                    <div class="check-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
+                </a>
                 
-                <div class="goal-card goal-focus" onclick="selectGoal(this, 'focus')" data-goal="focus">
-                    <div class="goal-icon">
-                        <i class="fas fa-bullseye"></i>
+                <a href="ritual.html" class="goal-card-link" onclick="saveGoal('focus'); return true;">
+                    <div class="goal-card goal-focus" data-goal="focus">
+                        <div class="goal-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己專注平靜</div>
+                            <div class="goal-description">提高注意力與工作效率</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <div class="goal-content">
-                        <div class="goal-title">讓自己專注平靜</div>
-                        <div class="goal-description">提高注意力與工作效率</div>
-                    </div>
-                    <div class="check-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
+                </a>
                 
-                <div class="goal-card goal-sleep" onclick="selectGoal(this, 'sleep')" data-goal="sleep">
-                    <div class="goal-icon">
-                        <i class="fas fa-moon"></i>
+                <a href="ritual.html" class="goal-card-link" onclick="saveGoal('sleep'); return true;">
+                    <div class="goal-card goal-sleep" data-goal="sleep">
+                        <div class="goal-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己一夜好眠</div>
+                            <div class="goal-description">幫助入睡與提升睡眠品質</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
                     </div>
-                    <div class="goal-content">
-                        <div class="goal-title">讓自己一夜好眠</div>
-                        <div class="goal-description">幫助入睡與提升睡眠品質</div>
-                    </div>
-                    <div class="check-icon">
-                        <i class="fas fa-check"></i>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
         
@@ -88,6 +94,21 @@
         </div>
     </div>
     
+    <style>
+        /* 添加卡片連結樣式 */
+        .goal-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+        
+        .goal-cards {
+            width: 100%;
+        }
+    </style>
+
     <script>
         // 頁面加載時設置進度條動畫
         window.onload = function() {
@@ -95,27 +116,11 @@
             setTimeout(() => {
                 document.querySelector('.progress-fill').style.width = '33%';
             }, 300);
-            
-            // 為所有目標卡片添加點擊事件
-            document.querySelectorAll('.goal-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    const goal = this.getAttribute('data-goal');
-                    selectGoal(this, goal);
-                });
-            });
         };
         
-        // 選擇目標
-        function selectGoal(element, goal) {
-            console.log('目標已選擇：' + goal + '，準備跳轉...');
-            
-            // 移除其他卡片的選中狀態
-            document.querySelectorAll('.goal-card').forEach(card => {
-                card.classList.remove('selected');
-            });
-            
-            // 添加當前卡片的選中狀態
-            element.classList.add('selected');
+        // 保存選擇的目標
+        function saveGoal(goal) {
+            console.log('儲存目標：' + goal);
             
             // 保存選擇的模式，用於傳遞到下一頁
             try {
@@ -124,44 +129,7 @@
                 console.error('localStorage可能不可用:', e);
             }
             
-            // 顯示跳轉狀態
-            const navigationButtons = document.querySelector('.navigation-buttons');
-            navigationButtons.style.display = 'flex';
-            navigationButtons.innerHTML = '<div style="width:100%; text-align:center; color:#FF9D4D;">已選擇，點擊跳轉到下一頁 →</div>';
-            navigationButtons.onclick = function() {
-                goToNextPage();
-            };
-            
-            // 添加新按鈕用於手動跳轉
-            const jumpButton = document.createElement('button');
-            jumpButton.textContent = '繼續到下一步';
-            jumpButton.className = 'btn btn-primary';
-            jumpButton.style.marginTop = '20px';
-            jumpButton.style.width = '100%';
-            jumpButton.onclick = function() {
-                goToNextPage();
-            };
-            
-            // 找個位置放置按鈕
-            element.closest('.goal-cards').insertAdjacentElement('afterend', jumpButton);
-            
-            // 自動嘗試跳轉(但在本地文件系統可能會失敗)
-            try {
-                setTimeout(goToNextPage, 800);
-            } catch (e) {
-                console.error('自動跳轉失敗:', e);
-            }
-        }
-        
-        // 跳轉到下一頁
-        function goToNextPage() {
-            console.log('執行頁面跳轉...');
-            try {
-                window.location.href = 'ritual.html';
-            } catch (e) {
-                console.error('跳轉失敗，請手動點擊按鈕:', e);
-                alert('請點擊「繼續到下一步」按鈕前往下一頁');
-            }
+            return true; // 允許繼續跳轉
         }
     </script>
 </body>
