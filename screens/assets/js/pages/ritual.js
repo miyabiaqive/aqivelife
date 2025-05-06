@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let timerInterval;
     let isActive = false;
-    let remainingSeconds = 15 * 60; // 15分鐘
+    let remainingSeconds = 3 * 60; // 3分鐘
     let breathingState = 'ready'; // ready, inhale, exhale
     let breathingCycleInterval;
     
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         circleLarge.style.opacity = '1';
         
         // 重置計時器
-        remainingSeconds = 15 * 60;
+        remainingSeconds = 3 * 60;
         updateTimerDisplay(remainingSeconds);
         
         // 清除呼吸循環計時器
