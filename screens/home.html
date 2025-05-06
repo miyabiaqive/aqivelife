@@ -39,6 +39,452 @@
             justify-content: center;
             font-size: 20px;
         }
+        
+        /* 新增產品選擇卡片樣式 */
+        .product-cards-container {
+            margin: 15px 0;
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 0;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+        
+        .product-cards-container::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        
+        .product-card {
+            min-width: 120px;
+            height: 150px;
+            margin-right: 15px;
+            background-color: #f8f8f8;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .product-card.selected {
+            border-color: #FF9D4D;
+            background-color: #FFF6EE;
+        }
+        
+        .product-img-container {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
+        .product-img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-name {
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            color: #333;
+        }
+        
+        .select-dot {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-card.selected .select-dot {
+            border-color: #FF9D4D;
+            background-color: #FF9D4D;
+        }
+        
+        .product-card.selected .select-dot:after {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+        /* 產品搜尋與進階選擇 */
+        .product-search-container {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+            position: relative;
+        }
+        
+        .product-search-input {
+            flex: 1;
+            height: 40px;
+            border-radius: 20px;
+            border: 1px solid #e0e0e0;
+            padding: 0 40px 0 15px;
+            font-size: 14px;
+            background-color: #f5f5f5;
+        }
+        
+        .product-search-icon {
+            position: absolute;
+            right: 15px;
+            color: #777;
+        }
+        
+        .product-view-all {
+            margin-left: 10px;
+            color: #FF9D4D;
+            font-size: 13px;
+            font-weight: 500;
+        }
+        
+        /* 產品分類選項 */
+        .product-categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 0;
+            margin-bottom: 15px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .product-categories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-pill {
+            padding: 6px 15px;
+            border-radius: 20px;
+            background-color: #f0f0f0;
+            color: #666;
+            margin-right: 10px;
+            font-size: 13px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .category-pill.active {
+            background-color: #FF9D4D;
+            color: white;
+        }
+        
+        /* 全部產品展示模式 */
+        .product-grid-view {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+        }
+        
+        .product-grid-view.active {
+            display: grid;
+        }
+        
+        .product-grid-card {
+            background-color: #f8f8f8;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 12px;
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            border: 2px solid transparent;
+            height: 150px;
+        }
+        
+        .product-grid-card.selected {
+            border-color: #FF9D4D;
+            background-color: #FFF6EE;
+        }
+        
+        /* 收藏/最近使用標記 */
+        .product-favorite {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #FFC107;
+            font-size: 14px;
+        }
+        
+        /* 產品選擇卡片樣式 */
+        .product-selection {
+            background-color: white;
+            border-radius: 15px;
+            padding: 18px;
+            margin: 15px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            overflow: hidden; /* 確保內容不會溢出 */
+        }
+        
+        .product-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .product-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .product-action {
+            color: #FF9D4D;
+            font-size: 14px;
+            text-decoration: none;
+        }
+        
+        /* 產品使用提示 */
+        .product-usage-display {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 15px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 16px;
+        }
+        
+        .product-usage-icon {
+            color: #FF9D4D;
+            margin-right: 10px;
+            font-size: 14px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        /* 簡易分類選項 */
+        .product-categories {
+            display: flex;
+            overflow-x: auto;
+            padding: 5px 0;
+            margin-bottom: 18px;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .product-categories::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-pill {
+            padding: 8px 16px;
+            border-radius: 20px;
+            background-color: #f5f5f5;
+            color: #666;
+            margin-right: 10px;
+            font-size: 14px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+        
+        .category-pill.active {
+            background-color: #FF9D4D;
+            color: white;
+        }
+        
+        /* 產品網格 */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 18px;
+        }
+        
+        .product-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f8f8f8;
+            border-radius: 12px;
+            padding: 10px 8px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .product-item.selected {
+            border-color: #FF9D4D;
+            background-color: #FFF6EE;
+        }
+        
+        .product-image {
+            width: 70px;
+            height: 70px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        
+        .product-image img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+        
+        .product-name {
+            font-size: 13px;
+            text-align: center;
+            color: #444;
+            font-weight: 500;
+            line-height: 1.3;
+        }
+        
+        .product-check {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            background-color: white;
+        }
+        
+        .product-item.selected .product-check {
+            background-color: #FF9D4D;
+            border-color: #FF9D4D;
+        }
+        
+        .product-item.selected .product-check::after {
+            content: "";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: white;
+        }
+        
+        /* 無產品選項 */
+        .no-product-option {
+            width: 100%;
+            background-color: #f9f9f9;
+            border: 1px dashed #ccc;
+            border-radius: 12px;
+            padding: 14px 15px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .no-product-option.selected {
+            background-color: #FFF6EE;
+            border: 1px dashed #FF9D4D;
+        }
+        
+        .no-product-icon {
+            width: 36px;
+            height: 36px;
+            background-color: #eee;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: #999;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+        
+        .no-product-text {
+            flex: 1;
+            min-width: 0; /* 防止文字溢出 */
+        }
+        
+        .no-product-title {
+            font-size: 15px;
+            font-weight: 500;
+            margin-bottom: 2px;
+            color: #444;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .no-product-desc {
+            font-size: 12px;
+            color: #888;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .no-product-check {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #ddd;
+            margin-left: 8px;
+            background-color: white;
+            flex-shrink: 0;
+        }
+        
+        .no-product-option.selected .no-product-check {
+            background-color: #FF9D4D;
+            border-color: #FF9D4D;
+        }
+        
+        .no-product-option.selected .no-product-check::after {
+            content: "";
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            margin: 3px auto;
+        }
+        
+        .super-button {
+            background-color: #FF9D4D;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 20px 0;
+            font-size: 18px;
+            font-weight: 600;
+            width: 100%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .super-button-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
     </style>
 </head>
 <body>
@@ -72,24 +518,109 @@
         <div class="product-selection">
             <div class="product-header">
                 <div class="product-title">選擇您的產品</div>
-                <a href="#" class="product-action">管理</a>
+                <a href="#" class="product-action" id="favoritesToggle">顯示全部</a>
             </div>
             
-            <div class="product-dropdown-container">
-                <div class="select-label">選擇您的產品</div>
-                <select class="product-dropdown">
-                    <option value="無">無</option>
-                    <option value="撓定">撓定</option>
-                    <option value="撓氣源寶">撓氣源寶</option>
-                    <option value="盒炁">盒炁</option>
-                    <option value="炁環">炁環</option>
-                    <option value="晶炁">晶炁</option>
-                </select>
-            </div>
-            
+            <!-- 產品使用提示 -->
             <div class="product-usage-display">
                 <div class="product-usage-icon"><i class="fas fa-info-circle"></i></div>
                 <div>請在調頻前選擇您使用的 Aqive 產品，這將幫助我們為您提供最佳體驗</div>
+            </div>
+            
+            <!-- 簡易分類 -->
+            <div class="product-categories">
+                <div class="category-pill active" onclick="filterProducts('all', this)">全部</div>
+                <div class="category-pill" onclick="filterProducts('氣機', this)">氣機</div>
+                <div class="category-pill" onclick="filterProducts('覺之', this)">覺之</div>
+            </div>
+            
+            <!-- 3x3 產品網格 -->
+            <div class="products-grid">
+                <!-- 氣機品牌 -->
+                <div class="product-item" data-product="撓定" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/qi-ease.jpg" alt="撓定">
+                    </div>
+                    <div class="product-name">撓定</div>
+                </div>
+                
+                <div class="product-item" data-product="撓氣源寶" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/qi-torsion.jpg" alt="撓氣源寶">
+                    </div>
+                    <div class="product-name">撓氣源寶</div>
+                </div>
+                
+                <div class="product-item" data-product="盒炁" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/qi-box.jpg" alt="盒炁">
+                    </div>
+                    <div class="product-name">盒炁</div>
+                </div>
+                
+                <div class="product-item" data-product="晶炁" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/qi-crystal.jpg" alt="晶炁">
+                    </div>
+                    <div class="product-name">晶炁</div>
+                </div>
+                
+                <div class="product-item" data-product="炁環" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/qi-wristband.jpg" alt="炁環">
+                    </div>
+                    <div class="product-name">炁環</div>
+                </div>
+                
+                <div class="product-item" data-product="水晶金字塔" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/crystalqiramid.jpg" alt="水晶金字塔">
+                    </div>
+                    <div class="product-name">水晶金字塔</div>
+                </div>
+                
+                <div class="product-item" data-product="銅金字塔" data-category="氣機" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/copperqiramid.jpg" alt="銅金字塔">
+                    </div>
+                    <div class="product-name">銅金字塔</div>
+                </div>
+                
+                <!-- 覺之品牌 -->
+                <div class="product-item" data-product="鈦覺智" data-category="覺之" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/titan-wisdomware.jpg" alt="鈦覺智">
+                    </div>
+                    <div class="product-name">鈦覺智</div>
+                </div>
+                
+                <div class="product-item" data-product="覺之花" data-category="覺之" onclick="selectProduct(this)">
+                    <div class="product-check"></div>
+                    <div class="product-image">
+                        <img src="assets/images/products/aol.jpg" alt="覺之花">
+                    </div>
+                    <div class="product-name">覺之花</div>
+                </div>
+            </div>
+            
+            <!-- 無產品選項 -->
+            <div class="no-product-option" onclick="selectNoProduct(this)" id="noProductOption">
+                <div class="no-product-icon">
+                    <i class="fas fa-ban"></i>
+                </div>
+                <div class="no-product-text">
+                    <div class="no-product-title">不使用產品</div>
+                    <div class="no-product-desc">僅使用APP進行指導體驗，無需實體產品</div>
+                </div>
+                <div class="no-product-check"></div>
             </div>
         </div>
         
@@ -231,5 +762,109 @@
             <div class="tab-label">設定</div>
         </a>
     </div>
+
+    <script>
+    // 選擇產品
+    function selectProduct(element) {
+        // 移除所有已選擇的產品和無產品選項
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        document.getElementById('noProductOption').classList.remove('selected');
+        
+        // 將點擊的產品設為選中狀態
+        element.classList.add('selected');
+        
+        // 儲存選中的產品名稱
+        const selectedProduct = element.getAttribute('data-product');
+        localStorage.setItem('selectedProduct', selectedProduct);
+        localStorage.setItem('usingProduct', 'true');
+        
+        // 更新選中產品狀態
+        updateSelectedProductStatus(selectedProduct);
+    }
+
+    // 選擇不使用產品
+    function selectNoProduct(element) {
+        // 移除所有已選擇的產品
+        document.querySelectorAll('.product-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        
+        // 將無產品選項設為選中狀態
+        element.classList.add('selected');
+        
+        // 儲存選擇狀態
+        localStorage.setItem('selectedProduct', '');
+        localStorage.setItem('usingProduct', 'false');
+        
+        // 更新UI顯示
+        console.log('選擇不使用產品');
+    }
+
+    // 更新選中產品狀態
+    function updateSelectedProductStatus(productName) {
+        console.log('已選擇產品：' + productName);
+        // 可以在這裡更新其他UI元素或後續操作
+    }
+
+    // 產品過濾功能
+    function filterProducts(category, element) {
+        // 更新分類按鈕狀態
+        document.querySelectorAll('.category-pill').forEach(pill => {
+            pill.classList.remove('active');
+        });
+        element.classList.add('active');
+        
+        // 過濾產品顯示
+        const products = document.querySelectorAll('.product-item');
+        products.forEach(product => {
+            const productCategory = product.getAttribute('data-category');
+            if (category === 'all' || productCategory === category) {
+                product.style.display = 'flex';
+            } else {
+                product.style.display = 'none';
+            }
+        });
+    }
+
+    // 切換收藏顯示
+    document.getElementById('favoritesToggle').addEventListener('click', function(e) {
+        e.preventDefault();
+        const isShowingAll = this.textContent === '收合產品';
+        
+        if (isShowingAll) {
+            // 切換回顯示全部
+            document.querySelectorAll('.product-item').forEach(item => {
+                item.style.display = 'flex';
+            });
+            this.textContent = '顯示全部';
+        } else {
+            // 顯示前3個項目
+            document.querySelectorAll('.product-item').forEach((item, index) => {
+                item.style.display = index < 3 ? 'flex' : 'none';
+            });
+            this.textContent = '收合產品';
+        }
+    });
+
+    // 頁面載入時檢查並恢復之前選擇的產品
+    document.addEventListener('DOMContentLoaded', function() {
+        const savedProduct = localStorage.getItem('selectedProduct');
+        const usingProduct = localStorage.getItem('usingProduct');
+        
+        if (usingProduct === 'false') {
+            // 恢復不使用產品的選擇
+            document.getElementById('noProductOption').classList.add('selected');
+        } else if (savedProduct) {
+            // 恢復選擇特定產品
+            const productItem = document.querySelector(`.product-item[data-product="${savedProduct}"]`);
+            if (productItem) {
+                productItem.classList.add('selected');
+                updateSelectedProductStatus(savedProduct);
+            }
+        }
+    });
+    </script>
 </body>
 </html> 
