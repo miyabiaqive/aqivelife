@@ -36,16 +36,6 @@
             transition: all 0.5s ease-in-out;
         }
         
-        .breathing-phase {
-            position: absolute;
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            bottom: -40px;
-            left: 0;
-            right: 0;
-            text-align: center;
-        }
-        
         .breathing-progress {
             position: absolute;
             width: 300px;
@@ -66,17 +56,18 @@
             animation-play-state: running;
         }
         
-        .control-floating-btn {
-            position: fixed;
-            bottom: 30px;
+        /* 中央控制按鈕 */
+        .center-control-btn {
+            position: absolute;
+            top: 50%;
             left: 50%;
-            transform: translateX(-50%);
-            width: 70px;
-            height: 70px;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background-color: #FF9D4D;
+            background-color: rgba(255, 157, 77, 0.9);
             color: white;
-            font-size: 24px;
+            font-size: 28px;
             border: none;
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             display: flex;
@@ -84,10 +75,11 @@
             justify-content: center;
             transition: all 0.3s ease;
             z-index: 10;
+            cursor: pointer;
         }
         
-        .control-floating-btn:active {
-            transform: translateX(-50%) scale(0.95);
+        .center-control-btn:active {
+            transform: translate(-50%, -50%) scale(0.95);
         }
         
         .fullscreen-btn {
@@ -150,21 +142,29 @@
             cursor: pointer;
         }
         
-        .breathing-text {
-            transition: all 0.3s ease;
+        /* 音頻控制 */
+        .volume-control {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            backdrop-filter: blur(2px);
         }
         
-        .inhale .breathing-text {
-            color: #A0E7FF;
+        .volume-icon {
+            color: white;
+            font-size: 20px;
+            margin-right: 10px;
+            cursor: pointer;
         }
         
-        .exhale .breathing-text {
-            color: #FFC0A0;
-        }
-        
-        /* 讓呼吸圈在按下時有反饋 */
-        .breathing-circle-container:active .breathing-circle-large {
-            transform: scale(0.98);
+        .volume-slider {
+            width: 80px;
+            cursor: pointer;
         }
     </style>
 </head>
@@ -210,41 +210,50 @@
             <div class="timer-display">15:00</div>
         </div>
         
-        <!-- 可點擊的呼吸圈 -->
+        <!-- 呼吸圈與中心控制按鈕 -->
         <div id="breathing-circle-container" class="breathing-circle-container">
             <div class="breathing-progress"></div>
             <div class="breathing-circle-large"></div>
             <div class="breathing-circle-medium"></div>
-            <div class="breathing-circle-small">
-                <span class="breathing-text">吸氣</span>
-            </div>
-            <div class="breathing-phase">準備開始</div>
+            <div class="breathing-circle-small"></div>
+            <button id="control-btn" class="center-control-btn">
+                <i class="fas fa-play"></i>
+            </button>
         </div>
         
         <div class="bottom-info-container">
             <div class="info-text">
                 <i class="fas fa-info-circle"></i>
-                點擊呼吸圈或按鈕開始，跟隨動畫節奏呼吸，讓您的心靈與產品同步，進入深度放鬆狀態。
+                按下中央按鈕開始，閉上眼睛聆聽音頻引導，讓您的心靈與產品同步，進入深度放鬆狀態。
             </div>
         </div>
         
-        <!-- 浮動控制按鈕 -->
-        <button id="control-btn" class="control-floating-btn">
-            <i class="fas fa-play"></i>
-        </button>
+        <!-- 音量控制 -->
+        <div class="volume-control">
+            <div id="volume-icon" class="volume-icon">
+                <i class="fas fa-volume-up"></i>
+            </div>
+            <input type="range" id="volume-slider" class="volume-slider" min="0" max="100" value="80">
+        </div>
         
         <!-- 首次使用指引 -->
         <div id="first-time-guide" class="first-time-guide">
             <div class="guide-content">
                 <h3>呼吸調頻指引</h3>
-                <p>1. 點擊呼吸圈或底部按鈕開始</p>
-                <p>2. 當圈圈擴大時吸氣</p>
-                <p>3. 當圈圈縮小時呼氣</p>
-                <p>4. 跟隨節奏，進入深度放鬆</p>
+                <p>1. 點擊呼吸圈中央的按鈕開始</p>
+                <p>2. 閉上眼睛，聆聽音頻引導進行呼吸</p>
+                <p>3. 您可以隨時再次點擊按鈕暫停練習</p>
+                <p>4. 右下角可以調整音量大小</p>
                 <button id="guide-got-it" class="guide-got-it">我明白了</button>
             </div>
         </div>
     </div>
+    
+    <!-- 音頻元素 -->
+    <audio id="breathing-audio" loop preload="auto">
+        <source src="assets/audio/breathing-guide.mp3" type="audio/mpeg">
+        您的瀏覽器不支援音頻播放。
+    </audio>
     
     <script>
         // 現有腳本由外部 ritual.js 提供，但需要添加以下新功能
@@ -254,6 +263,9 @@
             const guideOverlay = document.getElementById('first-time-guide');
             const guideGotItBtn = document.getElementById('guide-got-it');
             const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const breathingAudio = document.getElementById('breathing-audio');
+            const volumeIcon = document.getElementById('volume-icon');
+            const volumeSlider = document.getElementById('volume-slider');
             
             // 隱藏指引
             guideGotItBtn.addEventListener('click', function() {
@@ -266,9 +278,30 @@
                 guideOverlay.style.display = 'none';
             }
             
-            // 點擊呼吸圈也可開始/暫停
-            breathingCircle.addEventListener('click', function() {
-                controlBtn.click(); // 觸發控制按鈕點擊
+            // 音量控制
+            volumeSlider.addEventListener('input', function() {
+                const volume = this.value / 100;
+                breathingAudio.volume = volume;
+                
+                // 根據音量更新圖標
+                if (volume === 0) {
+                    volumeIcon.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                } else if (volume < 0.5) {
+                    volumeIcon.innerHTML = '<i class="fas fa-volume-down"></i>';
+                } else {
+                    volumeIcon.innerHTML = '<i class="fas fa-volume-up"></i>';
+                }
+            });
+            
+            // 點擊音量圖標切換靜音
+            volumeIcon.addEventListener('click', function() {
+                if (breathingAudio.muted) {
+                    breathingAudio.muted = false;
+                    volumeIcon.innerHTML = '<i class="fas fa-volume-up"></i>';
+                } else {
+                    breathingAudio.muted = true;
+                    volumeIcon.innerHTML = '<i class="fas fa-volume-mute"></i>';
+                }
             });
             
             // 全屏控制
@@ -285,6 +318,9 @@
                     }
                 }
             });
+            
+            // 初始化音量
+            breathingAudio.volume = volumeSlider.value / 100;
         });
     </script>
 </body>

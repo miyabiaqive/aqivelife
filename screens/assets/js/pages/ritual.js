@@ -4,13 +4,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初始化變數
     const timerDisplay = document.querySelector('.timer-display');
     const controlBtn = document.getElementById('control-btn');
-    const breathingText = document.querySelector('.breathing-text');
-    const breathingPhase = document.querySelector('.breathing-phase');
     const circleLarge = document.querySelector('.breathing-circle-large');
     const circleMedium = document.querySelector('.breathing-circle-medium');
     const circleSmall = document.querySelector('.breathing-circle-small');
     const breathingContainer = document.getElementById('breathing-circle-container');
     const breathingProgress = document.querySelector('.breathing-progress');
+    const breathingAudio = document.getElementById('breathing-audio');
     
     let timerInterval;
     let isActive = false;
@@ -60,10 +59,38 @@ document.addEventListener('DOMContentLoaded', function() {
         // 開始計時
         startTimer();
         
+        // 播放音頻
+        try {
+            playAudio();
+        } catch (e) {
+            console.error('無法播放音頻:', e);
+        }
+        
         // 添加觸覺反饋（如果瀏覽器支援）
         if (navigator.vibrate) {
             navigator.vibrate(50);
         }
+    }
+    
+    // 播放音頻指引
+    function playAudio() {
+        breathingAudio.currentTime = 0;
+        
+        // 嘗試播放，考慮到瀏覽器的自動播放政策
+        const playPromise = breathingAudio.play();
+        
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                console.log('自動播放被阻止:', error);
+                // 用戶需要與頁面互動來允許播放
+                // 這裡已經通過按鈕點擊觸發，應該可以播放
+            });
+        }
+    }
+    
+    // 暫停音頻
+    function pauseAudio() {
+        breathingAudio.pause();
     }
     
     // 呼吸循環
@@ -77,8 +104,6 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // 吸氣階段
         breathingState = 'inhale';
-        breathingText.textContent = '吸氣';
-        breathingPhase.textContent = '吸氣階段';
         breathingContainer.classList.add('inhale');
         breathingContainer.classList.remove('exhale');
         
@@ -91,8 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // 呼氣階段
             breathingState = 'exhale';
-            breathingText.textContent = '呼氣';
-            breathingPhase.textContent = '呼氣階段';
             breathingContainer.classList.remove('inhale');
             breathingContainer.classList.add('exhale');
             
@@ -142,9 +165,10 @@ document.addEventListener('DOMContentLoaded', function() {
         // 停止計時
         stopTimer();
         
-        // 重置文字和動畫
-        breathingText.textContent = '吸氣';
-        breathingPhase.textContent = '準備開始';
+        // 暫停音頻
+        pauseAudio();
+        
+        // 重置狀態
         breathingState = 'ready';
         
         // 重置動畫效果
@@ -187,4 +211,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 初始化界面
     updateTimerDisplay(remainingSeconds);
+    
+    // 檢查音頻檔案是否可用，顯示錯誤消息如果不可用
+    breathingAudio.addEventListener('error', function() {
+        console.error('音頻檔案加載失敗。請確保以下路徑存在：assets/audio/breathing-guide.mp3');
+        // 提示用戶需要上傳音頻文件
+        alert('請上傳呼吸引導音頻到 assets/audio/breathing-guide.mp3');
+    });
 }); 
