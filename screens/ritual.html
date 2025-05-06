@@ -18,14 +18,153 @@
         .ritual-header h1 {
             color: #333333;
         }
-        .start-btn {
-            background-color: #FF9D4D;
+        
+        /* 新增樣式 */
+        .breathing-circle-container {
+            cursor: pointer;
+            position: relative;
+            transition: transform 0.2s ease;
         }
-        .control-buttons {
+        
+        .breathing-circle-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .breathing-circle-large,
+        .breathing-circle-medium,
+        .breathing-circle-small {
+            transition: all 0.5s ease-in-out;
+        }
+        
+        .breathing-phase {
+            position: absolute;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+            bottom: -40px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+        
+        .breathing-progress {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #FF9D4D;
+            animation: spin 10s linear infinite;
+            animation-play-state: paused;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .breathing-active .breathing-progress {
+            animation-play-state: running;
+        }
+        
+        .control-floating-btn {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: #FF9D4D;
+            color: white;
+            font-size: 24px;
+            border: none;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
             display: flex;
+            align-items: center;
             justify-content: center;
-            width: 100%;
-            gap: 10px;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        
+        .control-floating-btn:active {
+            transform: translateX(-50%) scale(0.95);
+        }
+        
+        .fullscreen-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            backdrop-filter: blur(2px);
+        }
+        
+        .first-time-guide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            z-index: 100;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .guide-content {
+            max-width: 320px;
+        }
+        
+        .guide-content h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        .guide-content p {
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .guide-got-it {
+            background: #FF9D4D;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 30px;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+        
+        .breathing-text {
+            transition: all 0.3s ease;
+        }
+        
+        .inhale .breathing-text {
+            color: #A0E7FF;
+        }
+        
+        .exhale .breathing-text {
+            color: #FFC0A0;
+        }
+        
+        /* 讓呼吸圈在按下時有反饋 */
+        .breathing-circle-container:active .breathing-circle-large {
+            transform: scale(0.98);
         }
     </style>
 </head>
@@ -54,7 +193,9 @@
             <i class="fas fa-arrow-left"></i>
         </a>
         <div class="app-title">開啟超能力</div>
-        <div class="app-bar-action"></div>
+        <button id="fullscreen-btn" class="fullscreen-btn">
+            <i class="fas fa-expand"></i>
+        </button>
     </div>
 
     <!-- 調頻內容 -->
@@ -69,29 +210,82 @@
             <div class="timer-display">15:00</div>
         </div>
         
-        <div class="breathing-circle-container">
+        <!-- 可點擊的呼吸圈 -->
+        <div id="breathing-circle-container" class="breathing-circle-container">
+            <div class="breathing-progress"></div>
             <div class="breathing-circle-large"></div>
             <div class="breathing-circle-medium"></div>
             <div class="breathing-circle-small">
                 <span class="breathing-text">吸氣</span>
             </div>
+            <div class="breathing-phase">準備開始</div>
         </div>
         
         <div class="bottom-info-container">
             <div class="info-text">
                 <i class="fas fa-info-circle"></i>
-                跟隨動畫節奏呼吸，讓您的心靈與產品同步，進入深度放鬆狀態。
+                點擊呼吸圈或按鈕開始，跟隨動畫節奏呼吸，讓您的心靈與產品同步，進入深度放鬆狀態。
             </div>
-            
-            <div class="control-buttons">
-                <button id="start-btn" class="btn-primary">
-                    <i class="fas fa-play"></i> 開始
-                </button>
-                <button id="stop-btn" class="btn-secondary">
-                    <i class="fas fa-stop"></i> 停止
-                </button>
+        </div>
+        
+        <!-- 浮動控制按鈕 -->
+        <button id="control-btn" class="control-floating-btn">
+            <i class="fas fa-play"></i>
+        </button>
+        
+        <!-- 首次使用指引 -->
+        <div id="first-time-guide" class="first-time-guide">
+            <div class="guide-content">
+                <h3>呼吸調頻指引</h3>
+                <p>1. 點擊呼吸圈或底部按鈕開始</p>
+                <p>2. 當圈圈擴大時吸氣</p>
+                <p>3. 當圈圈縮小時呼氣</p>
+                <p>4. 跟隨節奏，進入深度放鬆</p>
+                <button id="guide-got-it" class="guide-got-it">我明白了</button>
             </div>
         </div>
     </div>
+    
+    <script>
+        // 現有腳本由外部 ritual.js 提供，但需要添加以下新功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const breathingCircle = document.getElementById('breathing-circle-container');
+            const controlBtn = document.getElementById('control-btn');
+            const guideOverlay = document.getElementById('first-time-guide');
+            const guideGotItBtn = document.getElementById('guide-got-it');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            
+            // 隱藏指引
+            guideGotItBtn.addEventListener('click', function() {
+                guideOverlay.style.display = 'none';
+                localStorage.setItem('breathingGuideShown', 'true');
+            });
+            
+            // 檢查是否已經顯示過指引
+            if(localStorage.getItem('breathingGuideShown') === 'true') {
+                guideOverlay.style.display = 'none';
+            }
+            
+            // 點擊呼吸圈也可開始/暫停
+            breathingCircle.addEventListener('click', function() {
+                controlBtn.click(); // 觸發控制按鈕點擊
+            });
+            
+            // 全屏控制
+            fullscreenBtn.addEventListener('click', function() {
+                if (!document.fullscreenElement) {
+                    document.documentElement.requestFullscreen().catch(err => {
+                        console.log(`錯誤：${err.message}`);
+                    });
+                    fullscreenBtn.innerHTML = '<i class="fas fa-compress"></i>';
+                } else {
+                    if (document.exitFullscreen) {
+                        document.exitFullscreen();
+                        fullscreenBtn.innerHTML = '<i class="fas fa-expand"></i>';
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html> 
