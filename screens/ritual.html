@@ -187,6 +187,57 @@
             flex: 1;
             text-align: center;
         }
+        
+        /* 完成動畫樣式 */
+        .completion-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.95);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+        }
+        
+        .completion-overlay.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        
+        .completion-icon {
+            font-size: 80px;
+            color: #FF9D4D;
+            margin-bottom: 20px;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        .completion-message {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .completion-subtitle {
+            font-size: 16px;
+            color: #666666;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
@@ -270,6 +321,15 @@
                 <button id="guide-got-it" class="guide-got-it">我明白了</button>
             </div>
         </div>
+        
+        <!-- 完成動畫覆蓋層 -->
+        <div id="completion-overlay" class="completion-overlay">
+            <div class="completion-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <div class="completion-message">呼吸調頻完成！</div>
+            <div class="completion-subtitle">您已成功啟動氣定神閒超能力</div>
+        </div>
     </div>
     
     <!-- 音頻元素 -->
@@ -290,6 +350,12 @@
             const breathingAudio = document.getElementById('breathing-audio');
             const volumeIcon = document.getElementById('volume-icon');
             const volumeSlider = document.getElementById('volume-slider');
+            const timerDisplay = document.querySelector('.timer-display');
+            const completionOverlay = document.getElementById('completion-overlay');
+            
+            let timerInterval;
+            let remainingSeconds = 180; // 3分鐘 = 180秒
+            let isRunning = false;
             
             // 隱藏指引
             guideGotItBtn.addEventListener('click', function() {
@@ -300,6 +366,89 @@
             // 檢查是否已經顯示過指引
             if(localStorage.getItem('breathingGuideShown') === 'true') {
                 guideOverlay.style.display = 'none';
+            }
+            
+            // 開始/暫停呼吸練習
+            controlBtn.addEventListener('click', function() {
+                if (!isRunning) {
+                    // 開始練習
+                    startBreathingExercise();
+                } else {
+                    // 暫停練習
+                    pauseBreathingExercise();
+                }
+            });
+            
+            // 開始呼吸練習
+            function startBreathingExercise() {
+                isRunning = true;
+                breathingCircle.classList.add('breathing-active');
+                controlBtn.innerHTML = '<i class="fas fa-pause"></i>';
+                breathingAudio.play();
+                
+                // 啟動倒計時
+                if (!timerInterval) {
+                    timerInterval = setInterval(updateTimer, 1000);
+                }
+            }
+            
+            // 暫停呼吸練習
+            function pauseBreathingExercise() {
+                isRunning = false;
+                breathingCircle.classList.remove('breathing-active');
+                controlBtn.innerHTML = '<i class="fas fa-play"></i>';
+                breathingAudio.pause();
+                
+                // 暫停倒計時
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            
+            // 更新倒計時
+            function updateTimer() {
+                remainingSeconds--;
+                
+                // 更新顯示時間
+                const minutes = Math.floor(remainingSeconds / 60);
+                const seconds = remainingSeconds % 60;
+                timerDisplay.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // 檢查是否完成
+                if (remainingSeconds <= 0) {
+                    completeBreathingExercise();
+                }
+            }
+            
+            // 完成呼吸練習
+            function completeBreathingExercise() {
+                // 停止計時器和音頻
+                clearInterval(timerInterval);
+                breathingAudio.pause();
+                
+                // 保存會話數據
+                saveSessionData();
+                
+                // 顯示完成動畫
+                completionOverlay.classList.add('show');
+                
+                // 3秒後跳轉到反饋頁面
+                setTimeout(function() {
+                    window.location.href = 'feedback.html';
+                }, 3000);
+            }
+            
+            // 保存會話數據
+            function saveSessionData() {
+                const now = new Date();
+                const formattedDate = `${now.getFullYear()}/${(now.getMonth() + 1).toString().padStart(2, '0')}/${now.getDate().toString().padStart(2, '0')} ${now.getHours().toString().padStart(2, '0')}:${now.getMinutes().toString().padStart(2, '0')}`;
+                
+                const sessionData = {
+                    mode: '氣定神閒模式',
+                    duration: '3分鐘',
+                    completedAt: formattedDate
+                };
+                
+                localStorage.setItem('lastSessionData', JSON.stringify(sessionData));
             }
             
             // 音量控制

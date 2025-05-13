@@ -3,61 +3,511 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqiveLife - 數據統計</title>
-    <link rel="stylesheet" href="assets/css/shared.css">
-    <link rel="stylesheet" href="assets/css/pages/stats.css">
+    <title>AqiveLife - 數據分析</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+        body {
+            background-color: #F8F8F8;
+            color: #333;
+            padding-bottom: 70px;
+        }
+        
+        /* 狀態欄樣式 */
+        .status-bar {
+            height: 44px;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .status-bar-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .status-bar-time {
+            font-weight: 500;
+        }
+        
+        .status-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* 應用欄樣式 */
+        .app-bar {
+            height: 60px;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+        
+        .back-button {
+            color: #333;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        
+        .app-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .app-bar-actions {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .app-bar-action {
+            color: #333;
+            font-size: 18px;
+        }
+        
+        /* 統計內容樣式 */
+        .stats-content {
+            padding: 20px;
+        }
+        
+        /* 標題區域 */
+        .stats-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .stats-title {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .stats-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .current-date {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* 時段切換 */
+        .time-periods {
+            display: flex;
+            overflow-x: auto;
+            gap: 10px;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: none; /* Firefox */
+        }
+        
+        .time-periods::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Edge */
+        }
+        
+        .period-option {
+            padding: 8px 16px;
+            background-color: #F0F0F0;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .period-option.active {
+            background-color: #FF9D4D;
+            color: white;
+        }
+        
+        /* 圖表卡片 */
+        .chart-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .chart-title {
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .chart-actions {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .chart-action {
+            color: #666;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        .chart-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #EEE;
+            padding-bottom: 10px;
+        }
+        
+        .chart-tab {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
+            padding-bottom: 5px;
+            position: relative;
+        }
+        
+        .chart-tab.active {
+            color: #FF9D4D;
+            font-weight: 500;
+        }
+        
+        .chart-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #FF9D4D;
+            border-radius: 1px;
+        }
+        
+        .chart-container {
+            height: 250px;
+            position: relative;
+        }
+        
+        /* 摘要數據區域 */
+        .summary-section {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .summary-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .summary-info h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .summary-value {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .trend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 12px;
+        }
+        
+        .trend.up {
+            color: #4CAF50;
+            background-color: rgba(76, 175, 80, 0.1);
+        }
+        
+        .trend.down {
+            color: #F44336;
+            background-color: rgba(244, 67, 54, 0.1);
+        }
+        
+        /* 洞察區域 */
+        .insights-section {
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .section-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-top: -10px;
+            margin-bottom: 15px;
+        }
+        
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+        }
+        
+        .insight-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            display: flex;
+            gap: 15px;
+        }
+        
+        .insight-icon {
+            width: 40px;
+            height: 40px;
+            min-width: 40px;
+            background-color: #F3F3F3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF9D4D;
+            font-size: 18px;
+        }
+        
+        .insight-content h3 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .insight-content p {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* 長期成就區域 */
+        .achievements-section {
+            margin-bottom: 20px;
+        }
+        
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .achievement-card {
+            background: #FFFFFF;
+            border-radius: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .achievement-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #FF9D4D, #FF7D2D);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            color: white;
+            font-size: 22px;
+        }
+        
+        .achievement-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .achievement-desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .achievement-progress {
+            height: 6px;
+            background-color: #EEE;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 5px;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background-color: #FF9D4D;
+        }
+        
+        .progress-text {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        /* 底部導航欄 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 100%;
+            text-decoration: none;
+            color: #777;
+            transition: color 0.3s;
+        }
+        
+        .tab-item.active {
+            color: #FF9D4D;
+        }
+        
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .tab-label {
+            font-size: 12px;
+        }
+    </style>
 </head>
 <body>
     <!-- 狀態欄 -->
     <div class="status-bar">
-        <div class="time">9:41</div>
-        <div class="icons">
-            <span class="signal"><i class="fas fa-signal"></i></span>
-            <span class="wifi"><i class="fas fa-wifi"></i></span>
-            <span class="battery"><i class="fas fa-battery-full"></i></span>
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
         </div>
     </div>
 
     <!-- 應用欄 -->
     <div class="app-bar">
-        <h1>數據統計</h1>
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">數據分析</div>
+        <div class="app-bar-actions">
+            <div class="app-bar-action">
+                <i class="fas fa-share-alt"></i>
+            </div>
+        </div>
     </div>
 
     <!-- 主要內容 -->
-    <div class="stats-container">
+    <div class="stats-content">
         <!-- 標題區域 -->
         <div class="stats-header">
             <div>
-                <h2 class="stats-title">您的健康狀態</h2>
-                <p class="stats-subtitle">查看您的進度和趨勢</p>
+                <h2 class="stats-title">深度數據洞察</h2>
+                <p class="stats-subtitle">探索您的長期練習成效與趨勢</p>
             </div>
-            <div class="current-date" id="current-date">2023年11月15日</div>
+            <div class="current-date">2025年04月18日</div>
         </div>
 
-        <!-- 過濾選項 -->
-        <div class="filter-options">
-            <div class="filter-option active" data-period="week">本週</div>
-            <div class="filter-option" data-period="month">本月</div>
-            <div class="filter-option" data-period="3months">3個月</div>
-            <div class="filter-option" data-period="6months">6個月</div>
-            <div class="filter-option" data-period="year">今年</div>
-            <div class="filter-option" data-period="custom">自定義</div>
+        <!-- 時段切換 -->
+        <div class="time-periods">
+            <div class="period-option active">本週</div>
+            <div class="period-option">本月</div>
+            <div class="period-option">3個月</div>
+            <div class="period-option">6個月</div>
+            <div class="period-option">今年</div>
+            <div class="period-option">全部</div>
+            <div class="period-option">自定義</div>
         </div>
 
-        <!-- 圖表卡片 -->
+        <!-- 練習時長圖表 -->
         <div class="chart-card">
-            <h3 class="chart-title">使用統計</h3>
-            <p class="chart-subtitle">您每天的調頻時間</p>
+            <div class="chart-header">
+                <h3 class="chart-title">練習時長分析</h3>
+                <div class="chart-actions">
+                    <div class="chart-action">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-tabs">
+                <div class="chart-tab active">每日時長</div>
+                <div class="chart-tab">累積時長</div>
+                <div class="chart-tab">時段分布</div>
+            </div>
             <div class="chart-container">
-                <canvas id="usageChart"></canvas>
+                <canvas id="practiceChart"></canvas>
             </div>
         </div>
-
+        
+        <!-- 情緒控制圖表 -->
         <div class="chart-card">
-            <h3 class="chart-title">情緒變化</h3>
-            <p class="chart-subtitle">焦慮、專注力和睡眠質量的變化</p>
+            <div class="chart-header">
+                <h3 class="chart-title">控制度變化趨勢</h3>
+                <div class="chart-actions">
+                    <div class="chart-action">
+                        <i class="fas fa-ellipsis-v"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-tabs">
+                <div class="chart-tab active">氣定神閒</div>
+                <div class="chart-tab">專注平靜</div>
+                <div class="chart-tab">睡眠品質</div>
+                <div class="chart-tab">綜合指標</div>
+            </div>
             <div class="chart-container">
                 <canvas id="moodChart"></canvas>
             </div>
@@ -67,8 +517,8 @@
         <div class="summary-section">
             <div class="summary-card">
                 <div class="summary-info">
-                    <h3>目標達成率</h3>
-                    <div class="summary-value">86%</div>
+                    <h3>年度目標達成率</h3>
+                    <div class="summary-value">68%</div>
                 </div>
                 <div class="trend up">
                     <i class="fas fa-arrow-up"></i>
@@ -78,120 +528,285 @@
 
             <div class="summary-card">
                 <div class="summary-info">
-                    <h3>連續使用天數</h3>
-                    <div class="summary-value">12</div>
+                    <h3>總練習時長</h3>
+                    <div class="summary-value">36小時</div>
                 </div>
                 <div class="trend up">
                     <i class="fas fa-arrow-up"></i>
-                    <span>3 天</span>
+                    <span>5小時</span>
                 </div>
             </div>
 
             <div class="summary-card">
                 <div class="summary-info">
-                    <h3>焦慮減少</h3>
-                    <div class="summary-value">40%</div>
+                    <h3>控制度提升</h3>
+                    <div class="summary-value">43%</div>
                 </div>
                 <div class="trend up">
                     <i class="fas fa-arrow-up"></i>
-                    <span>5%</span>
+                    <span>7%</span>
                 </div>
             </div>
 
             <div class="summary-card">
                 <div class="summary-info">
-                    <h3>總使用分鐘數</h3>
-                    <div class="summary-value">450</div>
+                    <h3>最佳持續天數</h3>
+                    <div class="summary-value">36天</div>
                 </div>
                 <div class="trend up">
-                    <i class="fas fa-arrow-up"></i>
-                    <span>75 分鐘</span>
+                    <i class="fas fa-trophy"></i>
+                    <span>新紀錄</span>
                 </div>
             </div>
         </div>
 
         <!-- 個人洞察 -->
         <div class="insights-section">
-            <h2 class="section-title">個人洞察</h2>
+            <h2 class="section-title">個人化洞察</h2>
+            <p class="section-subtitle">根據您的數據提供的專屬建議</p>
             
-            <div class="insight-card">
-                <div class="insight-icon">
-                    <i class="fas fa-lightbulb"></i>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <div class="insight-content">
+                        <h3>最佳練習時間點</h3>
+                        <p>您在早上7-9點進行練習時，控制度平均提高15%。建議在此時段安排更多練習。</p>
+                    </div>
                 </div>
-                <div class="insight-content">
-                    <h3>最佳調頻時間</h3>
-                    <p>根據您的數據，早上 7-8 點進行調頻效果最好，焦慮減少幅度達到 45%。</p>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="insight-content">
+                        <h3>持續性效果</h3>
+                        <p>連續練習至少5天後，您的平均控制度會顯著提升。目前您已連續15天，效果最佳。</p>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="insight-card">
-                <div class="insight-icon">
-                    <i class="fas fa-chart-line"></i>
-                </div>
-                <div class="insight-content">
-                    <h3>焦慮改善趨勢</h3>
-                    <p>過去 30 天，您的平均焦慮指數從 7 降至 4，持續進步中！</p>
+                
+                <div class="insight-card">
+                    <div class="insight-icon">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="insight-content">
+                        <h3>睡眠品質關聯</h3>
+                        <p>睡前30分鐘的練習與您的睡眠品質呈強正相關。建議將「一夜好眠」模式納入睡前儀式。</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 相關性分析 -->
-        <div class="correlation-section">
-            <h2 class="section-title">相關性分析</h2>
-            <p class="section-subtitle">以下因素如何影響您的指標</p>
+        <!-- 長期成就 -->
+        <div class="achievements-section">
+            <h2 class="section-title">長期成就</h2>
             
-            <div class="correlation-grid">
-                <div class="correlation-item">
-                    <div class="correlation-header">
-                        <h3>冥想時長與睡眠質量</h3>
-                        <span class="correlation-score high">高相關性</span>
+            <div class="achievements-grid">
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-award"></i>
                     </div>
-                    <p>當您進行至少 20 分鐘的調頻時，睡眠質量提高 35%。</p>
+                    <div class="achievement-title">年度大師</div>
+                    <div class="achievement-desc">全年累積練習180小時</div>
+                    <div class="achievement-progress">
+                        <div class="progress-bar" style="width: 20%"></div>
+                    </div>
+                    <div class="progress-text">進度: 36/180小時</div>
                 </div>
                 
-                <div class="correlation-item">
-                    <div class="correlation-header">
-                        <h3>睡前調頻與焦慮</h3>
-                        <span class="correlation-score medium">中等相關性</span>
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-fire"></i>
                     </div>
-                    <p>睡前 30 分鐘進行調頻可以使第二天早晨的焦慮指數降低 25%。</p>
+                    <div class="achievement-title">持之以恆</div>
+                    <div class="achievement-desc">連續練習100天</div>
+                    <div class="achievement-progress">
+                        <div class="progress-bar" style="width: 36%"></div>
+                    </div>
+                    <div class="progress-text">進度: 36/100天</div>
                 </div>
                 
-                <div class="correlation-item">
-                    <div class="correlation-header">
-                        <h3>調頻頻率與專注力</h3>
-                        <span class="correlation-score high">高相關性</span>
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-brain"></i>
                     </div>
-                    <p>每週至少進行 5 次調頻的週期，您的專注力提高了 40%。</p>
+                    <div class="achievement-title">心靈掌控</div>
+                    <div class="achievement-desc">50次控制度9分以上</div>
+                    <div class="achievement-progress">
+                        <div class="progress-bar" style="width: 42%"></div>
+                    </div>
+                    <div class="progress-text">進度: 21/50次</div>
+                </div>
+                
+                <div class="achievement-card">
+                    <div class="achievement-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <div class="achievement-title">三大平衡</div>
+                    <div class="achievement-desc">三大指標均達90%</div>
+                    <div class="achievement-progress">
+                        <div class="progress-bar" style="width: 65%"></div>
+                    </div>
+                    <div class="progress-text">進度: 2/3項達標</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- 底部導航 -->
-    <div class="bottom-nav">
-        <a href="home.html" class="nav-item">
-            <i class="fas fa-home"></i>
-            <span>首頁</span>
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
         </a>
-        <a href="ritual.html" class="nav-item">
-            <i class="fas fa-spa"></i>
-            <span>調頻</span>
+        <a href="ritual.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-spa"></i>
+            </div>
+            <div class="tab-label">練習</div>
         </a>
-        <a href="tracking.html" class="nav-item">
-            <i class="fas fa-chart-bar"></i>
-            <span>記錄</span>
+        <a href="tracking.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-bar"></i>
+            </div>
+            <div class="tab-label">記錄</div>
         </a>
-        <a href="stats.html" class="nav-item active">
-            <i class="fas fa-chart-line"></i>
-            <span>統計</span>
+        <a href="stats.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">分析</div>
         </a>
-        <a href="settings.html" class="nav-item">
-            <i class="fas fa-cog"></i>
-            <span>設定</span>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
         </a>
     </div>
 
-    <script src="assets/js/pages/stats.js"></script>
+    <script>
+        // 練習時長圖表
+        const practiceCtx = document.getElementById('practiceChart').getContext('2d');
+        const practiceChart = new Chart(practiceCtx, {
+            type: 'bar',
+            data: {
+                labels: ['一', '二', '三', '四', '五', '六', '日'],
+                datasets: [{
+                    label: '練習時長（分鐘）',
+                    data: [15, 0, 30, 15, 30, 45, 30],
+                    backgroundColor: 'rgba(255, 157, 77, 0.6)',
+                    borderColor: 'rgba(255, 157, 77, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            font: {
+                                size: 12,
+                            }
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12,
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // 情緒控制圖表
+        const moodCtx = document.getElementById('moodChart').getContext('2d');
+        const moodChart = new Chart(moodCtx, {
+            type: 'line',
+            data: {
+                labels: ['一', '二', '三', '四', '五', '六', '日'],
+                datasets: [{
+                    label: '氣定神閒控制度',
+                    data: [6, 5, 7, 6, 8, 9, 8],
+                    borderColor: 'rgba(255, 157, 77, 1)',
+                    backgroundColor: 'rgba(255, 157, 77, 0.1)',
+                    tension: 0.3,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 10,
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            display: true,
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        ticks: {
+                            font: {
+                                size: 12
+                            }
+                        },
+                        grid: {
+                            display: false
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+        
+        // 時段選擇交互
+        document.querySelectorAll('.period-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.period-option').forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                // 在這裡可以添加切換數據和重繪圖表的邏輯
+            });
+        });
+        
+        // 圖表標籤切換
+        document.querySelectorAll('.chart-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabs = this.parentElement.querySelectorAll('.chart-tab');
+                tabs.forEach(el => el.classList.remove('active'));
+                this.classList.add('active');
+                // 在這裡可以添加切換圖表數據的邏輯
+            });
+        });
+    </script>
 </body>
 </html> 

@@ -27,6 +27,7 @@
         
         .feedback-content {
             padding: 0 20px 20px;
+            padding-bottom: 90px; /* 為底部導航欄留出空間 */
         }
         
         .feedback-header {
@@ -209,6 +210,46 @@
         .feedback-content {
             animation: fadeIn 0.5s ease-out forwards;
         }
+        
+        /* 底部導航欄樣式 */
+        .tab-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background-color: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            z-index: 100;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            height: 100%;
+            text-decoration: none;
+            color: #777;
+            transition: color 0.3s;
+        }
+        
+        .tab-item.active {
+            color: #FF9D4D;
+        }
+        
+        .tab-icon {
+            font-size: 20px;
+            margin-bottom: 4px;
+        }
+        
+        .tab-label {
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -292,8 +333,36 @@
             保存記錄
         </button>
         
-        <a href="home.html" class="btn-secondary" style="margin-top: 15px;">
+        <a href="home.html" class="btn-secondary" style="margin-top: 15px; margin-bottom: 20px;">
             返回首頁
+        </a>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
         </a>
     </div>
 
