@@ -191,19 +191,43 @@
     <!-- 主內容區域 -->
     <div class="content">
         <div class="settings-container">
-            <div class="profile-section">
+            <!-- Google 登入範例 -->
+            <div class="profile-section" id="google-login-example" style="position: relative;">
                 <div class="profile-avatar">
-                    <i class="fas fa-user"></i>
+                    <img src="https://lh3.googleusercontent.com/a/ACg8ocJQMfVxx2UaTBrDFN_yzFoRPdOKdlBXBNIB3m48TYY=s576-c-no" onerror="this.src='assets/images/logo/aqive-symbol.svg';" alt="用戶頭像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                 </div>
                 <div class="profile-info">
-                    <div class="profile-name">匿名用戶</div>
-                    <div class="profile-email">未設定電子郵件</div>
+                    <div class="profile-name">林小明</div>
+                    <div class="profile-email">linxiaoming@gmail.com</div>
                     <div class="profile-status">基本會員</div>
                 </div>
                 <div class="edit-profile">
                     <i class="fas fa-chevron-right"></i>
                 </div>
+                <div style="position: absolute; bottom: -15px; right: 12px; background-color: #DB4437; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fab fa-google" style="color: white; font-size: 14px;"></i>
+                </div>
             </div>
+            
+            <!-- Apple 登入範例 -->
+            <div class="profile-section" id="apple-login-example" style="position: relative; margin-top: 25px; margin-bottom: 25px;">
+                <div class="profile-avatar">
+                    <img src="assets/images/defaults/apple_user.png" onerror="this.src='https://ui-avatars.com/api/?name=陳大方&background=000&color=fff';" alt="用戶頭像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                <div class="profile-info">
+                    <div class="profile-name">陳大方</div>
+                    <div class="profile-email">user.dafang@icloud.com</div>
+                    <div class="profile-status">基本會員</div>
+                </div>
+                <div class="edit-profile">
+                    <i class="fas fa-chevron-right"></i>
+                </div>
+                <div style="position: absolute; bottom: -15px; right: 12px; background-color: #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                    <i class="fab fa-apple" style="color: white; font-size: 14px;"></i>
+                </div>
+            </div>
+            
+            <div class="section-title">以上為兩種不同登入狀態的示意 (請選擇其中一種實作)</div>
             
             <div class="section-title">個人設定</div>
             
