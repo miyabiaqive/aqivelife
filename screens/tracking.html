@@ -1069,7 +1069,7 @@
                     <div class="stats-value">15</div>
                     <div class="stats-label">連續練習天數</div>
                     <div class="weekly-goal">
-                        <span class="goal-label">週目標: 7天</span>
+                        <span class="goal-label">週預設目標: 7天（未來可自訂）</span>
                         <div class="goal-progress">
                             <div class="goal-bar" style="width: 71%"></div>
                         </div>
@@ -1095,6 +1095,12 @@
                         <i class="fas fa-fire"></i>
                     </div>
                 </div>
+            </div>
+            
+            <!-- 增加預設目標進度提示 -->
+            <div class="goal-progress-hint" style="margin-top: 15px; font-size: 13px; color: #666; text-align: center; background: rgba(255, 157, 77, 0.1); padding: 10px; border-radius: 8px;">
+                <i class="fas fa-bullseye" style="color: #FF9D4D; margin-right: 5px;"></i>
+                您本週已完成 <span style="font-weight: 600; color: #FF9D4D;">5</span> 次練習，預設目標為 <span style="font-weight: 600;">7</span> 次
             </div>
         </div>
         
@@ -1130,10 +1136,14 @@
                         <div class="progress-text">90%</div>
                     </div>
                     <div class="achievement-info">
-                        <div class="achievement-title">本週目標達成</div>
-                        <div class="achievement-desc">再練習1次達成目標</div>
+                        <div class="achievement-title">本週預設目標達成</div>
+                        <div class="achievement-desc">距離預設目標還差1次</div>
                     </div>
                 </div>
+            </div>
+            <!-- 添加系統預設目標說明 -->
+            <div class="goal-info-note" style="margin-top: 15px; font-size: 12px; color: #888; text-align: center;">
+                目前目標為系統預設，未來將開放自訂目標功能。
             </div>
         </div>
     </div>
@@ -1735,6 +1745,32 @@
             const goalBar = document.querySelector('.goal-bar');
             const newProgress = Math.min(100, (streak + 1) / 7 * 100);
             goalBar.style.width = `${newProgress}%`;
+            
+            // 更新即時成就中的目標達成情況
+            const remainingToGoal = Math.max(0, 7 - (count + 1));
+            const achievementDesc = document.querySelector('.daily-achievement-item:nth-child(2) .achievement-desc');
+            if (remainingToGoal > 0) {
+                achievementDesc.textContent = `距離預設目標還差${remainingToGoal}次`;
+            } else {
+                achievementDesc.textContent = '已達成本週預設目標！';
+            }
+            
+            // 更新目標達成百分比
+            const progressText = document.querySelector('.daily-achievement-item:nth-child(2) .progress-text');
+            const progressRing = document.querySelector('.daily-achievement-item:nth-child(2) .progress-ring-circle');
+            const progressPercent = Math.min(100, Math.round(((count + 1) / 7) * 100));
+            progressText.textContent = `${progressPercent}%`;
+            
+            // 更新環形進度條
+            const circumference = 2 * Math.PI * 26; // 圓周長 = 2πr, r=26
+            const offset = circumference - (progressPercent / 100) * circumference;
+            progressRing.style.strokeDashoffset = offset.toFixed(2);
+            
+            // 更新目標進度提示
+            const goalProgressHint = document.querySelector('.goal-progress-hint span:first-of-type');
+            if (goalProgressHint) {
+                goalProgressHint.textContent = count + 1;
+            }
         }
         
         // 更新今日打卡狀態

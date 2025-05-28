@@ -132,7 +132,8 @@
             border-radius: 50%;
             position: absolute;
             top: -10px;
-            right: 0;
+            left: 50%;
+            transform: translateX(-50%);
             cursor: pointer;
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
@@ -294,7 +295,7 @@
             </div>
             <div class="summary-item">
                 <div class="summary-label">啟動時長</div>
-                <div class="summary-value" id="session-duration">3分鐘</div>
+                <div class="summary-value" id="session-duration">6分鐘</div>
             </div>
             <div class="summary-item">
                 <div class="summary-label">完成時間</div>
@@ -318,15 +319,14 @@
                 <div class="mood-slider-thumb"></div>
             </div>
             <div class="mood-level">
-                <span>波動</span>
-                <span>穩定</span>
-                <span>完全掌控</span>
+                <span>焦慮</span>
+                <span>極度平靜</span>
             </div>
         </div>
         
         <div class="comments-section">
             <div class="section-title">記錄能力變化</div>
-            <textarea class="comments-input" placeholder="描述你感知到的超能力變化和體驗..."></textarea>
+            <textarea class="comments-input" style="height: 145px;" placeholder="描述你感知到的超能力變化和體驗..."></textarea>
         </div>
         
         <button class="btn-primary">
@@ -400,13 +400,15 @@
                     clientX = e.clientX;
                 }
                 
+                // 確保拖動範圍在軌道內
                 let position = (clientX - trackRect.left) / trackRect.width;
                 position = Math.max(0, Math.min(position, 1));
                 
                 const value = Math.round(position * 10);
                 moodValue.textContent = value;
                 
-                thumb.style.left = `${position * 100}%`;
+                // 將滑塊精確定位在軌道上
+                thumb.style.left = position * 100 + '%';
             }
             
             function stopDrag() {
@@ -419,6 +421,7 @@
             
             // 初始化滑塊位置（值為5，位置在50%）
             thumb.style.left = '50%';
+            moodValue.textContent = '5'; // 確保顯示值與位置一致
             
             // 從 localStorage 讀取會話數據並填充表單
             loadSessionData();

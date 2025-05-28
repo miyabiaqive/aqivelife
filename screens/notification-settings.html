@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 通知設定</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <script src="assets/js/shared.js" defer></script>
+    <style>
+        body {
+            background-color: #F5F5F5;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding: 16px 16px 70px 16px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin: 24px 0 12px 4px;
+            color: #333;
+        }
+
+        .section-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+            padding-left: 4px;
+        }
+
+        .notification-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .notification-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .notification-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .notification-toggle {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .notification-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 2px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: #FF9D4D;
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .notification-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+
+        .notification-options {
+            display: none;
+            border-top: 1px solid #EEEEEE;
+            padding-top: 16px;
+            margin-top: 12px;
+        }
+
+        .option-group {
+            margin-bottom: 16px;
+        }
+
+        .option-label {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .time-picker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .time-select {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            background-color: #FFFFFF;
+        }
+
+        .days-select {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .day-checkbox {
+            display: none;
+        }
+
+        .day-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid #E0E0E0;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .day-checkbox:checked + .day-label {
+            background-color: #FF9D4D;
+            color: white;
+            border-color: #FF9D4D;
+        }
+
+        .frequency-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+        }
+
+        .frequency-option {
+            flex: 1;
+            min-width: 80px;
+        }
+
+        .frequency-radio {
+            display: none;
+        }
+
+        .frequency-label {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            border: 1px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .frequency-radio:checked + .frequency-label {
+            background-color: #FF9D4D;
+            color: white;
+            border-color: #FF9D4D;
+        }
+
+        .save-button {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            margin-top: 24px;
+            background-color: #FF9D4D;
+            color: white;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .save-button:hover {
+            background-color: #E68A40;
+        }
+
+        .note-text {
+            font-size: 12px;
+            color: #888;
+            text-align: center;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:48</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用頂部欄 -->
+    <div class="app-bar">
+        <div class="app-bar-left">
+            <a href="settings.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="app-bar-title">
+            通知設定
+        </div>
+        <div class="app-bar-right">
+            <!-- 空白 -->
+        </div>
+    </div>
+    
+    <!-- 主內容區域 -->
+    <div class="content">
+        <div class="section-description">
+            設定您希望接收的通知類型、時間與頻率，幫助您保持練習習慣。
+        </div>
+        
+        <!-- 每日練習提醒 -->
+        <div class="notification-card">
+            <div class="notification-header">
+                <div class="notification-title">每日練習提醒</div>
+                <label class="notification-toggle">
+                    <input type="checkbox" id="daily-practice-toggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="notification-description">
+                在特定時間提醒您進行每日能力覺醒練習
+            </div>
+            <div class="notification-options" id="daily-practice-options" style="display: block;">
+                <div class="option-group">
+                    <label class="option-label">提醒時間</label>
+                    <div class="time-picker">
+                        <select class="time-select" id="daily-hour">
+                            <option value="6">06</option>
+                            <option value="7">07</option>
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20" selected>20</option>
+                            <option value="21">21</option>
+                            <option value="22">22</option>
+                        </select>
+                        <span>:</span>
+                        <select class="time-select" id="daily-minute">
+                            <option value="0">00</option>
+                            <option value="15">15</option>
+                            <option value="30" selected>30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <label class="option-label">提醒日</label>
+                    <div class="days-select">
+                        <input type="checkbox" id="day-mon" class="day-checkbox" checked>
+                        <label for="day-mon" class="day-label">一</label>
+                        
+                        <input type="checkbox" id="day-tue" class="day-checkbox" checked>
+                        <label for="day-tue" class="day-label">二</label>
+                        
+                        <input type="checkbox" id="day-wed" class="day-checkbox" checked>
+                        <label for="day-wed" class="day-label">三</label>
+                        
+                        <input type="checkbox" id="day-thu" class="day-checkbox" checked>
+                        <label for="day-thu" class="day-label">四</label>
+                        
+                        <input type="checkbox" id="day-fri" class="day-checkbox" checked>
+                        <label for="day-fri" class="day-label">五</label>
+                        
+                        <input type="checkbox" id="day-sat" class="day-checkbox" checked>
+                        <label for="day-sat" class="day-label">六</label>
+                        
+                        <input type="checkbox" id="day-sun" class="day-checkbox" checked>
+                        <label for="day-sun" class="day-label">日</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 每週報告 -->
+        <div class="notification-card">
+            <div class="notification-header">
+                <div class="notification-title">每週能力進度報告</div>
+                <label class="notification-toggle">
+                    <input type="checkbox" id="weekly-report-toggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="notification-description">
+                每週回顧您的練習情況與能力提升進度
+            </div>
+            <div class="notification-options" id="weekly-report-options" style="display: block;">
+                <div class="option-group">
+                    <label class="option-label">發送日</label>
+                    <div class="frequency-options">
+                        <div class="frequency-option">
+                            <input type="radio" id="weekly-monday" name="weekly-day" class="frequency-radio">
+                            <label for="weekly-monday" class="frequency-label">週一</label>
+                        </div>
+                        <div class="frequency-option">
+                            <input type="radio" id="weekly-wednesday" name="weekly-day" class="frequency-radio">
+                            <label for="weekly-wednesday" class="frequency-label">週三</label>
+                        </div>
+                        <div class="frequency-option">
+                            <input type="radio" id="weekly-friday" name="weekly-day" class="frequency-radio">
+                            <label for="weekly-friday" class="frequency-label">週五</label>
+                        </div>
+                        <div class="frequency-option">
+                            <input type="radio" id="weekly-sunday" name="weekly-day" class="frequency-radio" checked>
+                            <label for="weekly-sunday" class="frequency-label">週日</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="option-group">
+                    <label class="option-label">發送時間</label>
+                    <div class="time-picker">
+                        <select class="time-select" id="weekly-hour">
+                            <option value="8">08</option>
+                            <option value="9">09</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18" selected>18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
+                        </select>
+                        <span>:</span>
+                        <select class="time-select" id="weekly-minute">
+                            <option value="0" selected>00</option>
+                            <option value="15">15</option>
+                            <option value="30">30</option>
+                            <option value="45">45</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 目標達成通知 -->
+        <div class="notification-card">
+            <div class="notification-header">
+                <div class="notification-title">目標達成通知</div>
+                <label class="notification-toggle">
+                    <input type="checkbox" id="goal-achieved-toggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="notification-description">
+                當您達成練習目標或完成連續練習里程碑時通知您
+            </div>
+            <div class="notification-options" id="goal-achieved-options" style="display: block;">
+                <div class="option-group">
+                    <label class="option-label">通知類型</label>
+                    <div class="frequency-options">
+                        <div class="frequency-option">
+                            <input type="checkbox" id="goal-weekly" class="frequency-radio" checked>
+                            <label for="goal-weekly" class="frequency-label">週目標</label>
+                        </div>
+                        <div class="frequency-option">
+                            <input type="checkbox" id="goal-streak" class="frequency-radio" checked>
+                            <label for="goal-streak" class="frequency-label">連續練習</label>
+                        </div>
+                        <div class="frequency-option">
+                            <input type="checkbox" id="goal-improvement" class="frequency-radio" checked>
+                            <label for="goal-improvement" class="frequency-label">能力提升</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 新功能與更新 -->
+        <div class="notification-card">
+            <div class="notification-header">
+                <div class="notification-title">新功能與更新</div>
+                <label class="notification-toggle">
+                    <input type="checkbox" id="updates-toggle" checked>
+                    <span class="toggle-slider"></span>
+                </label>
+            </div>
+            <div class="notification-description">
+                接收有關新功能、產品更新與特別優惠的通知
+            </div>
+        </div>
+        
+        <button class="save-button" id="save-settings">儲存設定</button>
+        
+        <p class="note-text">
+            請確保您的裝置已授權 AqiveLife 發送通知，否則您可能無法收到提醒。
+        </p>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 開關按鈕事件監聽
+            const toggleInputs = document.querySelectorAll('.notification-toggle input');
+            toggleInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    const cardId = this.id;
+                    const optionsId = cardId.replace('toggle', 'options');
+                    const optionsDiv = document.getElementById(optionsId);
+                    
+                    if (optionsDiv) {
+                        optionsDiv.style.display = this.checked ? 'block' : 'none';
+                    }
+                });
+            });
+            
+            // 保存按鈕點擊事件
+            const saveButton = document.getElementById('save-settings');
+            saveButton.addEventListener('click', function() {
+                // 收集所有設定值
+                const settings = {
+                    dailyPractice: {
+                        enabled: document.getElementById('daily-practice-toggle').checked,
+                        hour: document.getElementById('daily-hour').value,
+                        minute: document.getElementById('daily-minute').value,
+                        days: {
+                            monday: document.getElementById('day-mon').checked,
+                            tuesday: document.getElementById('day-tue').checked,
+                            wednesday: document.getElementById('day-wed').checked,
+                            thursday: document.getElementById('day-thu').checked,
+                            friday: document.getElementById('day-fri').checked,
+                            saturday: document.getElementById('day-sat').checked,
+                            sunday: document.getElementById('day-sun').checked
+                        }
+                    },
+                    weeklyReport: {
+                        enabled: document.getElementById('weekly-report-toggle').checked,
+                        day: document.querySelector('input[name="weekly-day"]:checked')?.id.replace('weekly-', ''),
+                        hour: document.getElementById('weekly-hour').value,
+                        minute: document.getElementById('weekly-minute').value
+                    },
+                    goalAchievement: {
+                        enabled: document.getElementById('goal-achieved-toggle').checked,
+                        weeklyGoal: document.getElementById('goal-weekly').checked,
+                        streak: document.getElementById('goal-streak').checked,
+                        improvement: document.getElementById('goal-improvement').checked
+                    },
+                    updates: {
+                        enabled: document.getElementById('updates-toggle').checked
+                    }
+                };
+                
+                // 儲存到 localStorage
+                localStorage.setItem('notificationSettings', JSON.stringify(settings));
+                
+                // 顯示保存成功提示
+                showSaveConfirmation();
+            });
+            
+            // 載入已儲存的設定
+            loadSavedSettings();
+            
+            // 顯示保存成功提示
+            function showSaveConfirmation() {
+                const toast = document.createElement('div');
+                toast.style.position = 'fixed';
+                toast.style.bottom = '80px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                toast.style.color = 'white';
+                toast.style.padding = '12px 24px';
+                toast.style.borderRadius = '24px';
+                toast.style.fontSize = '14px';
+                toast.style.zIndex = '1000';
+                toast.textContent = '設定已儲存';
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => document.body.removeChild(toast), 500);
+                }, 2000);
+            }
+            
+            // 從 localStorage 載入設定
+            function loadSavedSettings() {
+                const savedSettings = localStorage.getItem('notificationSettings');
+                if (!savedSettings) return;
+                
+                try {
+                    const settings = JSON.parse(savedSettings);
+                    
+                    // 每日練習提醒
+                    if (settings.dailyPractice) {
+                        document.getElementById('daily-practice-toggle').checked = settings.dailyPractice.enabled;
+                        document.getElementById('daily-practice-options').style.display = 
+                            settings.dailyPractice.enabled ? 'block' : 'none';
+                        
+                        if (settings.dailyPractice.hour) {
+                            document.getElementById('daily-hour').value = settings.dailyPractice.hour;
+                        }
+                        if (settings.dailyPractice.minute) {
+                            document.getElementById('daily-minute').value = settings.dailyPractice.minute;
+                        }
+                        
+                        if (settings.dailyPractice.days) {
+                            document.getElementById('day-mon').checked = settings.dailyPractice.days.monday;
+                            document.getElementById('day-tue').checked = settings.dailyPractice.days.tuesday;
+                            document.getElementById('day-wed').checked = settings.dailyPractice.days.wednesday;
+                            document.getElementById('day-thu').checked = settings.dailyPractice.days.thursday;
+                            document.getElementById('day-fri').checked = settings.dailyPractice.days.friday;
+                            document.getElementById('day-sat').checked = settings.dailyPractice.days.saturday;
+                            document.getElementById('day-sun').checked = settings.dailyPractice.days.sunday;
+                        }
+                    }
+                    
+                    // 每週報告
+                    if (settings.weeklyReport) {
+                        document.getElementById('weekly-report-toggle').checked = settings.weeklyReport.enabled;
+                        document.getElementById('weekly-report-options').style.display = 
+                            settings.weeklyReport.enabled ? 'block' : 'none';
+                        
+                        if (settings.weeklyReport.day) {
+                            const dayElement = document.getElementById(`weekly-${settings.weeklyReport.day}`);
+                            if (dayElement) dayElement.checked = true;
+                        }
+                        
+                        if (settings.weeklyReport.hour) {
+                            document.getElementById('weekly-hour').value = settings.weeklyReport.hour;
+                        }
+                        if (settings.weeklyReport.minute) {
+                            document.getElementById('weekly-minute').value = settings.weeklyReport.minute;
+                        }
+                    }
+                    
+                    // 目標達成通知
+                    if (settings.goalAchievement) {
+                        document.getElementById('goal-achieved-toggle').checked = settings.goalAchievement.enabled;
+                        document.getElementById('goal-achieved-options').style.display = 
+                            settings.goalAchievement.enabled ? 'block' : 'none';
+                        
+                        if (settings.goalAchievement.weeklyGoal !== undefined) {
+                            document.getElementById('goal-weekly').checked = settings.goalAchievement.weeklyGoal;
+                        }
+                        if (settings.goalAchievement.streak !== undefined) {
+                            document.getElementById('goal-streak').checked = settings.goalAchievement.streak;
+                        }
+                        if (settings.goalAchievement.improvement !== undefined) {
+                            document.getElementById('goal-improvement').checked = settings.goalAchievement.improvement;
+                        }
+                    }
+                    
+                    // 新功能與更新
+                    if (settings.updates) {
+                        document.getElementById('updates-toggle').checked = settings.updates.enabled;
+                    }
+                    
+                } catch (e) {
+                    console.error('載入設定時發生錯誤：', e);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

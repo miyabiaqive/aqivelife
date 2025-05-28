@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     let timerInterval;
     let isActive = false;
-    let remainingSeconds = 3 * 60; // 3分鐘
+    let remainingSeconds = 6 * 60; // 6分鐘
     let breathingState = 'ready'; // ready, inhale, exhale
     let breathingCycleInterval;
     
@@ -181,7 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         circleLarge.style.opacity = '1';
         
         // 重置計時器
-        remainingSeconds = 3 * 60;
+        remainingSeconds = 6 * 60;
         updateTimerDisplay(remainingSeconds);
         
         // 清除呼吸循環計時器
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // 收集練習數據
         const sessionData = {
             mode: getModeFromTitle(),
-            duration: "3分鐘",
+            duration: "6分鐘",
             completedAt: getCurrentDateTime()
         };
         
