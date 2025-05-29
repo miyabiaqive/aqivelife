@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 未調頻提示</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding: 16px 16px 70px 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 150px);
+        }
+
+        .alert-container {
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            padding: 30px;
+            max-width: 85%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .alert-icon {
+            width: 90px;
+            height: 90px;
+            background-color: rgba(255, 157, 77, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .alert-icon i {
+            font-size: 40px;
+            color: #FF9D4D;
+        }
+
+        .alert-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .alert-message {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 10px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: #F0F0F0;
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .btn-secondary:hover {
+            background-color: #E5E5E5;
+        }
+
+        .wave-animation {
+            position: absolute;
+            bottom: 70px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23FF9D4D" fill-opacity="0.1" d="M0,192L60,176C120,160,240,128,360,133.3C480,139,600,181,720,197.3C840,213,960,203,1080,170.7C1200,139,1320,85,1380,58.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background-repeat: repeat-x;
+            background-position: bottom;
+            background-size: 50% 100%;
+            animation: wave-animation 20s linear infinite;
+        }
+
+        .wave:nth-child(2) {
+            bottom: 10px;
+            opacity: 0.5;
+            animation: wave-animation 15s linear infinite;
+        }
+
+        @keyframes wave-animation {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">14:32</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用頂部欄 -->
+    <div class="app-bar">
+        <div class="app-bar-left">
+            <a href="tracking.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="app-bar-title">
+            今日記錄
+        </div>
+        <div class="app-bar-right">
+            <!-- 空白 -->
+        </div>
+    </div>
+    
+    <!-- 主內容區域 -->
+    <div class="content">
+        <div class="alert-container">
+            <div class="alert-icon">
+                <i class="fas fa-wind"></i>
+            </div>
+            <h1 class="alert-title">今日尚未進行調頻</h1>
+            <p class="alert-message">
+                為了記錄您今日的能力覺醒狀況，<br>
+                請先在首頁進行調頻練習，體驗Aqive氣機的魔力！
+            </p>
+            <a href="home.html" class="btn btn-primary">
+                <i class="fas fa-play-circle" style="margin-right: 8px;"></i>
+                前往調頻
+            </a>
+            <a href="tracking.html" class="btn btn-secondary">
+                返回追蹤頁面
+            </a>
+        </div>
+        
+        <div class="wave-animation">
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 前往調頻按鈕點擊事件
+            document.querySelector('.btn-primary').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+            
+            // 返回追蹤頁面按鈕點擊事件
+            document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'tracking.html';
+            });
+        });
+    </script>
+</body>
+</html> 
