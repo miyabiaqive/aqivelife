@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 今日記錄</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding: 16px 16px 70px 16px;
+        }
+
+        /* 模態框樣式 */
+        .record-container {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            width: 90%;
+            max-width: 500px;
+            max-height: 85vh; /* 限制最大高度為視口高度的85% */
+            overflow-y: auto; /* 內容過多時可滾動 */
+        }
+
+        .record-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 15px;
+            margin-bottom: 20px;
+        }
+
+        .record-header h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 28px;
+            font-weight: bold;
+            color: #aaa;
+            cursor: pointer;
+            padding: 0 5px;
+        }
+
+        .close-btn:hover {
+            color: #333;
+        }
+
+        .record-body .form-group {
+            margin-bottom: 15px;
+        }
+
+        .record-body .form-group label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .record-body .form-group p {
+            font-size: 15px;
+            color: #333;
+            background-color: #f9f9f9;
+            padding: 8px 12px;
+            border-radius: 8px;
+            margin: 0;
+        }
+        
+        .record-body .notes-input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 15px;
+            line-height: 1.6;
+            resize: vertical; /* 允許垂直調整大小 */
+            box-sizing: border-box;
+        }
+        
+        .record-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            margin-top: 15px;
+            position: sticky; /* 確保按鈕在滾動時始終可見 */
+            bottom: 0;
+            background-color: #fff;
+        }
+
+        .btn {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            white-space: nowrap; /* 防止按鈕文字換行 */
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+        }
+
+        .btn-secondary {
+            background-color: #E0E0E0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background-color: #C7C7C7;
+        }
+        
+        /* 模式選擇器 */
+        .mode-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 5px;
+        }
+        
+        .mode-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 8px 12px;
+            background-color: #F5F5F5;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .mode-option:hover {
+            background-color: #EBEBEB;
+        }
+        
+        .mode-option input {
+            margin: 0;
+        }
+        
+        .mode-option input:checked + .mode-name {
+            font-weight: 600;
+            color: #FF9D4D;
+        }
+        
+        /* 控制度UI */
+        .control-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+        
+        .control-header span {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FF9D4D;
+        }
+        
+        /* 改進滑桿樣式 */
+        .tracking-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: #E0E0E0;
+            outline: none;
+            margin: 15px 0 5px 0;
+        }
+        
+        .tracking-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FF9D4D;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .tracking-slider::-moz-range-thumb {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: #FF9D4D;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* 滑桿標籤改進 */
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        /* 練習時長選擇器樣式 */
+        .select-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+            max-width: 150px;
+        }
+        
+        .duration-select {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 100%;
+            padding: 10px 35px 10px 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            font-size: 15px;
+            background-color: #FFFFFF;
+            cursor: pointer;
+        }
+        
+        .select-arrow {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            pointer-events: none;
+        }
+        
+        .custom-duration-input {
+            padding: 10px 15px;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            width: 100px;
+            font-size: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">14:32</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用頂部欄 -->
+    <div class="app-bar">
+        <div class="app-bar-left">
+            <a href="tracking.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+        <div class="app-bar-title">
+            今日記錄
+        </div>
+        <div class="app-bar-right">
+            <!-- 空白 -->
+        </div>
+    </div>
+    
+    <!-- 主內容區域 - 記錄表單 -->
+    <div class="content">
+        <div class="record-container">
+            <div class="record-body">
+                <div class="form-group record-date">
+                    <label>日期：</label>
+                    <p id="recordDate">2025/05/29</p>
+                </div>
+                
+                <!-- 筆記記錄區域 -->
+                <div class="form-group">
+                    <label for="recordNote">能力覺醒日誌：</label>
+                    <textarea id="recordNote" class="notes-input journal-textarea" rows="4" style="height: 100px; max-height: 120px;" placeholder="記錄您的感受和想法..."></textarea>
+                </div>
+                
+                <!-- 選擇練習模式 -->
+                <div class="form-group">
+                    <label>練習模式：</label>
+                    <div class="mode-selector">
+                        <label class="mode-option">
+                            <input type="radio" name="practiceMode" value="氣定神閒模式" checked>
+                            <span class="mode-name">氣定神閒模式</span>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="practiceMode" value="專注平靜模式">
+                            <span class="mode-name">專注平靜模式</span>
+                        </label>
+                        <label class="mode-option">
+                            <input type="radio" name="practiceMode" value="一夜好眠模式">
+                            <span class="mode-name">一夜好眠模式</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <!-- 氣定神閒控制度 -->
+                <div class="form-group">
+                    <div class="control-header">
+                        <label>氣定神閒控制度：</label>
+                        <span id="anxiety-value">5</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="5" class="tracking-slider" id="anxiety-slider">
+                        <div class="slider-labels">
+                            <span>焦慮</span>
+                            <span></span>
+                            <span>極度平靜</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 專注平靜控制度 -->
+                <div class="form-group">
+                    <div class="control-header">
+                        <label>專注平靜控制度：</label>
+                        <span id="focus-value">5</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="5" class="tracking-slider" id="focus-slider">
+                        <div class="slider-labels">
+                            <span>分散</span>
+                            <span></span>
+                            <span>高度專注</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 一夜好眠控制度 -->
+                <div class="form-group">
+                    <div class="control-header">
+                        <label>一夜好眠控制度：</label>
+                        <span id="sleep-value">5</span>
+                    </div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="10" value="5" class="tracking-slider" id="sleep-slider">
+                        <div class="slider-labels">
+                            <span>不佳</span>
+                            <span></span>
+                            <span>優質</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 練習時長 -->
+                <div class="form-group">
+                    <label>練習時長：</label>
+                    <div class="select-wrapper">
+                        <select id="practice-duration" class="duration-select">
+                            <option value="3">3分鐘</option>
+                            <option value="5">5分鐘</option>
+                            <option value="10">10分鐘</option>
+                            <option value="15">15分鐘</option>
+                            <option value="custom">其他</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                    <div id="custom-duration-container" style="display:none; margin-top:10px;">
+                        <input type="number" id="custom-duration" min="1" max="60" value="3" class="custom-duration-input">
+                        <span>分鐘</span>
+                    </div>
+                </div>
+            </div>
+            <div class="record-footer">
+                <button id="saveRecordBtn" class="btn btn-primary">儲存變更</button>
+                <button id="cancelBtn" class="btn btn-secondary">取消</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 設定當前日期
+            const today = new Date();
+            const dateString = `${today.getFullYear()}/${String(today.getMonth() + 1).padStart(2, '0')}/${String(today.getDate()).padStart(2, '0')}`;
+            document.getElementById('recordDate').textContent = dateString;
+            
+            // 獲取滑桿和值顯示元素
+            const anxietySlider = document.getElementById('anxiety-slider');
+            const anxietyValue = document.getElementById('anxiety-value');
+            const focusSlider = document.getElementById('focus-slider');
+            const focusValue = document.getElementById('focus-value');
+            const sleepSlider = document.getElementById('sleep-slider');
+            const sleepValue = document.getElementById('sleep-value');
+            
+            // 練習時長選擇相關
+            const durationSelect = document.getElementById('practice-duration');
+            const customDurationContainer = document.getElementById('custom-duration-container');
+            
+            // 練習模式切換相關
+            const modeRadios = document.querySelectorAll('input[name="practiceMode"]');
+            
+            // 取消按鈕點擊事件
+            document.getElementById('cancelBtn').addEventListener('click', function() {
+                window.location.href = 'tracking.html';
+            });
+            
+            // 儲存按鈕點擊事件
+            document.getElementById('saveRecordBtn').addEventListener('click', function() {
+                // 獲取所有資料
+                const date = document.getElementById('recordDate').textContent;
+                const note = document.getElementById('recordNote').value;
+                const modeElement = document.querySelector('input[name="practiceMode"]:checked');
+                const mode = modeElement ? modeElement.value : '氣定神閒模式';
+                
+                // 根據當前選中的模式獲取相應的控制度值
+                let control;
+                if (mode === '氣定神閒模式') {
+                    control = anxietySlider.value;
+                } else if (mode === '專注平靜模式') {
+                    control = focusSlider.value;
+                } else {
+                    control = sleepSlider.value;
+                }
+                
+                // 獲取練習時長
+                let duration;
+                if (durationSelect.value === 'custom') {
+                    duration = document.getElementById('custom-duration').value || '3';
+                } else {
+                    duration = durationSelect.value;
+                }
+                
+                // 儲存數據到 localStorage
+                const recordData = {
+                    date,
+                    note,
+                    mode,
+                    control,
+                    duration,
+                    timestamp: Date.now()
+                };
+                
+                // 取得現有的記錄資料
+                let records = JSON.parse(localStorage.getItem('dailyRecords')) || [];
+                
+                // 檢查是否已有當天的記錄
+                const existingRecordIndex = records.findIndex(rec => rec.date === date);
+                
+                if (existingRecordIndex >= 0) {
+                    // 更新現有記錄
+                    records[existingRecordIndex] = recordData;
+                } else {
+                    // 添加新記錄
+                    records.push(recordData);
+                }
+                
+                // 儲存回 localStorage
+                localStorage.setItem('dailyRecords', JSON.stringify(records));
+                
+                // 顯示儲存成功提示
+                showSaveSuccess();
+                
+                // 延遲後返回追蹤頁面
+                setTimeout(() => {
+                    window.location.href = 'tracking.html';
+                }, 1500);
+            });
+            
+            // 滑桿值變化事件
+            anxietySlider.addEventListener('input', function() {
+                anxietyValue.textContent = this.value;
+            });
+            
+            focusSlider.addEventListener('input', function() {
+                focusValue.textContent = this.value;
+            });
+            
+            sleepSlider.addEventListener('input', function() {
+                sleepValue.textContent = this.value;
+            });
+            
+            // 練習時長選擇變化事件
+            durationSelect.addEventListener('change', function() {
+                if (this.value === 'custom') {
+                    customDurationContainer.style.display = 'block';
+                } else {
+                    customDurationContainer.style.display = 'none';
+                }
+            });
+            
+            // 顯示儲存成功提示
+            function showSaveSuccess() {
+                const toast = document.createElement('div');
+                toast.style.position = 'fixed';
+                toast.style.bottom = '80px';
+                toast.style.left = '50%';
+                toast.style.transform = 'translateX(-50%)';
+                toast.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                toast.style.color = 'white';
+                toast.style.padding = '12px 24px';
+                toast.style.borderRadius = '24px';
+                toast.style.fontSize = '14px';
+                toast.style.zIndex = '1000';
+                toast.textContent = '記錄已儲存！';
+                
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.style.opacity = '0';
+                    toast.style.transition = 'opacity 0.5s ease';
+                    setTimeout(() => document.body.removeChild(toast), 500);
+                }, 2000);
+            }
+        });
+    </script>
+</body>
+</html> 
