@@ -12,7 +12,7 @@
     <script src="assets/js/shared.js" defer></script>
     <style>
         body {
-            background-color: #F5F5F5;
+            background-color: #F9F9F9;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -45,6 +45,11 @@
             margin-bottom: 16px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             border: 1px solid #EEEEEE;
+            transition: all 0.2s ease;
+        }
+
+        .notification-card:active {
+            transform: scale(0.98);
         }
 
         .notification-header {
@@ -116,6 +121,12 @@
             border-top: 1px solid #EEEEEE;
             padding-top: 16px;
             margin-top: 12px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .option-group {
@@ -142,6 +153,12 @@
             border-radius: 8px;
             font-size: 14px;
             background-color: #FFFFFF;
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 16px;
+            padding-right: 30px;
         }
 
         .days-select {
@@ -172,6 +189,7 @@
             background-color: #FF9D4D;
             color: white;
             border-color: #FF9D4D;
+            box-shadow: 0 2px 4px rgba(255, 157, 77, 0.3);
         }
 
         .frequency-options {
@@ -207,6 +225,7 @@
             background-color: #FF9D4D;
             color: white;
             border-color: #FF9D4D;
+            box-shadow: 0 2px 4px rgba(255, 157, 77, 0.3);
         }
 
         .save-button {
@@ -221,11 +240,16 @@
             border: none;
             border-radius: 12px;
             cursor: pointer;
-            transition: background-color 0.2s ease;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+            box-shadow: 0 2px 4px rgba(255, 157, 77, 0.3);
         }
 
         .save-button:hover {
             background-color: #E68A40;
+        }
+
+        .save-button:active {
+            transform: scale(0.98);
         }
 
         .note-text {
@@ -233,6 +257,47 @@
             color: #888;
             text-align: center;
             margin-top: 16px;
+        }
+        
+        /* 新增的樣式 */
+        .save-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 15px;
+            background-color: #FF9D4D;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .save-icon:active {
+            transform: scale(0.9);
+        }
+        
+        #floating-save-button {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            background-color: #FF9D4D;
+            width: 56px;
+            height: 56px;
+            border-radius: 28px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            justify-content: center;
+            align-items: center;
+            color: white;
+            z-index: 100;
+            cursor: pointer;
+            transform: scale(0);
+            transition: transform 0.3s ease;
+        }
+        
+        #floating-save-button:active {
+            transform: scale(0.9) !important;
         }
     </style>
 </head>
@@ -496,6 +561,52 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始設置
+            const floatingButton = document.getElementById('floating-save-button');
+            const quickSaveButton = document.getElementById('quick-save');
+            let settingsChanged = false;
+            
+            // 顯示浮動保存按鈕的函數
+            function showFloatingButton() {
+                if (!settingsChanged) {
+                    settingsChanged = true;
+                    floatingButton.style.display = 'flex';
+                    
+                    // 添加動畫效果
+                    floatingButton.style.transform = 'scale(0)';
+                    floatingButton.style.transition = 'transform 0.3s ease';
+                    setTimeout(() => {
+                        floatingButton.style.transform = 'scale(1)';
+                    }, 10);
+                }
+            }
+            
+            // 監聽滾動事件，決定是否顯示浮動按鈕
+            let lastScrollY = 0;
+            window.addEventListener('scroll', function() {
+                if (settingsChanged) {
+                    const currentScrollY = window.scrollY;
+                    if (currentScrollY > 100 && currentScrollY > lastScrollY) {
+                        // 向下滾動超過100px，顯示浮動按鈕
+                        floatingButton.style.transform = 'scale(1)';
+                    } else if (currentScrollY < lastScrollY) {
+                        // 向上滾動，隱藏浮動按鈕
+                        floatingButton.style.transform = 'scale(0)';
+                    }
+                    lastScrollY = currentScrollY;
+                }
+            });
+            
+            // 浮動按鈕點擊事件
+            floatingButton.addEventListener('click', function() {
+                saveSettings();
+            });
+            
+            // 右上角快速保存按鈕
+            quickSaveButton.addEventListener('click', function() {
+                saveSettings();
+            });
+
             // 開關按鈕事件監聽
             const toggleInputs = document.querySelectorAll('.notification-toggle input');
             toggleInputs.forEach(input => {
@@ -505,14 +616,27 @@
                     const optionsDiv = document.getElementById(optionsId);
                     
                     if (optionsDiv) {
-                        optionsDiv.style.display = this.checked ? 'block' : 'none';
+                        if (this.checked) {
+                            optionsDiv.style.display = 'block';
+                        } else {
+                            optionsDiv.style.display = 'none';
+                        }
                     }
+                    
+                    showFloatingButton();
                 });
             });
             
-            // 保存按鈕點擊事件
-            const saveButton = document.getElementById('save-settings');
-            saveButton.addEventListener('click', function() {
+            // 所有輸入元素的變更事件
+            const allInputs = document.querySelectorAll('input, select');
+            allInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    showFloatingButton();
+                });
+            });
+            
+            // 保存設定的函數
+            function saveSettings() {
                 // 收集所有設定值
                 const settings = {
                     dailyPractice: {
@@ -549,8 +673,22 @@
                 // 儲存到 localStorage
                 localStorage.setItem('notificationSettings', JSON.stringify(settings));
                 
+                // 隱藏浮動按鈕
+                floatingButton.style.transform = 'scale(0)';
+                setTimeout(() => {
+                    floatingButton.style.display = 'none';
+                }, 300);
+                
+                settingsChanged = false;
+                
                 // 顯示保存成功提示
                 showSaveConfirmation();
+            }
+            
+            // 保存按鈕點擊事件
+            const saveButton = document.getElementById('save-settings');
+            saveButton.addEventListener('click', function() {
+                saveSettings();
             });
             
             // 載入已儲存的設定
@@ -569,9 +707,16 @@
                 toast.style.borderRadius = '24px';
                 toast.style.fontSize = '14px';
                 toast.style.zIndex = '1000';
+                toast.style.opacity = '0';
                 toast.textContent = '設定已儲存';
                 
                 document.body.appendChild(toast);
+                
+                // 加入出現動畫
+                setTimeout(() => {
+                    toast.style.opacity = '1';
+                    toast.style.transition = 'opacity 0.3s ease';
+                }, 10);
                 
                 setTimeout(() => {
                     toast.style.opacity = '0';
@@ -657,6 +802,25 @@
                     console.error('載入設定時發生錯誤：', e);
                 }
             }
+            
+            // 添加卡片點擊折疊/展開效果
+            const cards = document.querySelectorAll('.notification-card');
+            cards.forEach(card => {
+                card.addEventListener('click', function(e) {
+                    // 避免點擊開關或選項時觸發
+                    if (e.target.closest('.notification-toggle') || e.target.closest('.notification-options')) {
+                        return;
+                    }
+                    
+                    const toggle = this.querySelector('.notification-toggle input');
+                    const optionsId = toggle.id.replace('toggle', 'options');
+                    const optionsDiv = document.getElementById(optionsId);
+                    
+                    if (toggle.checked && optionsDiv) {
+                        optionsDiv.style.display = optionsDiv.style.display === 'none' ? 'block' : 'none';
+                    }
+                });
+            });
         });
     </script>
 </body>
