@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 數據統計</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .stats-content {
+            padding: 20px 20px 70px 20px;
+        }
+
+        /* 空狀態容器 */
+        .empty-state-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* 空狀態插圖 */
+        .empty-state-illustration {
+            width: 220px;
+            height: 220px;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration-circle {
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(135deg, rgba(255, 157, 77, 0.1), rgba(255, 157, 77, 0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .illustration-icon {
+            font-size: 90px;
+            color: #FF9D4D;
+            opacity: 0.8;
+        }
+
+        /* 浮動動畫 */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* 裝飾性圖表元素 */
+        .floating-charts {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .chart-element {
+            position: absolute;
+            color: #FF9D4D;
+            opacity: 0.4;
+            animation: floatChart 5s ease-in-out infinite;
+        }
+
+        .chart-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            font-size: 24px;
+            animation-delay: 0s;
+        }
+
+        .chart-element:nth-child(2) {
+            top: 15%;
+            right: 15%;
+            font-size: 20px;
+            animation-delay: 1.5s;
+        }
+
+        .chart-element:nth-child(3) {
+            bottom: 20%;
+            left: 20%;
+            font-size: 22px;
+            animation-delay: 3s;
+        }
+
+        .chart-element:nth-child(4) {
+            bottom: 15%;
+            right: 10%;
+            font-size: 18px;
+            animation-delay: 4.5s;
+        }
+
+        @keyframes floatChart {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.4;
+            }
+            50% {
+                transform: translateY(-20px) rotate(5deg) scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        /* 空狀態文字 */
+        .empty-state-title {
+            font-size: 26px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 35px;
+            max-width: 320px;
+        }
+
+        /* 行動按鈕 */
+        .empty-state-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 157, 77, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #F5F5F5;
+            color: #666;
+            border: 1px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EBEBEB;
+            color: #555;
+        }
+
+        /* 數據預覽卡片 */
+        .data-preview {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 340px;
+        }
+
+        .data-preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .preview-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .preview-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .preview-icon {
+            width: 45px;
+            height: 45px;
+            background-color: rgba(255, 157, 77, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF9D4D;
+            font-size: 20px;
+        }
+
+        .preview-info {
+            flex: 1;
+        }
+
+        .preview-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .preview-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 簡化的標題區域 */
+        .stats-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title-main {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            color: #333;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .empty-state-container {
+                padding: 20px 15px;
+                min-height: calc(100vh - 180px);
+            }
+
+            .empty-state-illustration {
+                width: 180px;
+                height: 180px;
+                margin-bottom: 25px;
+            }
+
+            .illustration-circle {
+                width: 160px;
+                height: 160px;
+            }
+
+            .illustration-icon {
+                font-size: 70px;
+            }
+
+            .empty-state-title {
+                font-size: 22px;
+            }
+
+            .empty-state-subtitle {
+                font-size: 14px;
+                margin-bottom: 30px;
+            }
+
+            .data-preview {
+                margin-top: 35px;
+            }
+        }
+
+        /* 數據流動背景裝飾 */
+        .data-flow-decoration {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .data-stream {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #FF9D4D, transparent);
+            animation: dataFlow 8s linear infinite;
+        }
+
+        .data-stream:nth-child(1) {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .data-stream:nth-child(2) {
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .data-stream:nth-child(3) {
+            left: 50%;
+            animation-delay: 4s;
+        }
+
+        .data-stream:nth-child(4) {
+            left: 70%;
+            animation-delay: 6s;
+        }
+
+        .data-stream:nth-child(5) {
+            left: 90%;
+            animation-delay: 1s;
+        }
+
+        @keyframes dataFlow {
+            0% {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            10%, 90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(calc(100vh + 100px));
+                opacity: 0;
+            }
+        }
+
+        /* 統計卡片預覽 */
+        .stats-preview {
+            margin-top: 30px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .stat-preview-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 12px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+            opacity: 0.6;
+        }
+
+        .stat-preview-value {
+            font-size: 20px;
+            font-weight: 600;
+            color: #DDD;
+            margin-bottom: 4px;
+        }
+
+        .stat-preview-label {
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">數據統計</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 統計內容 -->
+    <div class="stats-content">
+        <!-- 標題 -->
+        <div class="stats-header">
+            <div class="section-title-main">您的健康數據</div>
+        </div>
+        
+        <!-- 空狀態容器 -->
+        <div class="empty-state-container">
+            <!-- 空狀態插圖 -->
+            <div class="empty-state-illustration">
+                <div class="floating-charts">
+                    <div class="chart-element">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="chart-element">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="chart-element">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <div class="chart-element">
+                        <i class="fas fa-chart-area"></i>
+                    </div>
+                </div>
+                <div class="illustration-circle">
+                    <div class="illustration-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 空狀態文字 -->
+            <h2 class="empty-state-title">開始收集您的數據</h2>
+            <p class="empty-state-subtitle">
+                完成幾次調頻體驗後，這裡將顯示您的個人化健康數據分析和趨勢圖表。
+            </p>
+            
+            <!-- 統計卡片預覽 -->
+            <div class="stats-preview">
+                <div class="stat-preview-card">
+                    <div class="stat-preview-value">--</div>
+                    <div class="stat-preview-label">練習次數</div>
+                </div>
+                <div class="stat-preview-card">
+                    <div class="stat-preview-value">--</div>
+                    <div class="stat-preview-label">平均控制度</div>
+                </div>
+                <div class="stat-preview-card">
+                    <div class="stat-preview-value">--</div>
+                    <div class="stat-preview-label">連續天數</div>
+                </div>
+                <div class="stat-preview-card">
+                    <div class="stat-preview-value">--</div>
+                    <div class="stat-preview-label">總時長</div>
+                </div>
+            </div>
+            
+            <!-- 行動按鈕 -->
+            <div class="empty-state-actions">
+                <a href="home.html" class="btn btn-primary">
+                    <i class="fas fa-play-circle"></i>
+                    開始第一次調頻
+                </a>
+                <a href="tracking.html" class="btn btn-secondary">
+                    <i class="fas fa-book-open"></i>
+                    查看記錄頁面
+                </a>
+            </div>
+            
+            <!-- 數據預覽 -->
+            <div class="data-preview">
+                <h3 class="data-preview-title">您將獲得的數據洞察</h3>
+                <div class="preview-cards">
+                    <div class="preview-card">
+                        <div class="preview-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="preview-info">
+                            <div class="preview-name">身心狀態趨勢</div>
+                            <div class="preview-desc">追蹤焦慮、專注力和睡眠質量的變化</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-card">
+                        <div class="preview-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="preview-info">
+                            <div class="preview-name">使用時間分析</div>
+                            <div class="preview-desc">了解您的調頻習慣和最佳時段</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-card">
+                        <div class="preview-icon">
+                            <i class="fas fa-target"></i>
+                        </div>
+                        <div class="preview-info">
+                            <div class="preview-name">目標達成追蹤</div>
+                            <div class="preview-desc">監控您的練習目標完成情況</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-card">
+                        <div class="preview-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <div class="preview-info">
+                            <div class="preview-name">個人化建議</div>
+                            <div class="preview-desc">基於數據提供專屬的改善建議</div>
+                        </div>
+                    </div>
+                    
+                    <div class="preview-card">
+                        <div class="preview-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="preview-info">
+                            <div class="preview-name">相關性分析</div>
+                            <div class="preview-desc">發現影響您健康狀態的關鍵因素</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 數據流動背景裝飾 -->
+        <div class="data-flow-decoration">
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+            <div class="data-stream"></div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 開始第一次調頻按鈕點擊事件
+            document.querySelector('.btn-primary').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+            
+            // 查看記錄頁面按鈕點擊事件
+            document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'tracking.html';
+            });
+            
+            // 預覽卡片點擊效果
+            document.querySelectorAll('.preview-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // 添加點擊動畫效果
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // 添加頁面載入動畫
+            const container = document.querySelector('.empty-state-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // 統計卡片預覽依序出現動畫
+            const statCards = document.querySelectorAll('.stat-preview-card');
+            statCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(15px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    card.style.opacity = '0.6';
+                    card.style.transform = 'translateY(0)';
+                }, 600 + (index * 100));
+            });
+            
+            // 預覽卡片依序出現動畫
+            const previewCards = document.querySelectorAll('.preview-card');
+            previewCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 1000 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html> 
