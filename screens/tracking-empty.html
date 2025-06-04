@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 狀態追蹤</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .tracking-content {
+            padding: 20px 20px 70px 20px;
+        }
+
+        /* 空狀態容器 */
+        .empty-state-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 200px);
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        /* 空狀態插圖 */
+        .empty-state-illustration {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 30px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration-circle {
+            width: 180px;
+            height: 180px;
+            background: linear-gradient(135deg, rgba(255, 157, 77, 0.1), rgba(255, 157, 77, 0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .illustration-icon {
+            font-size: 80px;
+            color: #FF9D4D;
+            opacity: 0.8;
+        }
+
+        /* 浮動動畫 */
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* 裝飾性元素 */
+        .floating-dots {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+
+        .dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #FF9D4D;
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: floatDot 4s ease-in-out infinite;
+        }
+
+        .dot:nth-child(1) {
+            top: 20%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            top: 30%;
+            right: 20%;
+            animation-delay: 1s;
+        }
+
+        .dot:nth-child(3) {
+            bottom: 25%;
+            left: 25%;
+            animation-delay: 2s;
+        }
+
+        .dot:nth-child(4) {
+            bottom: 35%;
+            right: 15%;
+            animation-delay: 3s;
+        }
+
+        @keyframes floatDot {
+            0%, 100% {
+                transform: translateY(0px) scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: translateY(-15px) scale(1.2);
+                opacity: 0.6;
+            }
+        }
+
+        /* 空狀態文字 */
+        .empty-state-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .empty-state-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            max-width: 300px;
+        }
+
+        /* 行動按鈕 */
+        .empty-state-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+            max-width: 280px;
+        }
+
+        .btn {
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 157, 77, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #F5F5F5;
+            color: #666;
+            border: 1px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EBEBEB;
+            color: #555;
+        }
+
+        /* 功能預覽卡片 */
+        .feature-preview {
+            margin-top: 50px;
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .feature-preview-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .feature-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .feature-card {
+            background-color: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 157, 77, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #FF9D4D;
+            font-size: 18px;
+        }
+
+        .feature-info {
+            flex: 1;
+        }
+
+        .feature-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .feature-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        /* 簡化的標題區域 */
+        .tracking-header {
+            margin-bottom: 20px;
+        }
+
+        .section-title-main {
+            font-size: 20px;
+            font-weight: 600;
+            margin: 0;
+            color: #333;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .empty-state-container {
+                padding: 20px 15px;
+                min-height: calc(100vh - 180px);
+            }
+
+            .empty-state-illustration {
+                width: 160px;
+                height: 160px;
+                margin-bottom: 25px;
+            }
+
+            .illustration-circle {
+                width: 140px;
+                height: 140px;
+            }
+
+            .illustration-icon {
+                font-size: 60px;
+            }
+
+            .empty-state-title {
+                font-size: 20px;
+            }
+
+            .empty-state-subtitle {
+                font-size: 14px;
+                margin-bottom: 25px;
+            }
+
+            .feature-preview {
+                margin-top: 30px;
+            }
+        }
+
+        /* 波浪背景裝飾 */
+        .wave-decoration {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 200%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 320" xmlns="http://www.w3.org/2000/svg"><path fill="%23FF9D4D" fill-opacity="0.1" d="M0,192L60,176C120,160,240,128,360,133.3C480,139,600,181,720,197.3C840,213,960,203,1080,170.7C1200,139,1320,85,1380,58.7L1440,32L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path></svg>');
+            background-repeat: repeat-x;
+            background-position: bottom;
+            background-size: 50% 100%;
+            animation: wave-animation 20s linear infinite;
+        }
+
+        @keyframes wave-animation {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">狀態追蹤</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 追蹤內容 -->
+    <div class="tracking-content">
+        <!-- 標題 -->
+        <div class="tracking-header">
+            <div class="section-title-main">能力覺醒日誌</div>
+        </div>
+        
+        <!-- 空狀態容器 -->
+        <div class="empty-state-container">
+            <!-- 空狀態插圖 -->
+            <div class="empty-state-illustration">
+                <div class="floating-dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+                <div class="illustration-circle">
+                    <div class="illustration-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 空狀態文字 -->
+            <h2 class="empty-state-title">開始您的覺醒之旅</h2>
+            <p class="empty-state-subtitle">
+                記錄每一次調頻體驗，追蹤您的身心成長軌跡，讓每一天都充滿正向能量。
+            </p>
+            
+            <!-- 行動按鈕 -->
+            <div class="empty-state-actions">
+                <a href="daily-record.html" class="btn btn-primary">
+                    <i class="fas fa-plus-circle"></i>
+                    開始第一次記錄
+                </a>
+                <a href="home.html" class="btn btn-secondary">
+                    <i class="fas fa-home"></i>
+                    返回首頁調頻
+                </a>
+            </div>
+            
+            <!-- 功能預覽 -->
+            <div class="feature-preview">
+                <h3 class="feature-preview-title">您將可以追蹤</h3>
+                <div class="feature-cards">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="feature-info">
+                            <div class="feature-name">控制度變化</div>
+                            <div class="feature-desc">記錄每次調頻後的身心狀態改善程度</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="feature-info">
+                            <div class="feature-name">練習日曆</div>
+                            <div class="feature-desc">視覺化顯示您的練習頻率與連續天數</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="feature-info">
+                            <div class="feature-name">成長趨勢</div>
+                            <div class="feature-desc">觀察長期的身心狀態提升軌跡</div>
+                        </div>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-book-open"></i>
+                        </div>
+                        <div class="feature-info">
+                            <div class="feature-name">覺醒日誌</div>
+                            <div class="feature-desc">記錄每次體驗的感受與心得</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 波浪背景裝飾 -->
+        <div class="wave-decoration">
+            <div class="wave"></div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="tracking.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="stats.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 開始第一次記錄按鈕點擊事件
+            document.querySelector('.btn-primary').addEventListener('click', function(e) {
+                e.preventDefault();
+                // 檢查是否已有今日調頻記錄
+                const hasRitualToday = localStorage.getItem('hasRitualToday') === 'true';
+                
+                if (hasRitualToday) {
+                    // 如果已有調頻記錄，直接前往記錄頁面
+                    window.location.href = 'daily-record.html';
+                } else {
+                    // 如果沒有調頻記錄，前往未調頻提示頁面
+                    window.location.href = 'no-ritual-alert.html';
+                }
+            });
+            
+            // 返回首頁按鈕點擊事件
+            document.querySelector('.btn-secondary').addEventListener('click', function(e) {
+                e.preventDefault();
+                window.location.href = 'home.html';
+            });
+            
+            // 功能卡片點擊效果
+            document.querySelectorAll('.feature-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    // 添加點擊動畫效果
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+            
+            // 添加頁面載入動畫
+            const container = document.querySelector('.empty-state-container');
+            container.style.opacity = '0';
+            container.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                container.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                container.style.opacity = '1';
+                container.style.transform = 'translateY(0)';
+            }, 100);
+            
+            // 功能卡片依序出現動畫
+            const featureCards = document.querySelectorAll('.feature-card');
+            featureCards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 800 + (index * 100));
+            });
+        });
+    </script>
+</body>
+</html> 
