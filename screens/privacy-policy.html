@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 隱私權政策</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #F9F9F9;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .privacy-content {
+            padding: 20px 20px 100px 20px;
+        }
+
+        /* 標題區域 */
+        .privacy-header {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .privacy-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .privacy-subtitle {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 內容卡片 */
+        .privacy-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        /* 章節標題 */
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #FF9D4D;
+            display: inline-block;
+        }
+
+        /* 子標題 */
+        .subsection-title {
+            font-size: 16px;
+            font-weight: 500;
+            color: #444;
+            margin: 20px 0 12px 0;
+        }
+
+        /* 內容文字 */
+        .privacy-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        /* 列表樣式 */
+        .privacy-list {
+            margin: 16px 0;
+            padding-left: 0;
+        }
+
+        .privacy-list li {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            list-style: none;
+        }
+
+        .privacy-list li::before {
+            content: "•";
+            color: #FF9D4D;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* 重要提示框 */
+        .important-notice {
+            background-color: rgba(255, 157, 77, 0.1);
+            border-left: 4px solid #FF9D4D;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .important-notice .notice-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #FF9D4D;
+            margin-bottom: 8px;
+        }
+
+        .important-notice .notice-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 數據類型卡片 */
+        .data-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .data-type-card {
+            background-color: #F8F9FA;
+            border-radius: 12px;
+            padding: 16px;
+            border-left: 4px solid #FF9D4D;
+        }
+
+        .data-type-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .data-type-title i {
+            color: #FF9D4D;
+            margin-right: 8px;
+        }
+
+        .data-type-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 權利卡片 */
+        .rights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+            margin: 20px 0;
+        }
+
+        .right-card {
+            background-color: white;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 16px;
+            transition: all 0.2s;
+        }
+
+        .right-card:hover {
+            border-color: #FF9D4D;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.1);
+        }
+
+        .right-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .right-title i {
+            color: #FF9D4D;
+            margin-right: 8px;
+        }
+
+        .right-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 聯絡資訊 */
+        .contact-info {
+            background-color: #F8F9FA;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .contact-info .contact-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .contact-item i {
+            color: #FF9D4D;
+            margin-right: 10px;
+            width: 16px;
+        }
+
+        /* 底部按鈕 */
+        .privacy-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 157, 77, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #F5F5F5;
+            color: #666;
+            border: 1px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EBEBEB;
+            color: #555;
+        }
+
+        /* 日期標記 */
+        .date-badge {
+            display: inline-block;
+            background-color: rgba(255, 157, 77, 0.1);
+            color: #FF9D4D;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            margin-bottom: 20px;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .privacy-content {
+                padding: 15px 15px 100px 15px;
+            }
+
+            .privacy-card {
+                padding: 20px;
+                margin-bottom: 16px;
+            }
+
+            .privacy-title {
+                font-size: 22px;
+            }
+
+            .section-title {
+                font-size: 16px;
+            }
+
+            .data-type-grid,
+            .rights-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* 滾動指示器 */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: #FF9D4D;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+    </style>
+</head>
+<body>
+    <!-- 滾動指示器 -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="terms-of-service.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">隱私權政策</div>
+        <div class="app-bar-action"></div>
+    </div>
+
+    <!-- 隱私權政策內容 -->
+    <div class="privacy-content">
+        <!-- 標題區域 -->
+        <div class="privacy-header">
+            <h1 class="privacy-title">AqiveLife 隱私權政策</h1>
+            <p class="privacy-subtitle">我們重視您的隱私權，本政策說明我們如何收集、使用和保護您的個人資訊</p>
+            <div class="date-badge">最後更新：2024年1月15日</div>
+        </div>
+
+        <!-- 概述 -->
+        <div class="privacy-card">
+            <h2 class="section-title">1. 隱私權政策概述</h2>
+            <p class="privacy-text">
+                AqiveLife（以下簡稱「我們」）致力於保護您的隱私權。本隱私權政策說明我們如何收集、使用、儲存和保護您在使用我們服務時提供的個人資訊。
+            </p>
+            <p class="privacy-text">
+                我們遵循最高的隱私保護標準，包括但不限於《個人資料保護法》、《歐盟一般資料保護規範》(GDPR) 等相關法規。
+            </p>
+            
+            <div class="important-notice">
+                <div class="notice-title">重要承諾</div>
+                <div class="notice-text">
+                    我們絕不會在未經您明確同意的情況下，將您的個人健康資訊出售、出租或分享給第三方用於商業目的。
+                </div>
+            </div>
+        </div>
+
+        <!-- 收集的資訊類型 -->
+        <div class="privacy-card">
+            <h2 class="section-title">2. 我們收集的資訊類型</h2>
+            <p class="privacy-text">
+                為了提供個人化的健康服務，我們可能收集以下類型的資訊：
+            </p>
+
+            <div class="data-type-grid">
+                <div class="data-type-card">
+                    <div class="data-type-title">
+                        <i class="fas fa-user"></i>
+                        基本個人資訊
+                    </div>
+                    <div class="data-type-desc">
+                        姓名、電子郵件地址、年齡、性別等基本身份資訊
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <div class="data-type-title">
+                        <i class="fas fa-heartbeat"></i>
+                        健康相關資訊
+                    </div>
+                    <div class="data-type-desc">
+                        焦慮程度、睡眠質量、專注力狀態、調頻體驗記錄
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <div class="data-type-title">
+                        <i class="fas fa-mobile-alt"></i>
+                        設備與使用資訊
+                    </div>
+                    <div class="data-type-desc">
+                        設備類型、作業系統、應用程式使用時間和頻率
+                    </div>
+                </div>
+
+                <div class="data-type-card">
+                    <div class="data-type-title">
+                        <i class="fas fa-chart-line"></i>
+                        分析與偏好資訊
+                    </div>
+                    <div class="data-type-desc">
+                        使用模式、偏好設定、互動行為和回饋資訊
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 資訊使用目的 -->
+        <div class="privacy-card">
+            <h2 class="section-title">3. 資訊使用目的</h2>
+            <p class="privacy-text">我們收集您的資訊主要用於以下目的：</p>
+            
+            <ul class="privacy-list">
+                <li>提供個人化的調頻體驗和健康建議</li>
+                <li>追蹤和分析您的健康狀態變化趨勢</li>
+                <li>改善和優化我們的服務功能</li>
+                <li>提供客戶支援和技術協助</li>
+                <li>發送重要的服務通知和更新</li>
+                <li>進行匿名化的研究分析以改善產品</li>
+                <li>確保服務安全性和防範詐欺行為</li>
+            </ul>
+
+            <h3 class="subsection-title">3.1 個人化服務</h3>
+            <p class="privacy-text">
+                我們使用您的健康資訊來提供量身定制的調頻程序和建議，幫助您更有效地改善身心健康狀態。
+            </p>
+
+            <h3 class="subsection-title">3.2 研究與開發</h3>
+            <p class="privacy-text">
+                我們可能使用匿名化和去識別化的資料進行科學研究，以改善我們的服務和開發新功能。這些研究不會包含任何可識別個人身份的資訊。
+            </p>
+        </div>
+
+        <!-- 資訊分享與揭露 -->
+        <div class="privacy-card">
+            <h2 class="section-title">4. 資訊分享與揭露</h2>
+            <p class="privacy-text">
+                我們承諾保護您的隱私，除以下情況外，不會與第三方分享您的個人資訊：
+            </p>
+
+            <h3 class="subsection-title">4.1 經您同意的分享</h3>
+            <p class="privacy-text">
+                在獲得您明確同意的情況下，我們可能與您指定的醫療專業人員或健康顧問分享相關資訊。
+            </p>
+
+            <h3 class="subsection-title">4.2 服務提供商</h3>
+            <p class="privacy-text">
+                我們可能與可信賴的第三方服務提供商分享必要資訊，以協助提供服務（如雲端儲存、數據分析）。這些合作夥伴均受嚴格的保密協議約束。
+            </p>
+
+            <h3 class="subsection-title">4.3 法律要求</h3>
+            <p class="privacy-text">
+                在法律要求或政府機關合法要求的情況下，我們可能需要揭露您的資訊。
+            </p>
+
+            <div class="important-notice">
+                <div class="notice-title">絕不商業化</div>
+                <div class="notice-text">
+                    我們絕不會將您的個人健康資訊出售給廣告商、保險公司或其他商業機構。
+                </div>
+            </div>
+        </div>
+
+        <!-- 資料安全 -->
+        <div class="privacy-card">
+            <h2 class="section-title">5. 資料安全措施</h2>
+            <p class="privacy-text">
+                我們採用多層次的安全措施來保護您的個人資訊：
+            </p>
+
+            <ul class="privacy-list">
+                <li>端到端加密傳輸和儲存</li>
+                <li>定期安全審計和漏洞掃描</li>
+                <li>嚴格的存取控制和身份驗證</li>
+                <li>員工隱私保護培訓和保密協議</li>
+                <li>符合國際安全標準的資料中心</li>
+                <li>定期備份和災難恢復計劃</li>
+            </ul>
+
+            <h3 class="subsection-title">5.1 技術安全措施</h3>
+            <p class="privacy-text">
+                我們使用 AES-256 加密標準保護您的資料，並採用 TLS 1.3 協議確保資料傳輸安全。所有敏感資訊都經過加密處理，即使是我們的員工也無法直接存取您的原始健康資料。
+            </p>
+
+            <h3 class="subsection-title">5.2 組織安全措施</h3>
+            <p class="privacy-text">
+                我們建立了完善的資訊安全管理制度，包括最小權限原則、定期安全培訓和嚴格的資料存取記錄。
+            </p>
+        </div>
+
+        <!-- 您的權利 -->
+        <div class="privacy-card">
+            <h2 class="section-title">6. 您的隱私權利</h2>
+            <p class="privacy-text">
+                根據相關法律法規，您享有以下隱私權利：
+            </p>
+
+            <div class="rights-grid">
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-eye"></i>
+                        查閱權
+                    </div>
+                    <div class="right-desc">
+                        您有權查閱我們持有的您的個人資訊
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-edit"></i>
+                        更正權
+                    </div>
+                    <div class="right-desc">
+                        您有權要求更正不準確或不完整的個人資訊
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-trash"></i>
+                        刪除權
+                    </div>
+                    <div class="right-desc">
+                        您有權要求刪除您的個人資訊（被遺忘權）
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-download"></i>
+                        可攜權
+                    </div>
+                    <div class="right-desc">
+                        您有權以結構化格式獲取您的個人資訊
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-ban"></i>
+                        反對權
+                    </div>
+                    <div class="right-desc">
+                        您有權反對我們處理您的個人資訊
+                    </div>
+                </div>
+
+                <div class="right-card">
+                    <div class="right-title">
+                        <i class="fas fa-pause"></i>
+                        限制權
+                    </div>
+                    <div class="right-desc">
+                        您有權要求限制我們處理您的個人資訊
+                    </div>
+                </div>
+            </div>
+
+            <p class="privacy-text">
+                如需行使上述權利，請透過本政策末尾的聯絡方式與我們聯繫。我們將在收到請求後 30 天內回應。
+            </p>
+        </div>
+
+        <!-- 資料保存 -->
+        <div class="privacy-card">
+            <h2 class="section-title">7. 資料保存期限</h2>
+            <p class="privacy-text">
+                我們僅在必要期間內保存您的個人資訊：
+            </p>
+
+            <ul class="privacy-list">
+                <li>帳戶資訊：在您的帳戶有效期間</li>
+                <li>健康資料：在您使用服務期間及之後 3 年</li>
+                <li>使用記錄：最多保存 2 年</li>
+                <li>客服記錄：最多保存 1 年</li>
+            </ul>
+
+            <p class="privacy-text">
+                當保存期限屆滿或您要求刪除時，我們將安全地刪除或匿名化您的個人資訊。
+            </p>
+        </div>
+
+        <!-- 政策更新 -->
+        <div class="privacy-card">
+            <h2 class="section-title">8. 隱私權政策更新</h2>
+            <p class="privacy-text">
+                我們可能會不定期更新本隱私權政策，以反映我們服務的變化或法律要求的更新。重大變更將通過以下方式通知您：
+            </p>
+
+            <ul class="privacy-list">
+                <li>應用程式內通知</li>
+                <li>電子郵件通知</li>
+                <li>官方網站公告</li>
+            </ul>
+
+            <p class="privacy-text">
+                建議您定期查閱本政策，以了解我們如何保護您的資訊。繼續使用我們的服務即表示您接受更新後的政策。
+            </p>
+        </div>
+
+        <!-- 聯絡資訊 -->
+        <div class="privacy-card">
+            <h2 class="section-title">9. 聯絡我們</h2>
+            <p class="privacy-text">
+                如果您對本隱私權政策有任何疑問，或需要行使您的隱私權利，請透過以下方式聯絡我們：
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-title">隱私權聯絡資訊</div>
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>privacy@aqivelife.com</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>資料保護專員</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>台北市信義區信義路五段7號</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-clock"></i>
+                    <span>回應時間：收到請求後 30 天內</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部按鈕 -->
+    <div class="privacy-actions">
+        <a href="terms-of-service.html" class="btn btn-secondary">返回服務條款</a>
+        <a href="home.html" class="btn btn-primary">我已了解</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 滾動進度指示器
+            function updateScrollIndicator() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+            }
+
+            window.addEventListener('scroll', updateScrollIndicator);
+
+            // 平滑滾動到頂部
+            function scrollToTop() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }
+
+            // 添加返回頂部功能（雙擊標題）
+            document.querySelector('.privacy-title').addEventListener('dblclick', scrollToTop);
+
+            // 頁面載入動畫
+            const cards = document.querySelectorAll('.privacy-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+
+            // 權利卡片懸停效果
+            document.querySelectorAll('.right-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-2px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // 重要提示框點擊效果
+            document.querySelectorAll('.important-notice').forEach(notice => {
+                notice.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html> 
