@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
         body {
-            background-color: #F9F9F9;
+            background-color: #ffffff;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -413,8 +413,7 @@
         <a href="home.html" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <div class="app-title">數據統計</div>
-        <div class="app-bar-action"></div>
+        <div class="app-title">數據分析</div>
     </div>
 
     <!-- 統計內容 -->
@@ -452,7 +451,7 @@
             <!-- 空狀態文字 -->
             <h2 class="empty-state-title">開始收集您的數據</h2>
             <p class="empty-state-subtitle">
-                完成幾次調頻體驗後，這裡將顯示您的個人化健康數據分析和趨勢圖表。
+                完成幾次調氣體驗後，這裡將顯示您的個人化健康數據分析和趨勢圖表。
             </p>
             
             <!-- 統計卡片預覽 -->
@@ -479,7 +478,7 @@
             <div class="empty-state-actions">
                 <a href="home.html" class="btn btn-primary">
                     <i class="fas fa-play-circle"></i>
-                    開始第一次調頻
+                    開始第一次調氣
                 </a>
                 <a href="tracking.html" class="btn btn-secondary">
                     <i class="fas fa-book-open"></i>
@@ -507,7 +506,7 @@
                         </div>
                         <div class="preview-info">
                             <div class="preview-name">使用時間分析</div>
-                            <div class="preview-desc">了解您的調頻習慣和最佳時段</div>
+                            <div class="preview-desc">了解您的調氣習慣和最佳時段</div>
                         </div>
                     </div>
                     
@@ -584,7 +583,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 開始第一次調頻按鈕點擊事件
+            // 開始第一次調氣按鈕點擊事件
             document.querySelector('.btn-primary').addEventListener('click', function(e) {
                 e.preventDefault();
                 window.location.href = 'home.html';

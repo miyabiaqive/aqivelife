@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 服務條款同意</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .agreement-content {
+            padding: 20px 20px 120px 20px;
+            max-width: 100%;
+        }
+
+        /* 歡迎區域 */
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 30px 20px;
+            background: linear-gradient(135deg, rgba(255, 157, 77, 0.1) 0%, rgba(91, 204, 222, 0.1) 100%);
+            border-radius: 20px;
+        }
+
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            background-color: #FF9D4D;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 36px;
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .welcome-subtitle {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.5;
+        }
+
+        /* 條款卡片 */
+        .terms-cards {
+            margin-bottom: 30px;
+        }
+
+        .terms-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #EEEEEE;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .terms-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .terms-card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .terms-card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            margin-right: 16px;
+        }
+
+        .icon-orange {
+            background-color: #FF9D4D;
+        }
+
+        .icon-blue {
+            background-color: #5BCCDE;
+        }
+
+        .terms-card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            flex: 1;
+        }
+
+        .terms-card-arrow {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .terms-card-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .terms-card-highlights {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .highlight-tag {
+            background-color: rgba(255, 157, 77, 0.1);
+            color: #FF9D4D;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* 同意區域 */
+        .agreement-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .agreement-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .agreement-title i {
+            color: #FF9D4D;
+            margin-right: 8px;
+        }
+
+        .checkbox-group {
+            margin-bottom: 20px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            cursor: pointer;
+            padding: 12px;
+            border-radius: 12px;
+            transition: background-color 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background-color: rgba(255, 157, 77, 0.05);
+        }
+
+        .checkbox-item.checked {
+            background-color: rgba(255, 157, 77, 0.1);
+        }
+
+        .custom-checkbox {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #E0E0E0;
+            border-radius: 4px;
+            margin-right: 12px;
+            margin-top: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+
+        .custom-checkbox.checked {
+            background-color: #FF9D4D;
+            border-color: #FF9D4D;
+            color: white;
+        }
+
+        .checkbox-text {
+            flex: 1;
+            font-size: 15px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .checkbox-link {
+            color: #FF9D4D;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .checkbox-link:hover {
+            color: #E68A40;
+        }
+
+        /* 重要提示 */
+        .important-notice {
+            background-color: rgba(255, 157, 77, 0.1);
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .notice-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #FF9D4D;
+            margin-bottom: 8px;
+        }
+
+        .notice-text {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* 底部按鈕 */
+        .agreement-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 157, 77, 0.4);
+        }
+
+        .btn-primary:disabled {
+            background-color: #E0E0E0;
+            color: #999;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .btn-secondary {
+            background-color: #F5F5F5;
+            color: #666;
+            border: 1px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EBEBEB;
+            color: #555;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .agreement-content {
+                padding: 15px 15px 120px 15px;
+            }
+
+            .welcome-section {
+                padding: 20px 16px;
+            }
+
+            .terms-card,
+            .agreement-section {
+                padding: 16px;
+            }
+
+            .welcome-title {
+                font-size: 22px;
+            }
+        }
+
+        /* 載入動畫 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar title-only">
+        <div class="app-title">服務條款同意</div>
+    </div>
+
+    <!-- 同意頁面內容 -->
+    <div class="agreement-content">
+        <!-- 歡迎區域 -->
+        <div class="welcome-section fade-in">
+            <div class="welcome-icon">
+                <i class="fas fa-shield-alt"></i>
+            </div>
+            <h1 class="welcome-title">歡迎使用 AqiveLife</h1>
+            <p class="welcome-subtitle">
+                為了提供您最佳的服務體驗並保護您的權益，<br>
+                請花一點時間了解我們的服務條款和隱私權政策
+            </p>
+        </div>
+
+        <!-- 條款卡片 -->
+        <div class="terms-cards">
+            <div class="terms-card fade-in" onclick="openTermsOfService()" style="animation-delay: 0.1s">
+                <div class="terms-card-header">
+                    <div class="terms-card-icon icon-orange">
+                        <i class="fas fa-file-contract"></i>
+                    </div>
+                    <div class="terms-card-title">服務條款</div>
+                    <div class="terms-card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="terms-card-desc">
+                    了解使用 AqiveLife 服務的相關規範、權利義務及責任範圍
+                </div>
+                <div class="terms-card-highlights">
+                    <span class="highlight-tag">服務使用規範</span>
+                    <span class="highlight-tag">用戶責任</span>
+                    <span class="highlight-tag">免責聲明</span>
+                </div>
+            </div>
+
+            <div class="terms-card fade-in" onclick="openPrivacyPolicy()" style="animation-delay: 0.2s">
+                <div class="terms-card-header">
+                    <div class="terms-card-icon icon-blue">
+                        <i class="fas fa-user-shield"></i>
+                    </div>
+                    <div class="terms-card-title">隱私權政策</div>
+                    <div class="terms-card-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+                <div class="terms-card-desc">
+                    了解我們如何收集、使用和保護您的個人資訊及健康數據
+                </div>
+                <div class="terms-card-highlights">
+                    <span class="highlight-tag">數據收集</span>
+                    <span class="highlight-tag">隱私保護</span>
+                    <span class="highlight-tag">資訊安全</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- 同意區域 -->
+        <div class="agreement-section fade-in" style="animation-delay: 0.3s">
+            <h3 class="agreement-title">
+                <i class="fas fa-check-circle"></i>
+                請確認您的同意
+            </h3>
+
+            <div class="checkbox-group">
+                <div class="checkbox-item" onclick="toggleCheckbox('terms')" id="terms-checkbox">
+                    <div class="custom-checkbox" id="terms-check">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        我已閱讀並同意 <span class="checkbox-link" onclick="event.stopPropagation(); openTermsOfService();">服務條款</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox('privacy')" id="privacy-checkbox">
+                    <div class="custom-checkbox" id="privacy-check">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        我已閱讀並同意 <span class="checkbox-link" onclick="event.stopPropagation(); openPrivacyPolicy();">隱私權政策</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-item" onclick="toggleCheckbox('marketing')" id="marketing-checkbox">
+                    <div class="custom-checkbox" id="marketing-check">
+                        <i class="fas fa-check" style="display: none;"></i>
+                    </div>
+                    <div class="checkbox-text">
+                        我同意接收產品更新、健康建議及相關行銷資訊（可選）
+                    </div>
+                </div>
+            </div>
+
+            <div class="important-notice">
+                <div class="notice-title">重要提醒</div>
+                <div class="notice-text">
+                    • 您必須同意服務條款和隱私權政策才能使用 AqiveLife<br>
+                    • 行銷資訊同意為可選項目，您可以隨時在設定中變更<br>
+                    • 我們承諾保護您的個人資訊安全，絕不會濫用您的數據
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部按鈕 -->
+    <div class="agreement-actions">
+        <button class="btn btn-secondary" onclick="goBack()">
+            <i class="fas fa-arrow-left" style="margin-right: 8px;"></i>
+            返回登入
+        </button>
+        <button class="btn btn-primary" id="agree-btn" onclick="proceedToApp()" disabled>
+            <i class="fas fa-check" style="margin-right: 8px;"></i>
+            同意並繼續
+        </button>
+    </div>
+
+    <script>
+        // 追蹤同意狀態
+        let agreementState = {
+            terms: false,
+            privacy: false,
+            marketing: false
+        };
+
+        // 切換複選框狀態
+        function toggleCheckbox(type) {
+            agreementState[type] = !agreementState[type];
+            
+            const checkboxElement = document.getElementById(`${type}-checkbox`);
+            const checkElement = document.getElementById(`${type}-check`);
+            const checkIcon = checkElement.querySelector('i');
+            
+            if (agreementState[type]) {
+                checkboxElement.classList.add('checked');
+                checkElement.classList.add('checked');
+                checkIcon.style.display = 'block';
+            } else {
+                checkboxElement.classList.remove('checked');
+                checkElement.classList.remove('checked');
+                checkIcon.style.display = 'none';
+            }
+            
+            updateAgreeButton();
+        }
+
+        // 更新同意按鈕狀態
+        function updateAgreeButton() {
+            const agreeBtn = document.getElementById('agree-btn');
+            const canProceed = agreementState.terms && agreementState.privacy;
+            
+            agreeBtn.disabled = !canProceed;
+            
+            if (canProceed) {
+                agreeBtn.style.backgroundColor = '#FF9D4D';
+                agreeBtn.style.cursor = 'pointer';
+            } else {
+                agreeBtn.style.backgroundColor = '#E0E0E0';
+                agreeBtn.style.cursor = 'not-allowed';
+            }
+        }
+
+        // 開啟服務條款
+        function openTermsOfService() {
+            window.open('terms-of-service.html', '_blank');
+        }
+
+        // 開啟隱私權政策
+        function openPrivacyPolicy() {
+            window.open('privacy-policy.html', '_blank');
+        }
+
+        // 返回登入頁面
+        function goBack() {
+            if (confirm('確定要返回登入頁面嗎？您需要重新登入。')) {
+                // 清除登入狀態
+                localStorage.removeItem('userLoggedIn');
+                localStorage.removeItem('termsAgreed');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // 同意並繼續到應用
+        function proceedToApp() {
+            if (!agreementState.terms || !agreementState.privacy) {
+                alert('請先同意服務條款和隱私權政策');
+                return;
+            }
+
+            // 保存同意狀態
+            localStorage.setItem('termsAgreed', 'true');
+            localStorage.setItem('privacyAgreed', 'true');
+            localStorage.setItem('marketingAgreed', agreementState.marketing.toString());
+            localStorage.setItem('agreementDate', new Date().toISOString());
+
+            // 顯示成功訊息
+            showSuccessMessage();
+            
+            // 延遲跳轉到首頁
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1500);
+        }
+
+        // 顯示成功訊息
+        function showSuccessMessage() {
+            const agreeBtn = document.getElementById('agree-btn');
+            agreeBtn.innerHTML = '<i class="fas fa-check" style="margin-right: 8px;"></i>設定完成！';
+            agreeBtn.style.backgroundColor = '#4CAF50';
+            agreeBtn.disabled = true;
+        }
+
+        // 頁面載入時檢查登入狀態
+        document.addEventListener('DOMContentLoaded', function() {
+            // 在原型展示模式下，跳過登入狀態檢查
+            const isPrototypeMode = window.parent !== window || window.location.href.includes('index.html');
+            
+            if (!isPrototypeMode) {
+                // 檢查是否已登入
+                const userLoggedIn = localStorage.getItem('userLoggedIn');
+                if (!userLoggedIn) {
+                    // 如果未登入，跳轉到登入頁面
+                    window.location.href = 'login.html';
+                    return;
+                }
+
+                // 檢查是否已經同意過條款
+                const termsAgreed = localStorage.getItem('termsAgreed');
+                if (termsAgreed === 'true') {
+                    // 如果已經同意過，直接跳轉到首頁
+                    window.location.href = 'home.html';
+                    return;
+                }
+            }
+
+            // 添加載入動畫
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach((element, index) => {
+                element.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+
+        // 防止用戶直接訪問此頁面（僅在非原型模式下）
+        window.addEventListener('beforeunload', function() {
+            const isPrototypeMode = window.parent !== window || window.location.href.includes('index.html');
+            
+            if (!isPrototypeMode) {
+                // 如果用戶離開頁面但沒有完成同意，清除登入狀態
+                const termsAgreed = localStorage.getItem('termsAgreed');
+                if (!termsAgreed) {
+                    localStorage.removeItem('userLoggedIn');
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

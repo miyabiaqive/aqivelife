@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 幫助中心</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .help-content {
+            padding: 20px 20px 100px 20px;
+        }
+
+        /* 搜尋區域 */
+        .search-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .search-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .search-subtitle {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .search-box {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 44px;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            font-size: 16px;
+            background-color: #ffffff;
+            box-sizing: border-box;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #FF9D4D;
+            background-color: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #999;
+        }
+
+        .quick-search-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .search-tag {
+            background-color: rgba(255, 157, 77, 0.1);
+            color: #FF9D4D;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .search-tag:hover {
+            background-color: #FF9D4D;
+            color: white;
+        }
+
+        /* 分類卡片 */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .category-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .category-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: white;
+            margin-right: 12px;
+        }
+
+        .icon-orange {
+            background-color: #FF9D4D;
+        }
+
+        .icon-blue {
+            background-color: #5BCCDE;
+        }
+
+        .icon-green {
+            background-color: #4CAF50;
+        }
+
+        .icon-purple {
+            background-color: #9C27B0;
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .category-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .category-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .category-items li {
+            font-size: 13px;
+            color: #777;
+            padding: 4px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .category-items li:last-child {
+            border-bottom: none;
+        }
+
+        .category-items li:hover {
+            color: #FF9D4D;
+        }
+
+        /* FAQ 區域 */
+        .faq-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .faq-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-title i {
+            color: #FF9D4D;
+            margin-right: 8px;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid #F5F5F5;
+            padding: 16px 0;
+        }
+
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            padding: 8px 0;
+        }
+
+        .faq-question:hover {
+            color: #FF9D4D;
+        }
+
+        .faq-answer {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            padding: 12px 0 8px 0;
+            display: none;
+        }
+
+        .faq-answer.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .faq-toggle {
+            color: #999;
+            transition: transform 0.3s;
+        }
+
+        .faq-toggle.rotated {
+            transform: rotate(180deg);
+        }
+
+        /* 聯絡支援 */
+        .contact-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+
+        .contact-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .contact-subtitle {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .contact-option {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .contact-option:hover {
+            border-color: #FF9D4D;
+            background-color: rgba(255, 157, 77, 0.05);
+        }
+
+        .contact-option-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .contact-option-text {
+            flex: 1;
+        }
+
+        .contact-option-title {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .contact-option-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* 底部按鈕 */
+        .help-actions {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 -2px 12px rgba(0,0,0,0.1);
+            display: flex;
+            gap: 12px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            background-color: #FF9D4D;
+            color: white;
+            box-shadow: 0 4px 12px rgba(255, 157, 77, 0.3);
+        }
+
+        .btn-primary:hover {
+            background-color: #E68A40;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 157, 77, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: #F5F5F5;
+            color: #666;
+            border: 1px solid #E0E0E0;
+        }
+
+        .btn-secondary:hover {
+            background-color: #EBEBEB;
+            color: #555;
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .help-content {
+                padding: 15px 15px 100px 15px;
+            }
+
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
+
+            .search-section,
+            .faq-section,
+            .contact-section {
+                padding: 16px;
+            }
+        }
+
+        /* 滾動指示器 */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background-color: #FF9D4D;
+            z-index: 1000;
+            transition: width 0.1s;
+        }
+
+        .search-container {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+        }
+    </style>
+</head>
+<body>
+    <!-- 滾動指示器 -->
+    <div class="scroll-indicator" id="scrollIndicator"></div>
+
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">9:41</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="settings.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">幫助中心</div>
+    </div>
+
+    <!-- 幫助中心內容 -->
+    <div class="help-content">
+        <!-- 搜尋區域 -->
+        <div class="search-section">
+            <h2 class="search-title">我們可以如何協助您？</h2>
+            <p class="search-subtitle">搜尋常見問題或瀏覽下方分類</p>
+            
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="搜尋問題或關鍵字..." id="searchInput">
+            </div>
+            
+            <div class="quick-search-tags">
+                <span class="search-tag" onclick="searchTag('調氣')">調氣</span>
+                <span class="search-tag" onclick="searchTag('登入')">登入</span>
+                <span class="search-tag" onclick="searchTag('數據')">數據</span>
+                <span class="search-tag" onclick="searchTag('通知')">通知</span>
+                <span class="search-tag" onclick="searchTag('帳戶')">帳戶</span>
+            </div>
+        </div>
+
+        <!-- 分類導航 -->
+        <div class="category-grid">
+            <div class="category-card" onclick="showCategory('getting-started')">
+                <div class="category-header">
+                    <div class="category-icon icon-orange">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="category-title">開始使用</div>
+                </div>
+                <div class="category-desc">了解如何設定和開始使用 AqiveLife</div>
+                <ul class="category-items">
+                    <li>如何註冊帳戶</li>
+                    <li>首次設定指南</li>
+                    <li>基本功能介紹</li>
+                    <li>個人資料設定</li>
+                </ul>
+            </div>
+
+            <div class="category-card" onclick="showCategory('frequency')">
+                <div class="category-header">
+                    <div class="category-icon icon-blue">
+                        <i class="fas fa-wave-square"></i>
+                    </div>
+                    <div class="category-title">調氣功能</div>
+                </div>
+                <div class="category-desc">關於調氣體驗和相關設定</div>
+                <ul class="category-items">
+                    <li>如何開始調氣</li>
+                    <li>選擇適合的模式</li>
+                    <li>調氣效果說明</li>
+                    <li>常見問題解答</li>
+                </ul>
+            </div>
+
+            <div class="category-card" onclick="showCategory('tracking')">
+                <div class="category-header">
+                    <div class="category-icon icon-green">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="category-title">數據追蹤</div>
+                </div>
+                <div class="category-desc">健康數據記錄和分析功能</div>
+                <ul class="category-items">
+                    <li>如何記錄狀態</li>
+                    <li>查看數據報告</li>
+                    <li>數據同步設定</li>
+                    <li>隱私保護說明</li>
+                </ul>
+            </div>
+
+            <div class="category-card" onclick="showCategory('account')">
+                <div class="category-header">
+                    <div class="category-icon icon-purple">
+                        <i class="fas fa-user-cog"></i>
+                    </div>
+                    <div class="category-title">帳戶管理</div>
+                </div>
+                <div class="category-desc">帳戶設定、登入和安全相關</div>
+                <ul class="category-items">
+                    <li>登入問題解決</li>
+                    <li>密碼重設</li>
+                    <li>帳戶同步設定</li>
+                    <li>刪除帳戶</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 常見問題 -->
+        <div class="faq-section">
+            <h3 class="faq-title">
+                <i class="fas fa-question-circle"></i>
+                常見問題
+            </h3>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>什麼是調氣？它如何幫助我？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    調氣是一種基於科學研究的技術，透過特定的音頻和視覺引導，幫助您調整腦波狀態，從而改善焦慮、提升專注力或促進放鬆。AqiveLife 提供個人化的調氣體驗，根據您的需求和狀態提供最適合的調氣程序。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>我需要每天使用調氣功能嗎？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    建議每天至少使用一次調氣功能以獲得最佳效果。您可以根據個人需求選擇不同的時間和模式，例如早晨的專注模式或睡前的放鬆模式。持續使用將幫助您建立更好的身心健康習慣。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>我的數據是否安全？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    我們非常重視您的隱私和數據安全。所有個人健康數據都經過加密處理，僅用於提供個人化服務。我們不會在未經您同意的情況下與第三方分享您的個人資訊。詳細資訊請參閱我們的隱私權政策。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>如何同步多個設備的數據？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    在設定頁面中，您可以管理帳戶同步功能。確保在所有設備上使用相同的登入帳戶，並開啟同步功能。您的健康數據、個人設定和調氣記錄將自動在所有設備間同步。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>調氣時需要使用耳機嗎？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    建議使用耳機以獲得最佳的調氣體驗，特別是雙耳節拍技術需要左右聲道分離。如果沒有耳機，您仍然可以使用調氣功能，但效果可能會有所降低。我們建議使用高品質的耳機或耳塞。
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>忘記密碼怎麼辦？</span>
+                    <i class="fas fa-chevron-down faq-toggle"></i>
+                </div>
+                <div class="faq-answer">
+                    在登入頁面點擊「忘記密碼」，輸入您的註冊電子郵件地址，我們將發送重設密碼的連結到您的信箱。如果您使用 Google 或 Apple 帳戶登入，請直接使用相應的登入方式。
+                </div>
+            </div>
+        </div>
+
+        <!-- 聯絡支援 -->
+        <div class="contact-section">
+            <h3 class="contact-title">需要更多協助？</h3>
+            <p class="contact-subtitle">我們的支援團隊隨時為您提供協助</p>
+            
+            <div class="contact-options">
+                <div class="contact-option" onclick="contactSupport('email')">
+                    <div class="contact-option-icon icon-orange">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-option-text">
+                        <div class="contact-option-title">電子郵件支援</div>
+                        <div class="contact-option-desc">24小時內回覆</div>
+                    </div>
+                </div>
+
+                <div class="contact-option" onclick="contactSupport('chat')">
+                    <div class="contact-option-icon icon-blue">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="contact-option-text">
+                        <div class="contact-option-title">即時客服</div>
+                        <div class="contact-option-desc">週一至週五 9:00-18:00</div>
+                    </div>
+                </div>
+
+                <div class="contact-option" onclick="contactSupport('feedback')">
+                    <div class="contact-option-icon icon-green">
+                        <i class="fas fa-comment-dots"></i>
+                    </div>
+                    <div class="contact-option-text">
+                        <div class="contact-option-title">意見回饋</div>
+                        <div class="contact-option-desc">幫助我們改善服務</div>
+                    </div>
+                </div>
+
+                <div class="contact-option" onclick="contactSupport('community')">
+                    <div class="contact-option-icon icon-purple">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="contact-option-text">
+                        <div class="contact-option-title">社群論壇</div>
+                        <div class="contact-option-desc">與其他用戶交流</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部按鈕 -->
+    <div class="help-actions">
+        <a href="settings.html" class="btn btn-secondary">返回設定</a>
+        <a href="#" class="btn btn-primary" onclick="contactSupport('email')">聯絡客服</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 滾動進度指示器
+            function updateScrollIndicator() {
+                const scrollTop = window.pageYOffset;
+                const docHeight = document.body.scrollHeight - window.innerHeight;
+                const scrollPercent = (scrollTop / docHeight) * 100;
+                document.getElementById('scrollIndicator').style.width = scrollPercent + '%';
+            }
+
+            window.addEventListener('scroll', updateScrollIndicator);
+
+            // 頁面載入動畫
+            const cards = document.querySelectorAll('.category-card, .faq-section, .contact-section');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                
+                setTimeout(() => {
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 100);
+            });
+        });
+
+        // 搜尋功能
+        function searchTag(keyword) {
+            const searchInput = document.getElementById('searchInput');
+            searchInput.value = keyword;
+            searchInput.focus();
+            // 這裡可以實作實際的搜尋邏輯
+            showAlert('搜尋功能', `正在搜尋「${keyword}」相關內容...`);
+        }
+
+        // 顯示分類內容
+        function showCategory(category) {
+            let categoryName = '';
+            switch(category) {
+                case 'getting-started':
+                    categoryName = '開始使用';
+                    break;
+                case 'frequency':
+                    categoryName = '調氣功能';
+                    break;
+                case 'tracking':
+                    categoryName = '數據追蹤';
+                    break;
+                case 'account':
+                    categoryName = '帳戶管理';
+                    break;
+            }
+            showAlert('分類導航', `正在載入「${categoryName}」相關內容...`);
+        }
+
+        // 切換 FAQ 顯示
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            const toggle = element.querySelector('.faq-toggle');
+            
+            if (answer.classList.contains('show')) {
+                answer.classList.remove('show');
+                toggle.classList.remove('rotated');
+            } else {
+                // 關閉其他已開啟的 FAQ
+                document.querySelectorAll('.faq-answer.show').forEach(item => {
+                    item.classList.remove('show');
+                });
+                document.querySelectorAll('.faq-toggle.rotated').forEach(item => {
+                    item.classList.remove('rotated');
+                });
+                
+                // 開啟當前 FAQ
+                answer.classList.add('show');
+                toggle.classList.add('rotated');
+            }
+        }
+
+        // 聯絡支援
+        function contactSupport(type) {
+            let message = '';
+            switch(type) {
+                case 'email':
+                    message = '正在開啟電子郵件客戶端...';
+                    break;
+                case 'chat':
+                    message = '正在連接即時客服...';
+                    break;
+                case 'feedback':
+                    message = '正在開啟意見回饋表單...';
+                    break;
+                case 'community':
+                    message = '正在前往社群論壇...';
+                    break;
+            }
+            showAlert('聯絡支援', message);
+        }
+
+        // 顯示提示訊息
+        function showAlert(title, message) {
+            alert(`${title}\n\n${message}`);
+        }
+
+        // 搜尋輸入框功能
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase();
+            if (query.length > 2) {
+                // 這裡可以實作即時搜尋功能
+                console.log('搜尋:', query);
+            }
+        });
+
+        // 搜尋輸入框 Enter 鍵處理
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = e.target.value;
+                if (query.trim()) {
+                    showAlert('搜尋結果', `正在搜尋「${query}」...`);
+                }
+            }
+        });
+    </script>
+</body>
+</html> 

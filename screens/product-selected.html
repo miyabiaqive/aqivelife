@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
         body {
-            background-color: #F9F9F9;
+            background-color: #ffffff;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -136,12 +136,13 @@
 
         /* 選擇產品的提示訊息 */
         .product-selection-hint {
-            background-color: #f8f8f8;
+            background-color: #ffffff;
             border-radius: 10px;
             padding: 12px;
             display: flex;
             align-items: flex-start;
             margin-bottom: 15px;
+            border: 1px solid #E0E0E0;
         }
 
         .hint-icon {
@@ -202,10 +203,10 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background-color: #f8f8f8;
+            background-color: #ffffff;
             border-radius: 12px;
             padding: 10px 8px;
-            border: 2px solid transparent;
+            border: 2px solid #E0E0E0;
             transition: all 0.3s ease;
             position: relative;
         }
@@ -285,10 +286,11 @@
         }
 
         .stats-item {
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             border-radius: 10px;
             padding: 12px;
             text-align: center;
+            border: 1px solid #E0E0E0;
         }
 
         .stats-value {
@@ -317,9 +319,10 @@
         .recent-product-item {
             display: flex;
             align-items: center;
-            background-color: #f5f5f5;
+            background-color: #ffffff;
             border-radius: 20px;
             padding: 6px 12px;
+            border: 1px solid #E0E0E0;
         }
 
         .recent-product-icon {
@@ -331,6 +334,15 @@
         .recent-product-name {
             font-size: 13px;
             color: #444;
+        }
+
+        .product-info {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
         }
     </style>
 </head>
@@ -389,7 +401,7 @@
                     <i class="fas fa-lightbulb"></i>
                 </div>
                 <div class="hint-text">
-                    使用「撓定」時，建議將產品放置於胸前或掌心，以獲得最佳的調頻效果。
+                    使用「撓定」時，建議將產品放置於胸前或掌心，以獲得最佳的調氣效果。
                 </div>
             </div>
             
@@ -422,13 +434,13 @@
             </div>
         </div>
         
-        <!-- 開始調頻按鈕 -->
+        <!-- 開始調氣按鈕 -->
         <div class="main-button-container">
             <button class="super-button" id="startRitualBtn">
                 <div class="super-button-icon">
                     <i class="fas fa-bolt"></i>
                 </div>
-                開始調頻體驗
+                開始調氣體驗
             </button>
         </div>
         
@@ -513,7 +525,7 @@
                 window.location.href = 'home.html';
             });
             
-            // 開始調頻按鈕點擊事件
+            // 開始調氣按鈕點擊事件
             document.getElementById('startRitualBtn').addEventListener('click', function() {
                 window.location.href = 'mode-selector.html';
             });

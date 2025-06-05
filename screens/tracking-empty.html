@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
         body {
-            background-color: #F9F9F9;
+            background-color: #ffffff;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -356,8 +356,7 @@
         <a href="home.html" class="back-button">
             <i class="fas fa-arrow-left"></i>
         </a>
-        <div class="app-title">狀態追蹤</div>
-        <div class="app-bar-action"></div>
+        <div class="app-title">健康追蹤</div>
     </div>
 
     <!-- 追蹤內容 -->
@@ -387,7 +386,7 @@
             <!-- 空狀態文字 -->
             <h2 class="empty-state-title">開始您的覺醒之旅</h2>
             <p class="empty-state-subtitle">
-                記錄每一次調頻體驗，追蹤您的身心成長軌跡，讓每一天都充滿正向能量。
+                記錄每一次調氣體驗，追蹤您的身心成長軌跡，讓每一天都充滿正向能量。
             </p>
             
             <!-- 行動按鈕 -->
@@ -398,7 +397,7 @@
                 </a>
                 <a href="home.html" class="btn btn-secondary">
                     <i class="fas fa-home"></i>
-                    返回首頁調頻
+                    返回首頁調氣
                 </a>
             </div>
             
@@ -412,7 +411,7 @@
                         </div>
                         <div class="feature-info">
                             <div class="feature-name">控制度變化</div>
-                            <div class="feature-desc">記錄每次調頻後的身心狀態改善程度</div>
+                            <div class="feature-desc">記錄每次調氣後的身心狀態改善程度</div>
                         </div>
                     </div>
                     
@@ -488,14 +487,14 @@
             // 開始第一次記錄按鈕點擊事件
             document.querySelector('.btn-primary').addEventListener('click', function(e) {
                 e.preventDefault();
-                // 檢查是否已有今日調頻記錄
+                // 檢查是否已有今日調氣記錄
                 const hasRitualToday = localStorage.getItem('hasRitualToday') === 'true';
                 
                 if (hasRitualToday) {
-                    // 如果已有調頻記錄，直接前往記錄頁面
+                    // 如果已有調氣記錄，直接前往記錄頁面
                     window.location.href = 'daily-record.html';
                 } else {
-                    // 如果沒有調頻記錄，前往未調頻提示頁面
+                    // 如果沒有調氣記錄，前往未調氣提示頁面
                     window.location.href = 'no-ritual-alert.html';
                 }
             });

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
         body {
-            background-color: #F9F9F9;
+            background-color: #ffffff;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -82,10 +82,11 @@
         .record-body .form-group p {
             font-size: 15px;
             color: #333;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
             padding: 8px 12px;
             border-radius: 8px;
             margin: 0;
+            border: 1px solid #E0E0E0;
         }
         
         .record-body .notes-input {
@@ -265,6 +266,15 @@
             font-size: 15px;
             text-align: center;
         }
+
+        .record-card {
+            background-color: #ffffff;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 1px solid #E0E0E0;
+        }
     </style>
 </head>
 <body>
@@ -286,19 +296,12 @@
         </div>
     </div>
     
-    <!-- 應用頂部欄 -->
+    <!-- 應用欄 -->
     <div class="app-bar">
-        <div class="app-bar-left">
-            <a href="tracking.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-        </div>
-        <div class="app-bar-title">
-            今日記錄
-        </div>
-        <div class="app-bar-right">
-            <!-- 空白 -->
-        </div>
+        <a href="tracking.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">今日記錄</div>
     </div>
     
     <!-- 主內容區域 - 記錄表單 -->

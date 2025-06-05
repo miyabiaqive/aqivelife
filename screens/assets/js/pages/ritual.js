@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (!isActive) {
             startBreathing();
         } else {
-            stopBreathing();
+        stopBreathing();
         }
     }
     

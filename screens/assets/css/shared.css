@@ -1,7 +1,7 @@
 /* iOS 風格的通用樣式 */
 :root {
     /* Aqive品牌配色方案 */
-    --primary-color: #F4A460; /* 主橙色 */
+    --primary-color: #FF9D4D; /* 主橙色 - 更新為更鮮豔的版本 */
     --secondary-color: #7FDEE3; /* 淺藍色 */
     --tertiary-color: #F8D464; /* 黃色 */
     --quaternary-color: #E57254; /* 橙紅色 */
@@ -90,6 +90,18 @@ body {
     padding: 0 16px;
     box-sizing: border-box;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background-color: var(--background-color);
+    position: relative;
+    z-index: 100;
+}
+
+/* 當只有標題時的樣式 */
+.app-bar.title-only {
+    justify-content: center;
+}
+
+.app-bar.title-only .app-title {
+    flex: none;
 }
 
 .app-bar-title {
@@ -97,6 +109,15 @@ body {
     font-weight: 600;
     text-align: center;
     flex: 1;
+    color: var(--text-color);
+}
+
+.app-title {
+    font-size: 17px;
+    font-weight: 600;
+    text-align: center;
+    flex: 1;
+    color: var(--text-color);
 }
 
 .app-bar-left, .app-bar-right {
@@ -105,6 +126,33 @@ body {
 
 .app-bar-right {
     text-align: right;
+}
+
+.app-bar-action {
+    width: 80px;
+    text-align: right;
+}
+
+.back-button {
+    color: var(--text-color);
+    font-size: 20px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.back-button:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.back-button:active {
+    background-color: rgba(0, 0, 0, 0.1);
+    transform: scale(0.95);
 }
 
 /* iOS 底部導航欄 */
@@ -252,19 +300,141 @@ body {
     margin: 0 auto;
 }
 
-/* 卡片樣式 */
+/* 卡片樣式系統 - 統一設計語言 */
+
+/* 基礎卡片 - 用於一般內容容器 */
 .card {
     background-color: white;
     border-radius: 12px;
     padding: 16px;
     margin-bottom: 16px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #F0F0F0;
 }
 
+/* 卡片層級系統 */
+
+/* Level 1: 平面卡片 - 用於背景區域、分組容器 */
+.card-flat {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #F0F0F0;
+    /* 無陰影，僅用邊框分隔 */
+}
+
+/* Level 2: 輕微浮起 - 用於一般內容卡片 */
+.card-elevated {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid #F0F0F0;
+}
+
+/* Level 3: 中度浮起 - 用於重要內容、互動元素 */
+.card-raised {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    border: 1px solid #F0F0F0;
+}
+
+/* Level 4: 高度浮起 - 用於彈窗、重要提示 */
+.card-floating {
+    background-color: white;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    border: 1px solid #F0F0F0;
+}
+
+/* 特殊狀態卡片 */
+
+/* 選中狀態 - 用於可選擇的卡片 */
+.card-selected {
+    border: 2px solid var(--primary-color);
+    background-color: #FFF8F3;
+    box-shadow: 0 2px 8px rgba(255, 157, 77, 0.15);
+}
+
+/* 互動狀態 - 用於可點擊的卡片 */
+.card-interactive {
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.card-interactive:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.card-interactive:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 警告狀態 - 用於錯誤、警告內容 */
+.card-warning {
+    background-color: #FFF8F3;
+    box-shadow: 0 2px 8px rgba(255, 157, 77, 0.1);
+}
+
+/* 成功狀態 - 用於成功、完成內容 */
+.card-success {
+    background-color: #F0FFF4;
+    box-shadow: 0 2px 8px rgba(52, 199, 89, 0.1);
+}
+
+/* 資訊狀態 - 用於提示、說明內容 */
+.card-info {
+    background-color: #F0FFFE;
+    box-shadow: 0 2px 8px rgba(127, 222, 227, 0.1);
+}
+
+/* 卡片尺寸變體 */
+.card-compact {
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.card-spacious {
+    padding: 24px;
+    border-radius: 16px;
+}
+
+/* 卡片內容樣式 */
 .card-title {
     font-size: 17px;
     font-weight: 600;
     margin-bottom: 10px;
+    color: #1D1D1F;
+}
+
+.card-subtitle {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #6E6E73;
+}
+
+.card-body {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #1D1D1F;
+}
+
+.card-footer {
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #F0F0F0;
+    font-size: 13px;
+    color: #6E6E73;
 }
 
 /* 表單元素 */
@@ -451,4 +621,256 @@ body {
 
 .btn-danger:hover {
     background-color: #FFF8F8;
+}
+
+/* 首頁特有樣式 */
+
+/* 產品選擇區塊 */
+.product-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-action {
+    color: #FF9D4D;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+/* 產品分類選項 */
+.product-categories {
+    display: flex;
+    overflow-x: auto;
+    padding: 5px 0;
+    margin-bottom: 18px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    /* 確保不會造成父容器溢出 */
+    max-width: 100%;
+}
+
+.product-categories::-webkit-scrollbar {
+    display: none;
+}
+
+.category-pill {
+    padding: 8px 16px;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+    color: #666;
+    margin-right: 10px;
+    font-size: 14px;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    flex-shrink: 0; /* 防止收縮 */
+}
+
+.category-pill.active {
+    background-color: #FF9D4D;
+    color: white;
+}
+
+/* 產品網格 */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.product-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f8f8f8;
+    border-radius: 12px;
+    padding: 10px 8px;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    position: relative;
+    cursor: pointer;
+}
+
+.product-item:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.product-item:active {
+    transform: translateY(0);
+}
+
+.product-item.selected {
+    border-color: #FF9D4D;
+    background-color: #FFF6EE;
+}
+
+.product-image {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+}
+
+.product-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.product-name {
+    font-size: 13px;
+    text-align: center;
+    color: #444;
+    font-weight: 500;
+    line-height: 1.3;
+}
+
+.product-check {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    background-color: white;
+}
+
+.product-item.selected .product-check {
+    background-color: #FF9D4D;
+    border-color: #FF9D4D;
+}
+
+.product-item.selected .product-check::after {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+/* 無產品選項 */
+.no-product-option {
+    width: 100%;
+    background-color: #ffffff;
+    border: 1px dashed #ccc;
+    border-radius: 12px;
+    padding: 14px 15px;
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.no-product-option:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.no-product-option:active {
+    transform: translateY(0);
+}
+
+.no-product-option.selected {
+    background-color: #FFF6EE;
+    border: 1px dashed #FF9D4D;
+}
+
+.no-product-icon {
+    width: 36px;
+    height: 36px;
+    background-color: #eee;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    color: #999;
+    font-size: 16px;
+    flex-shrink: 0;
+}
+
+.no-product-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.no-product-title {
+    font-size: 15px;
+    font-weight: 500;
+    margin-bottom: 2px;
+    color: #444;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-product-desc {
+    font-size: 12px;
+    color: #888;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.no-product-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #ddd;
+    margin-left: 8px;
+    background-color: white;
+    flex-shrink: 0;
+}
+
+.no-product-option.selected .no-product-check {
+    background-color: #FF9D4D;
+    border-color: #FF9D4D;
+}
+
+.no-product-option.selected .no-product-check::after {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    border-radius: 50%;
+    margin: 3px auto;
+}
+
+/* 超級按鈕 */
+.super-button {
+    background-color: #FF9D4D;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 20px 0;
+    font-size: 18px;
+    font-weight: 600;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 20px 0;
+}
+
+.super-button-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
 } 

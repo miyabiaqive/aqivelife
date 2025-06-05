@@ -40,13 +40,14 @@
             width: 60px;
             height: 60px;
             border-radius: 30px;
-            background-color: #f0f0f0;
+            background-color: #ffffff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
             color: #777;
             margin-right: 16px;
+            border: 1px solid #E0E0E0;
         }
 
         .profile-info {
@@ -74,6 +75,150 @@
         .edit-profile {
             color: #FF9D4D;
             font-size: 20px;
+        }
+
+        /* 帳戶同步管理區域 */
+        .account-sync-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .sync-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .sync-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-left: 8px;
+        }
+
+        .sync-subtitle {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .login-method-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .login-method-item:last-child {
+            border-bottom: none;
+        }
+
+        .login-method-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-size: 16px;
+        }
+
+        .google-icon {
+            background-color: #DB4437;
+        }
+
+        .apple-icon {
+            background-color: #000;
+        }
+
+        .facebook-icon {
+            background-color: #1877F2;
+        }
+
+        .email-icon {
+            background-color: #00C300;
+        }
+
+        .login-method-info {
+            flex: 1;
+        }
+
+        .login-method-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .login-method-status {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .login-method-status.connected {
+            color: #4CAF50;
+        }
+
+        .login-method-status.disconnected {
+            color: #999;
+        }
+
+        .sync-toggle {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            background-color: #E0E0E0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .sync-toggle.active {
+            background-color: #FF9D4D;
+        }
+
+        .sync-toggle::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 20px;
+            height: 20px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+        }
+
+        .sync-toggle.active::after {
+            transform: translateX(20px);
+        }
+
+        .sync-info-box {
+            background-color: rgba(255, 157, 77, 0.1);
+            padding: 12px;
+            margin-top: 16px;
+            border-radius: 8px;
+        }
+
+        .sync-info-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #FF9D4D;
+            margin-bottom: 4px;
+        }
+
+        .sync-info-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
         }
 
         .section-title {
@@ -154,6 +299,26 @@
             color: #888;
             font-size: 12px;
         }
+
+        /* 動畫效果 */
+        .login-method-item {
+            transition: background-color 0.2s;
+        }
+
+        .login-method-item:hover {
+            background-color: rgba(255, 157, 77, 0.05);
+        }
+
+        /* 響應式設計 */
+        @media (max-width: 480px) {
+            .settings-container {
+                padding: 12px;
+            }
+            
+            .account-sync-section {
+                padding: 16px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -176,23 +341,15 @@
     </div>
     
     <!-- 應用頂部欄 -->
-    <div class="app-bar">
-        <div class="app-bar-left">
-            <!-- 空白 -->
-        </div>
-        <div class="app-bar-title">
-            設定
-        </div>
-        <div class="app-bar-right">
-            <!-- 空白 -->
-        </div>
+    <div class="app-bar title-only">
+        <div class="app-title">設定</div>
     </div>
     
     <!-- 主內容區域 -->
     <div class="content">
         <div class="settings-container">
-            <!-- Google 登入範例 -->
-            <div class="profile-section" id="google-login-example" style="position: relative;">
+            <!-- 主要帳戶資訊 -->
+            <div class="profile-section">
                 <div class="profile-avatar">
                     <img src="https://lh3.googleusercontent.com/a/ACg8ocJQMfVxx2UaTBrDFN_yzFoRPdOKdlBXBNIB3m48TYY=s576-c-no" onerror="this.src='assets/images/logo/aqive-symbol.svg';" alt="用戶頭像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
                 </div>
@@ -204,30 +361,75 @@
                 <div class="edit-profile">
                     <i class="fas fa-chevron-right"></i>
                 </div>
-                <div style="position: absolute; bottom: -15px; right: 12px; background-color: #DB4437; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-google" style="color: white; font-size: 14px;"></i>
-                </div>
             </div>
             
-            <!-- Apple 登入範例 -->
-            <div class="profile-section" id="apple-login-example" style="position: relative; margin-top: 25px; margin-bottom: 25px;">
-                <div class="profile-avatar">
-                    <img src="assets/images/defaults/apple_user.png" onerror="this.src='https://ui-avatars.com/api/?name=陳大方&background=000&color=fff';" alt="用戶頭像" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            <!-- 帳戶同步管理 -->
+            <div class="account-sync-section">
+                <div class="sync-header">
+                    <i class="fas fa-sync-alt" style="color: #FF9D4D; font-size: 18px;"></i>
+                    <div class="sync-title">帳戶同步管理</div>
                 </div>
-                <div class="profile-info">
-                    <div class="profile-name">陳大方</div>
-                    <div class="profile-email">user.dafang@icloud.com</div>
-                    <div class="profile-status">基本會員</div>
+                <div class="sync-subtitle">
+                    管理您的登入方式並選擇要同步的帳戶。開啟同步後，您的健康數據將在所有已連結的帳戶間保持一致。
                 </div>
-                <div class="edit-profile">
-                    <i class="fas fa-chevron-right"></i>
+                
+                <!-- Google 帳戶 -->
+                <div class="login-method-item">
+                    <div class="login-method-icon google-icon">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="login-method-info">
+                        <div class="login-method-name">Google</div>
+                        <div class="login-method-status connected">已連結 - linxiaoming@gmail.com</div>
+                    </div>
+                    <div class="sync-toggle active" onclick="toggleSync(this)"></div>
                 </div>
-                <div style="position: absolute; bottom: -15px; right: 12px; background-color: #000; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
-                    <i class="fab fa-apple" style="color: white; font-size: 14px;"></i>
+                
+                <!-- Apple 帳戶 -->
+                <div class="login-method-item">
+                    <div class="login-method-icon apple-icon">
+                        <i class="fab fa-apple"></i>
+                    </div>
+                    <div class="login-method-info">
+                        <div class="login-method-name">Apple ID</div>
+                        <div class="login-method-status connected">已連結 - user.dafang@icloud.com</div>
+                    </div>
+                    <div class="sync-toggle active" onclick="toggleSync(this)"></div>
+                </div>
+                
+                <!-- Facebook 帳戶 -->
+                <div class="login-method-item">
+                    <div class="login-method-icon facebook-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="login-method-info">
+                        <div class="login-method-name">Facebook</div>
+                        <div class="login-method-status disconnected">未連結</div>
+                    </div>
+                    <div class="sync-toggle" onclick="connectAccount(this, 'facebook')"></div>
+                </div>
+                
+                <!-- LINE 帳戶 -->
+                <div class="login-method-item">
+                    <div class="login-method-icon email-icon">
+                        <i class="fab fa-line"></i>
+                    </div>
+                    <div class="login-method-info">
+                        <div class="login-method-name">LINE</div>
+                        <div class="login-method-status disconnected">未連結</div>
+                    </div>
+                    <div class="sync-toggle" onclick="connectAccount(this, 'line')"></div>
+                </div>
+                
+                <div class="sync-info-box">
+                    <div class="sync-info-title">同步說明</div>
+                    <div class="sync-info-text">
+                        • 開啟同步的帳戶將共享健康數據和個人設定<br>
+                        • 您可以隨時關閉特定帳戶的同步功能<br>
+                        • 主要帳戶（目前使用的登入方式）無法關閉同步
+                    </div>
                 </div>
             </div>
-            
-            <div class="section-title">以上為兩種不同登入狀態的示意 (請選擇其中一種實作)</div>
             
             <div class="section-title">個人設定</div>
             
@@ -254,9 +456,9 @@
                     <div class="settings-label">幫助中心</div>
                     <div class="settings-description">常見問題與使用指南</div>
                 </div>
-                <div class="settings-action">
+                <a href="help-center.html" class="settings-action">
                     <i class="fas fa-chevron-right"></i>
-                </div>
+                </a>
             </div>
             
             <div class="settings-item">
@@ -309,5 +511,86 @@
             <div class="tab-label">設定</div>
         </a>
     </div>
+
+    <script>
+        // 切換同步狀態
+        function toggleSync(element) {
+            const isActive = element.classList.contains('active');
+            const methodItem = element.closest('.login-method-item');
+            const statusElement = methodItem.querySelector('.login-method-status');
+            
+            if (isActive) {
+                // 檢查是否為主要帳戶（Google）
+                const isMainAccount = methodItem.querySelector('.google-icon');
+                if (isMainAccount) {
+                    showAlert('主要帳戶無法關閉同步', '您目前使用 Google 帳戶登入，此帳戶的同步功能無法關閉。');
+                    return;
+                }
+                
+                element.classList.remove('active');
+                showAlert('同步已關閉', '此帳戶的數據同步已關閉，健康數據將不再同步到此帳戶。');
+            } else {
+                element.classList.add('active');
+                showAlert('同步已開啟', '此帳戶的數據同步已開啟，健康數據將同步到此帳戶。');
+            }
+        }
+        
+        // 連結新帳戶
+        function connectAccount(element, type) {
+            const methodItem = element.closest('.login-method-item');
+            const statusElement = methodItem.querySelector('.login-method-status');
+            const nameElement = methodItem.querySelector('.login-method-name');
+            
+            let accountName = '';
+            switch(type) {
+                case 'facebook':
+                    accountName = 'Facebook';
+                    break;
+                case 'line':
+                    accountName = 'LINE';
+                    break;
+            }
+            
+            showConfirm(
+                `連結 ${accountName} 帳戶`,
+                `您確定要連結 ${accountName} 帳戶嗎？連結後可以使用此方式登入並同步數據。`,
+                () => {
+                    // 模擬連結成功
+                    statusElement.textContent = '已連結';
+                    statusElement.classList.remove('disconnected');
+                    statusElement.classList.add('connected');
+                    element.classList.add('active');
+                    
+                    showAlert('連結成功', `${accountName} 帳戶已成功連結並開啟同步。`);
+                }
+            );
+        }
+        
+        // 顯示提示訊息
+        function showAlert(title, message) {
+            // 這裡可以實作自定義的提示框
+            alert(`${title}\n\n${message}`);
+        }
+        
+        // 顯示確認對話框
+        function showConfirm(title, message, callback) {
+            if (confirm(`${title}\n\n${message}`)) {
+                callback();
+            }
+        }
+        
+        // 頁面載入動畫
+        document.addEventListener('DOMContentLoaded', function() {
+            const syncSection = document.querySelector('.account-sync-section');
+            syncSection.style.opacity = '0';
+            syncSection.style.transform = 'translateY(20px)';
+            
+            setTimeout(() => {
+                syncSection.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                syncSection.style.opacity = '1';
+                syncSection.style.transform = 'translateY(0)';
+            }, 200);
+        });
+    </script>
 </body>
 </html> 

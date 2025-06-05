@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AqiveLife - 未調頻提示</title>
+    <title>AqiveLife - 未調氣提示</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="assets/css/shared.css">
     <style>
         body {
-            background-color: #F9F9F9;
+            background-color: #ffffff;
             color: #333;
             font-family: 'Noto Sans TC', sans-serif;
             margin: 0;
@@ -96,13 +96,14 @@
         }
 
         .btn-secondary {
-            background-color: #F0F0F0;
+            background-color: #ffffff;
             color: #555;
             margin-top: 15px;
+            border: 1px solid #E0E0E0;
         }
 
         .btn-secondary:hover {
-            background-color: #E5E5E5;
+            background-color: #F5F5F5;
         }
 
         .wave-animation {
@@ -163,19 +164,12 @@
         </div>
     </div>
     
-    <!-- 應用頂部欄 -->
+    <!-- 應用欄 -->
     <div class="app-bar">
-        <div class="app-bar-left">
-            <a href="tracking.html" class="back-button">
-                <i class="fas fa-arrow-left"></i>
-            </a>
-        </div>
-        <div class="app-bar-title">
-            今日記錄
-        </div>
-        <div class="app-bar-right">
-            <!-- 空白 -->
-        </div>
+        <a href="home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">提醒</div>
     </div>
     
     <!-- 主內容區域 -->
@@ -184,14 +178,14 @@
             <div class="alert-icon">
                 <i class="fas fa-wind"></i>
             </div>
-            <h1 class="alert-title">今日尚未進行調頻</h1>
+            <h1 class="alert-title">今日尚未進行調氣</h1>
             <p class="alert-message">
                 為了記錄您今日的能力覺醒狀況，<br>
-                請先在首頁進行調頻練習，體驗Aqive氣機的魔力！
+                請先在首頁進行調氣練習，體驗Aqive氣機的魔力！
             </p>
             <a href="home.html" class="btn btn-primary">
                 <i class="fas fa-play-circle" style="margin-right: 8px;"></i>
-                前往調頻
+                前往調氣
             </a>
             <a href="tracking.html" class="btn btn-secondary">
                 返回追蹤頁面
@@ -234,7 +228,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // 前往調頻按鈕點擊事件
+            // 前往調氣按鈕點擊事件
             document.querySelector('.btn-primary').addEventListener('click', function(e) {
                 e.preventDefault();
                 window.location.href = 'home.html';

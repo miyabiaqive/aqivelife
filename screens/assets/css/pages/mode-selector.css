@@ -196,10 +196,6 @@ body {
     cursor: not-allowed;
 }
 
-.app-bar {
-    display: none;
-}
-
 /* 為了確保 iframe 中的相容性，添加額外的重置樣式 */
 * {
     box-sizing: border-box;
