@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 訪客設定</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #333;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+
+        .content {
+            padding-bottom: 70px;
+        }
+
+        .settings-container {
+            padding: 16px;
+        }
+
+        /* 訪客資訊區域 */
+        .guest-profile-section {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+            padding: 20px;
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            border-radius: 16px;
+            position: relative;
+        }
+
+        .guest-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+            margin-right: 16px;
+        }
+
+        .guest-info {
+            flex: 1;
+        }
+
+        .guest-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .guest-status {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 6px;
+        }
+
+        .guest-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+        }
+
+        .upgrade-btn {
+            background-color: white;
+            color: #FF9D4D;
+            border: none;
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 體驗統計區域 */
+        .experience-stats {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .stats-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .stats-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-left: 8px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 16px;
+            background-color: #F8F9FA;
+            border-radius: 12px;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #FF9D4D;
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: #666;
+        }
+
+        /* 功能限制說明 */
+        .limitations-section {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-left: 8px;
+        }
+
+        .limitation-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .limitation-item:last-child {
+            border-bottom: none;
+        }
+
+        .limitation-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            background-color: #FFF8F3;
+            color: #FF9D4D;
+            font-size: 16px;
+        }
+
+        .limitation-info {
+            flex: 1;
+        }
+
+        .limitation-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .limitation-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .limitation-status {
+            font-size: 12px;
+            color: #999;
+            display: flex;
+            align-items: center;
+        }
+
+        /* 升級優勢說明 */
+        .upgrade-benefits {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .benefits-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .benefit-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .benefit-item:last-child {
+            margin-bottom: 16px;
+        }
+
+        .benefit-icon {
+            margin-right: 12px;
+            color: white;
+        }
+
+        .main-upgrade-btn {
+            background-color: white;
+            color: #FF9D4D;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .main-upgrade-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 其他設定區域 */
+        .other-settings {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            border: 1px solid #EEEEEE;
+        }
+
+        .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 0;
+            border-bottom: 1px solid #F5F5F5;
+        }
+
+        .setting-item:last-child {
+            border-bottom: none;
+        }
+
+        .setting-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .setting-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            background-color: #F8F9FA;
+            color: #666;
+            font-size: 16px;
+        }
+
+        .setting-info {
+            flex: 1;
+        }
+
+        .setting-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .setting-desc {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .setting-action {
+            color: #FF9D4D;
+            font-size: 14px;
+            text-decoration: none;
+        }
+
+        .tab-item.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+    <script src="assets/js/shared.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">17:02</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <div class="app-bar-left"></div>
+        <div class="app-title">設定</div>
+        <div class="app-bar-right"></div>
+    </div>
+
+    <!-- 主內容區域 -->
+    <div class="content">
+        <div class="settings-container">
+            <!-- 訪客資訊區域 -->
+            <div class="guest-profile-section">
+                <div class="guest-avatar">
+                    <i class="fas fa-user-secret"></i>
+                </div>
+                <div class="guest-info">
+                    <div class="guest-name">訪客用戶</div>
+                    <div class="guest-status">體驗 AqiveLife 的核心功能</div>
+                    <div class="guest-badge">
+                        <i class="fas fa-clock"></i> 試用模式
+                    </div>
+                </div>
+                <button class="upgrade-btn" onclick="goToRegister()">
+                    升級
+                </button>
+            </div>
+
+            <!-- 體驗統計 -->
+            <div class="experience-stats">
+                <div class="stats-header">
+                    <i class="fas fa-chart-bar" style="color: #FF9D4D;"></i>
+                    <div class="stats-title">您的體驗統計</div>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="experienceTime">0</div>
+                        <div class="stat-label">體驗時間 (分鐘)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="modesExplored">0</div>
+                        <div class="stat-label">已體驗模式</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 功能限制說明 -->
+            <div class="limitations-section">
+                <div class="section-header">
+                    <i class="fas fa-info-circle" style="color: #FF9D4D;"></i>
+                    <div class="section-title">訪客模式限制</div>
+                </div>
+                
+                <div class="limitation-item">
+                    <div class="limitation-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="limitation-info">
+                        <div class="limitation-name">使用時間限制</div>
+                        <div class="limitation-desc">每種模式僅可體驗 5 分鐘</div>
+                    </div>
+                    <div class="limitation-status">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                
+                <div class="limitation-item">
+                    <div class="limitation-icon">
+                        <i class="fas fa-save"></i>
+                    </div>
+                    <div class="limitation-info">
+                        <div class="limitation-name">記錄保存</div>
+                        <div class="limitation-desc">無法保存調氣記錄和進度</div>
+                    </div>
+                    <div class="limitation-status">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                
+                <div class="limitation-item">
+                    <div class="limitation-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="limitation-info">
+                        <div class="limitation-name">數據分析</div>
+                        <div class="limitation-desc">無法查看詳細的統計數據</div>
+                    </div>
+                    <div class="limitation-status">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+                
+                <div class="limitation-item">
+                    <div class="limitation-icon">
+                        <i class="fas fa-cog"></i>
+                    </div>
+                    <div class="limitation-info">
+                        <div class="limitation-name">個人化設定</div>
+                        <div class="limitation-desc">無法自訂個人偏好設定</div>
+                    </div>
+                    <div class="limitation-status">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 升級優勢 -->
+            <div class="upgrade-benefits">
+                <div class="benefits-title">註冊後立即解鎖</div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-infinity benefit-icon"></i>
+                    <span>無限制使用所有功能</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-cloud benefit-icon"></i>
+                    <span>雲端同步您的所有記錄</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-chart-pie benefit-icon"></i>
+                    <span>詳細的個人數據分析</span>
+                </div>
+                
+                <div class="benefit-item">
+                    <i class="fas fa-palette benefit-icon"></i>
+                    <span>個人化體驗設定</span>
+                </div>
+                
+                <button class="main-upgrade-btn" onclick="goToRegister()">
+                    立即註冊 AqiveLife
+                </button>
+            </div>
+
+            <!-- 其他設定 -->
+            <div class="other-settings">
+                <div class="section-header">
+                    <i class="fas fa-cog" style="color: #FF9D4D;"></i>
+                    <div class="section-title">一般設定</div>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-left">
+                        <div class="setting-icon">
+                            <i class="fas fa-question-circle"></i>
+                        </div>
+                        <div class="setting-info">
+                            <div class="setting-name">幫助中心</div>
+                            <div class="setting-desc">常見問題與使用教學</div>
+                        </div>
+                    </div>
+                    <a href="help-center.html" class="setting-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-left">
+                        <div class="setting-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="setting-info">
+                            <div class="setting-name">隱私權政策</div>
+                            <div class="setting-desc">了解我們如何保護您的隱私</div>
+                        </div>
+                    </div>
+                    <a href="privacy-policy.html" class="setting-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-left">
+                        <div class="setting-icon">
+                            <i class="fas fa-file-alt"></i>
+                        </div>
+                        <div class="setting-info">
+                            <div class="setting-name">服務條款</div>
+                            <div class="setting-desc">閱讀完整的服務條款</div>
+                        </div>
+                    </div>
+                    <a href="terms-of-service.html" class="setting-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+                
+                <div class="setting-item">
+                    <div class="setting-left">
+                        <div class="setting-icon">
+                            <i class="fas fa-sign-out-alt"></i>
+                        </div>
+                        <div class="setting-info">
+                            <div class="setting-name">結束體驗</div>
+                            <div class="setting-desc">退出訪客模式</div>
+                        </div>
+                    </div>
+                    <a href="#" onclick="exitGuestMode()" class="setting-action">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 -->
+    <div class="tab-bar">
+        <a href="guest-home.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="#" class="tab-item disabled" onclick="showUpgradeAlert()">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="#" class="tab-item disabled" onclick="showUpgradeAlert()">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="guest-settings.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+        // 頁面載入時的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 檢查是否為訪客模式
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            if (userLoggedIn !== 'guest') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 更新體驗統計
+            updateExperienceStats();
+        });
+        
+        // 更新體驗統計
+        function updateExperienceStats() {
+            const guestStartTime = localStorage.getItem('guestStartTime');
+            const experiencedModes = JSON.parse(localStorage.getItem('guestExperiencedModes') || '{}');
+            
+            // 計算體驗時間
+            if (guestStartTime) {
+                const start = new Date(guestStartTime);
+                const now = new Date();
+                const diffMinutes = Math.floor((now - start) / (1000 * 60));
+                document.getElementById('experienceTime').textContent = diffMinutes;
+            }
+            
+            // 計算已體驗的模式數量
+            const modesCount = Object.keys(experiencedModes).length;
+            document.getElementById('modesExplored').textContent = modesCount;
+        }
+        
+        // 前往註冊
+        function goToRegister() {
+            const message = "註冊 AqiveLife 帳號即可：\n\n• 無限制使用所有功能\n• 保存您的調氣記錄\n• 查看詳細數據分析\n• 個人化體驗設定\n\n是否立即註冊？";
+            if (confirm(message)) {
+                // 清除訪客狀態
+                localStorage.removeItem('userLoggedIn');
+                localStorage.removeItem('loginProvider');
+                localStorage.removeItem('guestExperienceStarted');
+                localStorage.removeItem('guestStartTime');
+                localStorage.removeItem('guestExperiencedModes');
+                
+                // 跳轉到登入頁面
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // 退出訪客模式
+        function exitGuestMode() {
+            const message = "確定要結束訪客體驗嗎？\n\n所有體驗記錄將會清除，但您隨時可以重新開始體驗或註冊帳號。";
+            if (confirm(message)) {
+                // 清除所有訪客相關資料
+                localStorage.removeItem('userLoggedIn');
+                localStorage.removeItem('loginProvider');
+                localStorage.removeItem('guestExperienceStarted');
+                localStorage.removeItem('guestStartTime');
+                localStorage.removeItem('guestExperiencedModes');
+                localStorage.removeItem('selectedMode');
+                localStorage.removeItem('extendedUsePromptShown');
+                
+                // 跳轉到登入頁面
+                window.location.href = 'login.html';
+            }
+        }
+        
+        // 顯示升級提示
+        function showUpgradeAlert() {
+            const message = "此功能需要註冊帳號才能使用\n\n• 保存個人記錄\n• 查看詳細數據\n• 使用完整功能\n\n是否立即註冊？";
+            if (confirm(message)) {
+                goToRegister();
+            }
+        }
+        
+        // 每30秒更新一次統計
+        setInterval(updateExperienceStats, 30000);
+    </script>
+</body>
+</html> 

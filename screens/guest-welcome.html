@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 歡迎訪客</title>
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+        .status-bar {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .welcome-container {
+            height: calc(100vh - 47px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px 30px 40px;
+            box-sizing: border-box;
+        }
+        
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+        }
+        
+        .welcome-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: "Outfit", sans-serif;
+        }
+        
+        .welcome-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+        
+        .features-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .feature-item:last-child {
+            border-bottom: none;
+        }
+        
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 16px;
+            font-size: 20px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .feature-content {
+            flex: 1;
+        }
+        
+        .feature-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .feature-description {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
+        }
+        
+        .action-section {
+            margin-top: 40px;
+        }
+        
+        .start-button {
+            width: 100%;
+            background-color: white;
+            color: #FF9D4D;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 0;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+        
+        .start-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .start-button:active {
+            transform: translateY(0);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .register-text {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        .register-text a {
+            color: white;
+            text-decoration: underline;
+            font-weight: 500;
+        }
+        
+        .guest-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">17:02</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="welcome-container">
+        <div class="header-section">
+            <div class="guest-badge">
+                <i class="fas fa-user-secret"></i> 訪客模式
+            </div>
+            <div class="welcome-icon">
+                <i class="fas fa-sparkles"></i>
+            </div>
+            <h1 class="welcome-title">歡迎來到 AqiveLife</h1>
+            <p class="welcome-subtitle">在註冊前，先體驗我們的核心功能<br>發現內在平靜的全新可能</p>
+        </div>
+
+        <div class="features-section">
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-leaf"></i>
+                </div>
+                <div class="feature-content">
+                    <div class="feature-title">調氣指導</div>
+                    <div class="feature-description">透過專業的呼吸引導，幫助您調節身心狀態</div>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="feature-content">
+                    <div class="feature-title">情緒追蹤</div>
+                    <div class="feature-description">記錄每日心情變化，了解自己的情緒模式</div>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <div class="feature-content">
+                    <div class="feature-title">專注提升</div>
+                    <div class="feature-description">多種模式幫助您提升專注力和工作效率</div>
+                </div>
+            </div>
+            
+            <div class="feature-item">
+                <div class="feature-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="feature-content">
+                    <div class="feature-title">睡眠改善</div>
+                    <div class="feature-description">放鬆身心，享受更好的睡眠品質</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="action-section">
+            <button class="start-button" onclick="startGuestExperience()">
+                <i class="fas fa-play"></i> 開始體驗
+            </button>
+            
+            <div class="register-link">
+                <p class="register-text">
+                    想要完整功能？<a href="login.html">立即註冊</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startGuestExperience() {
+            // 設置訪客體驗開始標記
+            localStorage.setItem('guestExperienceStarted', 'true');
+            
+            // 跳轉到訪客版本的首頁
+            window.location.href = 'guest-home.html';
+        }
+        
+        // 頁面載入時的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 檢查是否為訪客模式
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            if (userLoggedIn !== 'guest') {
+                // 如果不是訪客模式，跳轉到登入頁面
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+</html> 

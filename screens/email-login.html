@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - Email 登入</title>
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <script src="assets/js/shared.js" defer></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: url('assets/images/backgrounds/login-bg.jpg') no-repeat center center;
+            background-size: cover;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background-color: transparent;
+            color: #000;
+        }
+
+        .status-bar-left {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .status-bar-right {
+            display: flex;
+            gap: 6px;
+            font-size: 16px;
+        }
+        
+        .login-container {
+            height: calc(100% - 44px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+        
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-symbol {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .logo-wordmark {
+            height: 35px;
+            object-fit: contain;
+        }
+        
+        .page-title {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 500;
+        }
+        
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #FF9D4D;
+            background-color: white;
+            box-shadow: 0 0 0 3px rgba(255, 157, 77, 0.1);
+        }
+        
+        .input-field::placeholder {
+            color: #999;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+        }
+        
+        .password-toggle:hover {
+            color: #666;
+        }
+        
+        .login-btn {
+            width: 100%;
+            background-color: #FF9D4D;
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 0;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 157, 77, 0.3);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+        
+        .login-btn:hover {
+            background-color: #FF8C2E;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 157, 77, 0.4);
+        }
+        
+        .login-btn:active {
+            transform: translateY(0);
+        }
+        
+        .login-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .forgot-password {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .forgot-password a {
+            color: #FF9D4D;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .forgot-password a:hover {
+            text-decoration: underline;
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 30px 0;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: #e0e0e0;
+        }
+        
+        .divider span {
+            padding: 0 20px;
+        }
+        
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .google-btn {
+            background-color: #DB4437;
+        }
+        
+        .facebook-btn {
+            background-color: #1877F2;
+        }
+        
+        .apple-btn {
+            background-color: #000000;
+        }
+        
+        .signup-link {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .signup-link a {
+            color: #FF9D4D;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(231, 76, 60, 0.1);
+            border-radius: 25px;
+            display: none;
+        }
+        
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">8:38</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登入內容 -->
+    <div class="login-container">
+        <button class="back-button" onclick="goBack()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        
+        <div class="logo-section">
+            <div class="logo-icon">
+                <img src="assets/images/logo/aqive-symbol.svg" alt="Aqive Symbol" class="logo-symbol">
+            </div>
+            <div class="logo-text">
+                <img src="assets/images/logo/aqive-wordmark.svg" alt="Aqive" class="logo-wordmark">
+            </div>
+        </div>
+        
+        <h1 class="page-title">Email 登入</h1>
+        
+        <div class="form-container">
+            <div class="error-message" id="errorMessage"></div>
+            
+            <form id="emailLoginForm">
+                <div class="input-group">
+                    <input type="email" class="input-field" id="email" placeholder="請輸入您的 Email" required>
+                </div>
+                
+                <div class="input-group">
+                    <input type="password" class="input-field" id="password" placeholder="請輸入密碼" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword()">
+                        <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                    </button>
+                </div>
+                
+                <button type="submit" class="login-btn" id="loginBtn">
+                    <div class="loading" id="loading"></div>
+                    <span id="loginBtnText">登入</span>
+                </button>
+            </form>
+            
+            <div class="forgot-password">
+                <a href="#" onclick="forgotPassword()">忘記密碼？</a>
+            </div>
+            
+            <div class="divider">
+                <span>或</span>
+            </div>
+            
+            <div class="social-login">
+                <button class="social-btn google-btn" onclick="loginWithGoogle()" title="Google 登入">
+                    <i class="fab fa-google"></i>
+                </button>
+                <button class="social-btn facebook-btn" onclick="loginWithFacebook()" title="Facebook 登入">
+                    <i class="fab fa-facebook-f"></i>
+                </button>
+                <button class="social-btn apple-btn" onclick="loginWithApple()" title="Apple 登入">
+                    <i class="fab fa-apple"></i>
+                </button>
+            </div>
+            
+            <div class="signup-link">
+                還沒有帳號？<a href="#" onclick="goToSignup()">立即註冊</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 返回上一頁
+        function goBack() {
+            window.history.back();
+        }
+        
+        // 切換密碼顯示/隱藏
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordField.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+        
+        // 顯示錯誤訊息
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        // 隱藏錯誤訊息
+        function hideError() {
+            const errorElement = document.getElementById('errorMessage');
+            errorElement.style.display = 'none';
+        }
+        
+        // 設置載入狀態
+        function setLoading(isLoading) {
+            const loginBtn = document.getElementById('loginBtn');
+            const loading = document.getElementById('loading');
+            const btnText = document.getElementById('loginBtnText');
+            
+            if (isLoading) {
+                loginBtn.disabled = true;
+                loading.style.display = 'inline-block';
+                btnText.textContent = '登入中...';
+            } else {
+                loginBtn.disabled = false;
+                loading.style.display = 'none';
+                btnText.textContent = '登入';
+            }
+        }
+        
+        // Email 登入表單提交
+        document.getElementById('emailLoginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // 基本驗證
+            if (!email || !password) {
+                showError('請填寫所有必填欄位');
+                return;
+            }
+            
+            if (!isValidEmail(email)) {
+                showError('請輸入有效的 Email 地址');
+                return;
+            }
+            
+            hideError();
+            setLoading(true);
+            
+            // 模擬登入請求
+            setTimeout(() => {
+                // 這裡應該是實際的登入 API 調用
+                loginWithEmail(email, password);
+            }, 1500);
+        });
+        
+        // Email 格式驗證
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+        
+        // Email 登入處理
+        function loginWithEmail(email, password) {
+            // 模擬登入邏輯
+            console.log('Email 登入:', email);
+            
+            // 模擬登入成功/失敗
+            const loginSuccess = Math.random() > 0.3; // 70% 成功率
+            
+            setLoading(false);
+            
+            if (loginSuccess) {
+                handleLoginSuccess('email', { email: email });
+            } else {
+                showError('登入失敗，請檢查您的 Email 和密碼');
+            }
+        }
+        
+        // 社交登入
+        function loginWithGoogle() {
+            console.log('Google 登入');
+            handleLoginSuccess('google');
+        }
+        
+        function loginWithFacebook() {
+            console.log('Facebook 登入');
+            handleLoginSuccess('facebook');
+        }
+        
+        function loginWithApple() {
+            console.log('Apple 登入');
+            handleLoginSuccess('apple');
+        }
+        
+        // 忘記密碼
+        function forgotPassword() {
+            window.location.href = 'forgot-password.html';
+        }
+        
+        // 前往註冊頁面
+        function goToSignup() {
+            alert('註冊頁面開發中...');
+        }
+        
+        // 處理登入成功後的邏輯
+        function handleLoginSuccess(provider, userData = {}) {
+            // 在原型展示模式下，不執行實際的跳轉
+            const isPrototypeMode = window.parent !== window || window.location.href.includes('index.html');
+            
+            if (isPrototypeMode) {
+                // 原型展示模式：只顯示提示訊息
+                alert(`${provider} 登入成功！\n（原型展示模式，不會實際跳轉）`);
+                return;
+            }
+            
+            // 保存登入狀態
+            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('loginProvider', provider);
+            localStorage.setItem('loginTime', new Date().toISOString());
+            
+            // 如果是 email 登入，保存用戶資料
+            if (provider === 'email' && userData.email) {
+                localStorage.setItem('userEmail', userData.email);
+            }
+            
+            // 檢查是否已經同意過服務條款
+            const termsAgreed = localStorage.getItem('termsAgreed');
+            
+            if (termsAgreed === 'true') {
+                // 如果已經同意過，直接跳轉到首頁
+                window.location.href = 'home.html';
+            } else {
+                // 如果未同意過，跳轉到服務條款同意頁面
+                window.location.href = 'terms-agreement.html';
+            }
+        }
+        
+        // 頁面載入時的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 在原型展示模式下，跳過登入狀態檢查
+            const isPrototypeMode = window.parent !== window || window.location.href.includes('index.html');
+            
+            if (!isPrototypeMode) {
+                // 檢查是否已經登入
+                const userLoggedIn = localStorage.getItem('userLoggedIn');
+                const termsAgreed = localStorage.getItem('termsAgreed');
+                
+                if (userLoggedIn === 'true' && termsAgreed === 'true') {
+                    // 如果已登入且已同意條款，直接跳轉到首頁
+                    window.location.href = 'home.html';
+                }
+            }
+            
+            // 自動聚焦到 email 輸入框
+            document.getElementById('email').focus();
+        });
+    </script>
+</body>
+</html>

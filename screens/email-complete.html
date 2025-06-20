@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 完善資料</title>
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/pages/email-complete.js" defer></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            overflow: hidden;
+        }
+        
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background-color: transparent;
+            color: #fff;
+        }
+
+        .status-bar-left {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .status-bar-right {
+            display: flex;
+            gap: 6px;
+            font-size: 16px;
+        }
+        
+        .complete-container {
+            height: calc(100% - 44px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+        
+        .content-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            padding: 40px 30px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .welcome-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #FF9D4D, #E57254);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 36px;
+            color: white;
+            box-shadow: 0 4px 16px rgba(255, 157, 77, 0.3);
+        }
+        
+        .welcome-title {
+            font-size: 22px;
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .welcome-subtitle {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+        
+        .welcome-description {
+            font-size: 13px;
+            color: #888;
+            line-height: 1.4;
+        }
+        
+        .form-section {
+            margin-bottom: 30px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fff;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: #FF9D4D;
+            box-shadow: 0 0 0 3px rgba(255, 157, 77, 0.1);
+        }
+        
+        .input-field::placeholder {
+            color: #aaa;
+        }
+        
+        .input-field.valid {
+            border-color: #34C759;
+        }
+        
+        .input-field.invalid {
+            border-color: #FF3B30;
+        }
+        
+        .input-error {
+            font-size: 12px;
+            color: #FF3B30;
+            margin-top: 5px;
+            margin-left: 20px;
+            display: none;
+        }
+        
+        .input-field.invalid + .input-error {
+            display: block;
+        }
+        
+        .complete-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #FF9D4D, #E57254);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 16px 0;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(255, 157, 77, 0.3);
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
+            margin-bottom: 15px;
+        }
+        
+        .complete-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 157, 77, 0.4);
+        }
+        
+        .complete-btn:active {
+            transform: translateY(0);
+        }
+        
+        .complete-btn:disabled {
+            background: linear-gradient(135deg, #ccc, #999);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .skip-section {
+            text-align: center;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .skip-btn {
+            background: none;
+            border: none;
+            color: #999;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: 'Noto Sans TC', sans-serif;
+            transition: color 0.3s ease;
+        }
+        
+        .skip-btn:hover {
+            color: #666;
+        }
+        
+        .security-note {
+            background: rgba(255, 157, 77, 0.1);
+            border: 1px solid rgba(255, 157, 77, 0.2);
+            border-radius: 12px;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .security-note-icon {
+            color: #FF9D4D;
+            font-size: 16px;
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+        
+        .security-note-text {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.4;
+        }
+        
+        /* 載入狀態 */
+        .loading {
+            position: relative;
+            pointer-events: none;
+        }
+        
+        .loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">9:41</div>
+        <div class="status-bar-right">
+            <span>📶</span>
+            <span>📶</span>
+            <span>🔋</span>
+        </div>
+    </div>
+    
+    <!-- 主要內容 -->
+    <div class="complete-container">
+        <div class="content-card">
+            <!-- 歡迎區塊 -->
+            <div class="welcome-section">
+                <div class="welcome-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <h1 class="welcome-title">完善您的資料</h1>
+                <p class="welcome-subtitle">為了提供更好的服務體驗</p>
+                <p class="welcome-description">請提供您的 Email 地址，我們會用於帳戶安全通知和重要資訊通知</p>
+            </div>
+            
+            <!-- 安全提示 -->
+            <div class="security-note">
+                <i class="fas fa-shield-alt security-note-icon"></i>
+                <div class="security-note-text">
+                    您的 Email 地址將受到完整保護，僅用於帳戶安全和重要通知，絕不會用於垃圾郵件。
+                </div>
+            </div>
+            
+            <!-- 表單區塊 -->
+            <form class="form-section" id="emailForm">
+                <div class="input-group">
+                    <label class="input-label" for="email">Email 地址</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        class="input-field" 
+                        placeholder="請輸入您的 Email 地址"
+                        required
+                    >
+                    <div class="input-error">請輸入有效的 Email 地址</div>
+                </div>
+                
+                <button type="submit" class="complete-btn" id="completeBtn">
+                    完成設定
+                </button>
+            </form>
+            
+            <!-- 跳過選項 -->
+            <div class="skip-section">
+                <button type="button" class="skip-btn" onclick="skipEmail()">
+                    稍後再設定
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript 邏輯已移至 assets/js/pages/email-complete.js -->
+</body>
+</html> 

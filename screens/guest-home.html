@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 訪客體驗</title>
+    <!-- 添加品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- 引入共用樣式和頁面特定樣式 -->
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/home.css">
+    <style>
+        /* 訪客模式特定樣式 */
+        .guest-header {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            padding: 20px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 0 0 20px 20px;
+        }
+        
+        .guest-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        
+        .guest-greeting {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .guest-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .limited-feature {
+            position: relative;
+            opacity: 0.6;
+        }
+        
+        .limited-feature::after {
+            content: '需要註冊';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #FF9D4D;
+            color: white;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .upgrade-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .upgrade-text {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        
+        .upgrade-button {
+            background-color: white;
+            color: #FF9D4D;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upgrade-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        
+        .demo-stats {
+            filter: blur(1px);
+            pointer-events: none;
+        }
+        
+        .demo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .guest-trial-info {
+            background-color: #FFF8F3;
+            border-left: 4px solid #FF9D4D;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .trial-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .trial-highlight {
+            color: #FF9D4D;
+            font-weight: 600;
+        }
+        
+        .guest-tab-bar {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+        }
+        
+        .tab-item.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+    <!-- 引入共用腳本和頁面特定腳本 -->
+    <script src="assets/js/shared.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">17:02</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 主內容區域 -->
+    <div class="content">
+        <!-- 訪客模式標頭 -->
+        <div class="guest-header">
+            <div class="guest-badge">
+                <i class="fas fa-user-secret"></i> 訪客體驗
+            </div>
+            <div class="guest-greeting">體驗 AqiveLife</div>
+            <div class="guest-subtitle">感受調氣的奇妙效果</div>
+        </div>
+        
+        <!-- 體驗試用說明 -->
+        <div class="guest-trial-info">
+            <div class="trial-text">
+                您正在使用 <span class="trial-highlight">訪客模式</span>，可以體驗部分功能。
+                註冊後即可解鎖完整功能並保存您的進度！
+            </div>
+        </div>
+        
+        <!-- 今日調氣小提示 -->
+        <div class="card-warning tip-card">
+            <div class="tip-icon">
+                <i class="fas fa-lightbulb"></i>
+            </div>
+            <div class="tip-content">
+                <div class="card-title">今日調氣小提示</div>
+                <div class="card-body">嘗試在進行調氣體驗時配合深呼吸，每次吸氣5秒，呼氣6秒，可以加強調氣效果。</div>
+            </div>
+        </div>
+        
+        <!-- 簡化的產品選擇區塊 - 僅展示不使用產品選項 -->
+        <div class="card-raised card-interactive product-selection">
+            <div class="product-header">
+                <div class="card-title">體驗模式</div>
+            </div>
+            
+            <div class="product-usage-tip">
+                <div class="product-usage-icon"><i class="fas fa-info-circle"></i></div>
+                <div class="product-usage-text">訪客模式將以純APP引導方式進行體驗，無需實體產品</div>
+            </div>
+            
+            <!-- 無產品選項 - 預設選中 -->
+            <div class="no-product-option selected" id="noProductOption">
+                <div class="no-product-icon">
+                    <i class="fas fa-mobile-alt"></i>
+                </div>
+                <div class="no-product-text">
+                    <div class="no-product-title">APP 引導體驗</div>
+                    <div class="no-product-desc">使用APP內建的呼吸引導和冥想功能</div>
+                </div>
+                <div class="no-product-check"></div>
+            </div>
+            
+            <!-- 產品展示 - 顯示但不可選 -->
+            <div class="limited-feature">
+                <div class="products-grid" style="opacity: 0.3; pointer-events: none;">
+                    <div class="product-item" data-product="撓定" data-category="氣機">
+                        <div class="product-check"></div>
+                        <div class="product-image">
+                            <img src="assets/images/products/qi-ease.jpg" alt="撓定">
+                        </div>
+                        <div class="product-name">撓定</div>
+                    </div>
+                    
+                    <div class="product-item" data-product="撓氣源寶" data-category="氣機">
+                        <div class="product-check"></div>
+                        <div class="product-image">
+                            <img src="assets/images/products/qi-torsion.jpg" alt="撓氣源寶">
+                        </div>
+                        <div class="product-name">撓氣源寶</div>
+                    </div>
+                    
+                    <div class="product-item" data-product="盒炁" data-category="氣機">
+                        <div class="product-check"></div>
+                        <div class="product-image">
+                            <img src="assets/images/products/qi-box.jpg" alt="盒炁">
+                        </div>
+                        <div class="product-name">盒炁</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-button-container">
+            <button class="super-button" onclick="startGuestExperience()">
+                <div class="super-button-icon">
+                    <i class="fas fa-play"></i>
+                </div>
+                開始體驗調氣
+            </button>
+        </div>
+        
+        <!-- 升級提示 -->
+        <div class="upgrade-prompt">
+            <div class="upgrade-title">解鎖完整功能</div>
+            <div class="upgrade-text">註冊後可使用所有產品、查看詳細數據、保存進度記錄</div>
+            <button class="upgrade-button" onclick="goToRegister()">
+                立即註冊
+            </button>
+        </div>
+        
+        <!-- 示例統計數據 - 模糊顯示 -->
+        <div class="stats-summary">
+            <div class="card-raised stats-card limited-feature" style="position: relative;">
+                <div class="stats-header">
+                    <div class="card-title">本週概況</div>
+                    <span class="stats-action" style="opacity: 0.5;">查看詳情</span>
+                </div>
+                
+                <div class="card-body demo-stats">
+                    <div class="stats-grid">
+                        <div class="stats-item">
+                            <div class="stats-value">?</div>
+                            <div class="stats-label">調氣次數</div>
+                        </div>
+                        <div class="stats-item">
+                            <div class="stats-value">?</div>
+                            <div class="stats-label">焦慮減少</div>
+                        </div>
+                        <div class="stats-item">
+                            <div class="stats-value">?</div>
+                            <div class="stats-label">專注提升</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-overlay">
+                    <i class="fas fa-lock" style="margin-right: 8px;"></i>
+                    註冊後查看個人數據
+                </div>
+            </div>
+        </div>
+        
+        <!-- 示例調氣記錄 - 模糊顯示 -->
+        <div class="card-elevated recent-sessions limited-feature" style="position: relative;">
+            <div class="card-title">近期調氣記錄</div>
+            <div class="card-body demo-stats">
+                <div class="session-list">
+                    <div class="session-item">
+                        <div class="session-icon relaxation-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="session-details">
+                            <div class="session-title">放鬆調氣體驗</div>
+                            <div class="session-time">體驗模式</div>
+                        </div>
+                        <div class="session-duration">示例</div>
+                    </div>
+                </div>
+            </div>
+            <div class="demo-overlay">
+                <i class="fas fa-lock" style="margin-right: 8px;"></i>
+                註冊後保存記錄
+            </div>
+        </div>
+    </div>
+    
+    <!-- 底部導航欄 - 部分功能限制 -->
+    <div class="tab-bar guest-tab-bar">
+        <a href="guest-home.html" class="tab-item active">
+            <div class="tab-icon">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="tab-label">首頁</div>
+        </a>
+        <a href="#" class="tab-item disabled" onclick="showUpgradeAlert()">
+            <div class="tab-icon">
+                <i class="fas fa-chart-line"></i>
+            </div>
+            <div class="tab-label">記錄</div>
+        </a>
+        <a href="#" class="tab-item disabled" onclick="showUpgradeAlert()">
+            <div class="tab-icon">
+                <i class="fas fa-chart-pie"></i>
+            </div>
+            <div class="tab-label">數據</div>
+        </a>
+        <a href="guest-settings.html" class="tab-item">
+            <div class="tab-icon">
+                <i class="fas fa-cog"></i>
+            </div>
+            <div class="tab-label">設定</div>
+        </a>
+    </div>
+
+    <script>
+    // 頁面訪問保護 - 檢查訪客狀態
+    document.addEventListener('DOMContentLoaded', function() {
+        // 檢查是否為訪客模式
+        const userLoggedIn = localStorage.getItem('userLoggedIn');
+        if (userLoggedIn !== 'guest') {
+            // 如果不是訪客模式，跳轉到登入頁面
+            window.location.href = 'login.html';
+            return;
+        }
+        
+        // 檢查是否已開始訪客體驗
+        const guestExperienceStarted = localStorage.getItem('guestExperienceStarted');
+        if (!guestExperienceStarted) {
+            // 如果未開始體驗，跳轉回歡迎頁面
+            window.location.href = 'guest-welcome.html';
+            return;
+        }
+        
+        // 初始化頁面
+        initializeGuestPage();
+    });
+
+    // 初始化訪客頁面功能
+    function initializeGuestPage() {
+        // 設置訪客體驗的開始時間
+        if (!localStorage.getItem('guestStartTime')) {
+            localStorage.setItem('guestStartTime', new Date().toISOString());
+        }
+        
+        // 更新體驗時間
+        updateGuestTimer();
+        
+        // 每分鐘更新一次計時器
+        setInterval(updateGuestTimer, 60000);
+    }
+    
+    // 更新訪客體驗計時器
+    function updateGuestTimer() {
+        const startTime = localStorage.getItem('guestStartTime');
+        if (startTime) {
+            const start = new Date(startTime);
+            const now = new Date();
+            const diffMinutes = Math.floor((now - start) / (1000 * 60));
+            
+            // 如果體驗超過30分鐘，顯示升級提示
+            if (diffMinutes >= 30) {
+                showExtendedUsePrompt();
+            }
+        }
+    }
+    
+    // 開始訪客體驗
+    function startGuestExperience() {
+        // 跳轉到模式選擇器（訪客版本）
+        window.location.href = 'guest-mode-selector.html';
+    }
+    
+    // 前往註冊
+    function goToRegister() {
+        // 清除訪客狀態
+        localStorage.removeItem('userLoggedIn');
+        localStorage.removeItem('loginProvider');
+        localStorage.removeItem('guestExperienceStarted');
+        localStorage.removeItem('guestStartTime');
+        
+        // 跳轉到登入頁面
+        window.location.href = 'login.html';
+    }
+    
+    // 顯示升級提示
+    function showUpgradeAlert() {
+        const message = "此功能需要註冊帳號才能使用\n\n• 保存個人記錄\n• 查看詳細數據\n• 使用完整功能\n\n是否立即註冊？";
+        if (confirm(message)) {
+            goToRegister();
+        }
+    }
+    
+    // 顯示長時間使用提示
+    function showExtendedUsePrompt() {
+        // 檢查是否已經顯示過
+        if (localStorage.getItem('extendedUsePromptShown')) {
+            return;
+        }
+        
+        localStorage.setItem('extendedUsePromptShown', 'true');
+        
+        const message = "您已經體驗了30分鐘！\n\n註冊帳號即可：\n• 無限制使用時間\n• 保存所有進度\n• 解鎖完整功能\n\n立即註冊？";
+        if (confirm(message)) {
+            goToRegister();
+        }
+    }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 訪客調氣體驗</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            font-family: 'Noto Sans TC', sans-serif;
+            height: 100vh;
+            overflow: hidden;
+        }
+        
+        .status-bar {
+            background-color: transparent;
+            color: white;
+        }
+        
+        .ritual-container {
+            height: calc(100vh - 47px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .guest-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .timer-display {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .mode-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            font-family: "Outfit", sans-serif;
+        }
+        
+        .mode-subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
+        }
+        
+        .breathing-circle {
+            width: 200px;
+            height: 200px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            position: relative;
+            animation: breathe 6s ease-in-out infinite;
+        }
+        
+        .breathing-inner {
+            width: 140px;
+            height: 140px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+        }
+        
+        .breathing-instruction {
+            font-size: 24px;
+            font-weight: 600;
+            margin: 30px 0;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-buttons {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+        
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border-radius: 30px;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .control-btn:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+        
+        .upgrade-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .upgrade-modal {
+            background-color: white;
+            color: #333;
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px;
+            text-align: center;
+            max-width: 320px;
+            width: 100%;
+        }
+        
+        .upgrade-modal h3 {
+            color: #FF9D4D;
+            font-size: 20px;
+            margin-bottom: 16px;
+        }
+        
+        .upgrade-modal p {
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .modal-btn.primary {
+            background-color: #FF9D4D;
+            color: white;
+        }
+        
+        .modal-btn.secondary {
+            background-color: #E0E0E0;
+            color: #666;
+        }
+        
+        @keyframes breathe {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">17:02</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="ritual-container">
+        <div class="guest-badge">
+            <i class="fas fa-user-secret"></i> 訪客體驗
+        </div>
+        
+        <div class="timer-display" id="timerDisplay">
+            <i class="fas fa-clock"></i> 剩餘時間: 5:00
+        </div>
+        
+        <h1 class="mode-title" id="modeTitle">氣定神閒</h1>
+        <p class="mode-subtitle" id="modeSubtitle">放鬆身心，釋放壓力</p>
+        
+        <div class="breathing-circle">
+            <div class="breathing-inner">
+                <i class="fas fa-leaf" id="modeIcon"></i>
+            </div>
+        </div>
+        
+        <div class="breathing-instruction" id="breathingInstruction">
+            準備開始調氣體驗
+        </div>
+        
+        <div class="control-buttons">
+            <button class="control-btn" id="playPauseBtn" onclick="toggleSession()">
+                <i class="fas fa-play"></i>
+            </button>
+            <button class="control-btn" onclick="endSession()">
+                <i class="fas fa-stop"></i>
+            </button>
+        </div>
+    </div>
+    
+    <!-- 升級提示彈窗 -->
+    <div class="upgrade-overlay" id="upgradeOverlay">
+        <div class="upgrade-modal">
+            <h3>體驗時間結束</h3>
+            <p>您已完成 5 分鐘的訪客體驗！<br><br>註冊 AqiveLife 帳號即可無限制使用所有調氣功能，並保存您的進度記錄。</p>
+            <div class="modal-buttons">
+                <button class="modal-btn secondary" onclick="backToHome()">稍後註冊</button>
+                <button class="modal-btn primary" onclick="goToRegister()">立即註冊</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let sessionActive = false;
+        let timeLeft = 300; // 5分鐘 = 300秒
+        let breathingCycle = 0; // 0: 準備, 1: 吸氣, 2: 呼氣
+        let sessionInterval;
+        let timerInterval;
+        let selectedMode = '';
+        
+        // 頁面載入時的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 檢查是否為訪客模式
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            if (userLoggedIn !== 'guest') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 獲取選擇的模式
+            selectedMode = localStorage.getItem('selectedMode') || 'relaxation';
+            setupMode(selectedMode);
+            
+            // 檢查該模式是否已經用完體驗時間
+            checkModeUsage(selectedMode);
+        });
+        
+        // 設置模式相關的UI
+        function setupMode(mode) {
+            const modeConfig = {
+                'relaxation': {
+                    title: '氣定神閒',
+                    subtitle: '放鬆身心，釋放壓力',
+                    icon: 'fas fa-leaf'
+                },
+                'focus': {
+                    title: '專注平靜',
+                    subtitle: '提升注意力，增強專注',
+                    icon: 'fas fa-bullseye'
+                },
+                'sleep': {
+                    title: '一夜好眠',
+                    subtitle: '安撫心靈，幫助入睡',
+                    icon: 'fas fa-moon'
+                }
+            };
+            
+            const config = modeConfig[mode] || modeConfig['relaxation'];
+            document.getElementById('modeTitle').textContent = config.title;
+            document.getElementById('modeSubtitle').textContent = config.subtitle;
+            document.getElementById('modeIcon').className = config.icon;
+        }
+        
+        // 檢查模式使用情況
+        function checkModeUsage(mode) {
+            const experiencedModes = JSON.parse(localStorage.getItem('guestExperiencedModes') || '{}');
+            
+            if (experiencedModes[mode] && experiencedModes[mode].timeUsed >= 300) {
+                // 該模式已經用完體驗時間
+                showUpgradeOverlay();
+                return;
+            }
+            
+            // 計算剩餘時間
+            if (experiencedModes[mode]) {
+                timeLeft = 300 - experiencedModes[mode].timeUsed;
+            }
+            
+            updateTimerDisplay();
+        }
+        
+        // 切換會話狀態
+        function toggleSession() {
+            if (!sessionActive) {
+                startSession();
+            } else {
+                pauseSession();
+            }
+        }
+        
+        // 開始體驗
+        function startSession() {
+            sessionActive = true;
+            document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-pause"></i>';
+            
+            // 開始計時器
+            timerInterval = setInterval(updateTimer, 1000);
+            
+            // 開始呼吸指導
+            sessionInterval = setInterval(updateBreathingInstruction, 2000);
+            
+            updateBreathingInstruction();
+        }
+        
+        // 暫停體驗
+        function pauseSession() {
+            sessionActive = false;
+            document.getElementById('playPauseBtn').innerHTML = '<i class="fas fa-play"></i>';
+            
+            clearInterval(timerInterval);
+            clearInterval(sessionInterval);
+            
+            document.getElementById('breathingInstruction').textContent = '體驗已暫停';
+        }
+        
+        // 結束體驗
+        function endSession() {
+            sessionActive = false;
+            clearInterval(timerInterval);
+            clearInterval(sessionInterval);
+            
+            // 保存使用時間
+            saveUsageTime();
+            
+            // 返回首頁
+            window.location.href = 'guest-home.html';
+        }
+        
+        // 更新計時器
+        function updateTimer() {
+            timeLeft--;
+            updateTimerDisplay();
+            
+            // 保存使用時間
+            saveUsageTime();
+            
+            if (timeLeft <= 0) {
+                // 時間用完，顯示升級提示
+                sessionActive = false;
+                clearInterval(timerInterval);
+                clearInterval(sessionInterval);
+                showUpgradeOverlay();
+            }
+        }
+        
+        // 更新計時器顯示
+        function updateTimerDisplay() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            document.getElementById('timerDisplay').innerHTML = 
+                `<i class="fas fa-clock"></i> 剩餘時間: ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        // 更新呼吸指導
+        function updateBreathingInstruction() {
+            if (!sessionActive) return;
+            
+            const instructions = ['深深吸氣...', '慢慢呼氣...', '保持平靜...'];
+            const instruction = instructions[breathingCycle % instructions.length];
+            
+            document.getElementById('breathingInstruction').textContent = instruction;
+            document.getElementById('breathingInstruction').classList.add('fade-in');
+            
+            setTimeout(() => {
+                document.getElementById('breathingInstruction').classList.remove('fade-in');
+            }, 500);
+            
+            breathingCycle++;
+        }
+        
+        // 保存使用時間
+        function saveUsageTime() {
+            const experiencedModes = JSON.parse(localStorage.getItem('guestExperiencedModes') || '{}');
+            
+            if (!experiencedModes[selectedMode]) {
+                experiencedModes[selectedMode] = {
+                    experienced: true,
+                    startTime: new Date().toISOString(),
+                    timeUsed: 0
+                };
+            }
+            
+            experiencedModes[selectedMode].timeUsed = 300 - timeLeft;
+            experiencedModes[selectedMode].experienced = true;
+            
+            localStorage.setItem('guestExperiencedModes', JSON.stringify(experiencedModes));
+        }
+        
+        // 顯示升級提示
+        function showUpgradeOverlay() {
+            document.getElementById('upgradeOverlay').style.display = 'flex';
+        }
+        
+        // 返回首頁
+        function backToHome() {
+            window.location.href = 'guest-home.html';
+        }
+        
+        // 前往註冊
+        function goToRegister() {
+            // 清除訪客狀態
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('loginProvider');
+            localStorage.removeItem('guestExperienceStarted');
+            localStorage.removeItem('guestStartTime');
+            localStorage.removeItem('guestExperiencedModes');
+            
+            // 跳轉到登入頁面
+            window.location.href = 'login.html';
+        }
+        
+        // 頁面關閉前保存狀態
+        window.addEventListener('beforeunload', function() {
+            if (sessionActive) {
+                saveUsageTime();
+            }
+        });
+    </script>
+</body>
+</html> 

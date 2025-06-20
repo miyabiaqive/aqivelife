@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - 訪客體驗模式</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <link rel="stylesheet" href="assets/css/pages/mode-selector.css">
+    <style>
+        /* 訪客模式特定樣式 */
+        .guest-header {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            padding: 20px;
+            margin: -20px -20px 20px -20px;
+            border-radius: 0 0 20px 20px;
+            text-align: center;
+        }
+        
+        .guest-badge {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+        
+        .guest-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .guest-subtitle {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .trial-limit-notice {
+            background-color: #FFF8F3;
+            border-left: 4px solid #FF9D4D;
+            padding: 16px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .trial-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .trial-highlight {
+            color: #FF9D4D;
+            font-weight: 600;
+        }
+        
+        .goal-card {
+            position: relative;
+        }
+        
+        .trial-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background-color: #FF9D4D;
+            color: white;
+            font-size: 10px;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 500;
+        }
+        
+        .upgrade-prompt {
+            background: linear-gradient(135deg, #FF9D4D 0%, #E57254 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .upgrade-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .upgrade-text {
+            font-size: 13px;
+            opacity: 0.9;
+            margin-bottom: 16px;
+        }
+        
+        .upgrade-button {
+            background-color: white;
+            color: #FF9D4D;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .upgrade-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+    <script src="assets/js/shared.js" defer></script>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left">
+            <div class="status-bar-time">17:02</div>
+        </div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal">
+                <i class="fas fa-signal"></i>
+            </div>
+            <div class="status-bar-wifi">
+                <i class="fas fa-wifi"></i>
+            </div>
+            <div class="status-bar-battery">
+                <i class="fas fa-battery-full"></i>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 應用欄 -->
+    <div class="app-bar">
+        <a href="guest-home.html" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+        </a>
+        <div class="app-title">選擇體驗模式</div>
+    </div>
+    
+    <!-- 進度條 -->
+    <div class="progress-bar">
+        <div class="progress-fill"></div>
+    </div>
+
+    <!-- 調氣模式選擇內容 -->
+    <div class="mode-selector-container">
+        <!-- 訪客模式標頭 -->
+        <div class="guest-header">
+            <div class="guest-badge">
+                <i class="fas fa-user-secret"></i> 訪客體驗
+            </div>
+            <div class="guest-title">選擇您想體驗的功能</div>
+            <div class="guest-subtitle">每種模式都有5分鐘的免費體驗</div>
+        </div>
+        
+        <!-- 體驗限制說明 -->
+        <div class="trial-limit-notice">
+            <div class="trial-text">
+                <span class="trial-highlight">訪客模式限制：</span>每種模式可體驗 5 分鐘，註冊後即可無限制使用所有功能。
+            </div>
+        </div>
+        
+        <div>
+            <h1 class="step-title">今天想要開啟哪個超能力</h1>
+            <p class="step-description">選擇您想體驗的調氣模式，感受 AqiveLife 的神奇效果。</p>
+            
+            <div class="goal-cards">
+                <a href="guest-ritual.html" class="goal-card-link" onclick="saveGuestGoal('relaxation'); return true;">
+                    <div class="goal-card goal-relaxation" data-goal="relaxation">
+                        <div class="trial-badge">5分鐘體驗</div>
+                        <div class="goal-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己氣定神閒</div>
+                            <div class="goal-description">減輕焦慮和壓力，提升平靜感</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="guest-ritual.html" class="goal-card-link" onclick="saveGuestGoal('focus'); return true;">
+                    <div class="goal-card goal-focus" data-goal="focus">
+                        <div class="trial-badge">5分鐘體驗</div>
+                        <div class="goal-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己專注平靜</div>
+                            <div class="goal-description">提高注意力與工作效率</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <a href="guest-ritual.html" class="goal-card-link" onclick="saveGuestGoal('sleep'); return true;">
+                    <div class="goal-card goal-sleep" data-goal="sleep">
+                        <div class="trial-badge">5分鐘體驗</div>
+                        <div class="goal-icon">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="goal-content">
+                            <div class="goal-title">讓自己一夜好眠</div>
+                            <div class="goal-description">幫助入睡與提升睡眠品質</div>
+                        </div>
+                        <div class="check-icon">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <!-- 升級提示 -->
+        <div class="upgrade-prompt">
+            <div class="upgrade-title">想要完整體驗？</div>
+            <div class="upgrade-text">註冊帳號即可無限制使用所有功能，並保存您的調氣記錄</div>
+            <button class="upgrade-button" onclick="goToRegister()">
+                立即註冊
+            </button>
+        </div>
+        
+        <!-- 隱藏導航按鈕區域 -->
+        <div class="navigation-buttons" style="display: none;">
+            <button class="btn btn-primary" id="start-tuning-btn" disabled>繼續</button>
+        </div>
+    </div>
+    
+    <style>
+        /* 添加卡片連結樣式 */
+        .goal-card-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-bottom: 16px;
+            width: 100%;
+        }
+        
+        .goal-cards {
+            width: 100%;
+        }
+    </style>
+
+    <script>
+        // 頁面載入時的初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 檢查是否為訪客模式
+            const userLoggedIn = localStorage.getItem('userLoggedIn');
+            if (userLoggedIn !== 'guest') {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 初始化進度條動畫
+            setTimeout(() => {
+                document.querySelector('.progress-fill').style.width = '33%';
+            }, 300);
+        });
+        
+        // 保存訪客選擇的目標
+        function saveGuestGoal(goal) {
+            console.log('儲存訪客體驗目標：' + goal);
+            
+            // 檢查該模式是否已經體驗過
+            const experiencedModes = JSON.parse(localStorage.getItem('guestExperiencedModes') || '{}');
+            
+            // 保存選擇的模式
+            try {
+                localStorage.setItem('selectedMode', goal);
+                
+                // 記錄體驗開始
+                if (!experiencedModes[goal]) {
+                    experiencedModes[goal] = {
+                        experienced: false,
+                        startTime: new Date().toISOString(),
+                        timeUsed: 0
+                    };
+                    localStorage.setItem('guestExperiencedModes', JSON.stringify(experiencedModes));
+                }
+                
+            } catch (e) {
+                console.error('localStorage可能不可用:', e);
+            }
+            
+            return true; // 允許繼續跳轉
+        }
+        
+        // 前往註冊
+        function goToRegister() {
+            // 清除訪客狀態
+            localStorage.removeItem('userLoggedIn');
+            localStorage.removeItem('loginProvider');
+            localStorage.removeItem('guestExperienceStarted');
+            localStorage.removeItem('guestStartTime');
+            localStorage.removeItem('guestExperiencedModes');
+            
+            // 跳轉到登入頁面
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AqiveLife - Email 註冊</title>
+    <!-- 品牌字體 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/shared.css">
+    <script src="assets/js/shared.js" defer></script>
+    <style>
+        body {
+            width: 100%;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Noto Sans TC', sans-serif;
+            background: url('assets/images/backgrounds/login-bg.jpg') no-repeat center center;
+            background-size: cover;
+        }
+
+        .status-bar {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            background-color: transparent;
+            color: #000;
+        }
+
+        .status-bar-left {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .status-bar-right {
+            display: flex;
+            gap: 6px;
+            font-size: 16px;
+        }
+
+        .signup-container {
+            height: calc(100% - 44px);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 0 30px;
+            box-sizing: border-box;
+            position: relative;
+        }
+
+        /* 返回按鈕 */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 30px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #333;
+            cursor: pointer;
+            padding: 10px;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .back-button:hover {
+            background-color: rgba(0,0,0,0.1);
+        }
+
+        /* LOGO 區域 */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+        }
+
+        .logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .logo-text img {
+            height: 35px;
+            object-fit: contain;
+        }
+
+        /* 標題 */
+        .page-title {
+            font-size: 24px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 35px;
+            font-weight: 500;
+        }
+
+        /* 表單 */
+        .form-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 16px;
+            background-color: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #FF9D4D;
+            background-color: #fff;
+            box-shadow: 0 0 0 3px rgba(255,157,77,0.1);
+        }
+
+        .input-field::placeholder {
+            color: #999;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #999;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 5px;
+        }
+
+        .password-toggle:hover { color: #666; }
+
+        .signup-btn {
+            width: 100%;
+            background-color: #FF9D4D;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            padding: 18px 0;
+            font-size: 18px;
+            font-weight: 500;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255,157,77,0.3);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans TC', sans-serif;
+        }
+
+        .signup-btn:hover {
+            background-color: #FF8C2E;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,157,77,0.4);
+        }
+
+        .signup-btn:active { transform: translateY(0); }
+        .signup-btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .login-link { text-align: center; margin-top: 20px; font-size: 14px; color: #666; }
+        .login-link a { color: #FF9D4D; text-decoration: none; font-weight: 500; }
+        .login-link a:hover { text-decoration: underline; }
+
+        .error-message {
+            display: none;
+            color: #e74c3c;
+            font-size: 14px;
+            text-align: center;
+            margin-bottom: 15px;
+            padding: 10px;
+            background-color: rgba(231,76,60,0.1);
+            border-radius: 25px;
+        }
+
+        .loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #ffffff;
+            border-top: 2px solid transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+        }
+
+        @keyframes spin { 0% { transform: rotate(0deg);} 100% { transform: rotate(360deg);} }
+    </style>
+</head>
+<body>
+    <!-- iOS 狀態欄 -->
+    <div class="status-bar">
+        <div class="status-bar-left"><div class="status-bar-time">8:38</div></div>
+        <div class="status-bar-right">
+            <div class="status-bar-signal"><i class="fas fa-signal"></i></div>
+            <div class="status-bar-wifi"><i class="fas fa-wifi"></i></div>
+            <div class="status-bar-battery"><i class="fas fa-battery-full"></i></div>
+        </div>
+    </div>
+
+    <!-- 註冊內容 -->
+    <div class="signup-container">
+        <button class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i></button>
+
+        <div class="logo-section">
+            <div class="logo-icon"><img src="assets/images/logo/aqive-symbol.svg" alt="Aqive Symbol"></div>
+            <div class="logo-text"><img src="assets/images/logo/aqive-wordmark.svg" alt="Aqive"></div>
+        </div>
+
+        <h1 class="page-title">Email 註冊</h1>
+
+        <div class="form-container">
+            <div class="error-message" id="errorMessage"></div>
+            <form id="emailSignupForm">
+                <div class="input-group">
+                    <input type="text" id="name" class="input-field" placeholder="請輸入您的姓名" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="email" class="input-field" placeholder="請輸入您的 Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="password" class="input-field" placeholder="請設定密碼 (6-20 字)" minlength="6" maxlength="20" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('password', 'passwordToggleIcon')"><i class="fas fa-eye" id="passwordToggleIcon"></i></button>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="confirmPassword" class="input-field" placeholder="再次輸入密碼" minlength="6" maxlength="20" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword', 'confirmToggleIcon')"><i class="fas fa-eye" id="confirmToggleIcon"></i></button>
+                </div>
+                <button type="submit" class="signup-btn" id="signupBtn">
+                    <div class="loading" id="loading"></div>
+                    <span id="signupBtnText">註冊</span>
+                </button>
+            </form>
+            <div class="login-link">已經有帳號？<a href="email-login.html">登入</a></div>
+        </div>
+    </div>
+
+<script>
+    // 返回
+    function goBack(){ window.history.back(); }
+
+    // 切換密碼顯示
+    function togglePassword(fieldId, iconId){
+        const field = document.getElementById(fieldId);
+        const icon = document.getElementById(iconId);
+        if(field.type === 'password'){
+            field.type = 'text';
+            icon.className = 'fas fa-eye-slash';
+        }else{
+            field.type = 'password';
+            icon.className = 'fas fa-eye';
+        }
+    }
+
+    function showError(msg){ const el=document.getElementById('errorMessage'); el.textContent = msg; el.style.display='block'; }
+    function hideError(){ document.getElementById('errorMessage').style.display='none'; }
+
+    function setLoading(isLoading){
+        const btn=document.getElementById('signupBtn');
+        const spinner=document.getElementById('loading');
+        const text=document.getElementById('signupBtnText');
+        if(isLoading){ btn.disabled=true; spinner.style.display='inline-block'; text.textContent='註冊中...'; }
+        else{ btn.disabled=false; spinner.style.display='none'; text.textContent='註冊'; }
+    }
+
+    // Email 驗證
+    function isValidEmail(email){ const re=/^[^\s@]+@[^\s@]+\.[^\s@]+$/; return re.test(email); }
+
+    // 表單提交
+    document.getElementById('emailSignupForm').addEventListener('submit', function(e){
+        e.preventDefault();
+        const name=document.getElementById('name').value.trim();
+        const email=document.getElementById('email').value.trim();
+        const pwd=document.getElementById('password').value;
+        const cpwd=document.getElementById('confirmPassword').value;
+
+        if(!name || !email || !pwd || !cpwd){ showError('請填寫所有必填欄位'); return; }
+        if(!isValidEmail(email)){ showError('請輸入有效的 Email'); return; }
+        if(pwd.length < 6){ showError('密碼長度請至少 6 字'); return; }
+        if(pwd !== cpwd){ showError('兩次輸入的密碼不一致'); return; }
+
+        hideError();
+        setLoading(true);
+        // 模擬 API 呼叫
+        setTimeout(()=>{
+            setLoading(false);
+            // 假設註冊成功
+            handleSignupSuccess(name, email);
+        }, 1500);
+    });
+
+    function handleSignupSuccess(name, email){
+        const isPrototype = window.parent !== window || window.location.href.includes('index.html');
+        if(isPrototype){ alert('註冊成功！\n（原型模式，無實際註冊）'); return; }
+        // 儲存用戶資料
+        localStorage.setItem('userName', name);
+        localStorage.setItem('userEmail', email);
+        localStorage.setItem('userLoggedIn','true');
+        localStorage.setItem('loginProvider','email');
+        localStorage.setItem('loginTime', new Date().toISOString());
+        // 轉跳條款頁或首頁
+        const termsAgreed = localStorage.getItem('termsAgreed');
+        if(termsAgreed==='true'){ window.location.href='home.html'; }
+        else { window.location.href='terms-agreement.html'; }
+    }
+
+    // 初始化
+    document.addEventListener('DOMContentLoaded', ()=>{ document.getElementById('name').focus(); });
+</script>
+</body>
+</html> 

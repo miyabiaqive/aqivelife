@@ -38,6 +38,31 @@
             margin-top: 10px;
             color: #1d1d1f;
         }
+        
+        /* 平滑滾動 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 訪客流程特殊樣式 */
+        #guest-flow .phone-frame {
+            border: 3px solid #fb923c;
+            box-shadow: 0 10px 30px rgba(251, 146, 60, 0.2);
+        }
+        
+        #guest-flow .screen-title {
+            font-weight: 700;
+        }
+        
+        /* 導航按鈕懸停效果 */
+        .nav-button {
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
     </style>
 </head>
 <body>
@@ -45,14 +70,45 @@
         <div class="py-6 text-center">
             <h1 class="text-4xl font-bold text-gray-900">AqiveLife App 原型展示</h1>
             <p class="mt-2 text-xl text-gray-600">以下是按照 iPhone 15 Pro 尺寸設計的高保真原型界面</p>
+            <div class="mt-4 flex justify-center space-x-4">
+                <a href="#main-flow" class="nav-button px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">主要流程</a>
+                <a href="#guest-flow" class="nav-button px-4 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600">訪客體驗流程</a>
+            </div>
         </div>
         
-        <div class="flex flex-wrap justify-center">
+        <!-- 主要應用流程 -->
+        <div id="main-flow" class="mb-12">
+            <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">主要應用流程</h2>
+            <div class="flex flex-wrap justify-center">
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/login.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title">登入界面</div>
+                </div>
             <div class="flex flex-col items-center">
                 <div class="phone-frame">
-                    <iframe src="screens/login.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    <iframe src="screens/email-login.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
                 </div>
-                <div class="screen-title">登入界面</div>
+                <div class="screen-title">Email 登入</div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/email-signup.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                </div>
+                <div class="screen-title">Email 註冊</div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/forgot-password.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                </div>
+                <div class="screen-title">忘記密碼</div>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="phone-frame">
+                    <iframe src="screens/email-complete.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                </div>
+                <div class="screen-title">完善資料 - Email 補填</div>
             </div>
             <div class="flex flex-col items-center">
                 <div class="phone-frame">
@@ -170,6 +226,117 @@
                     <iframe src="screens/privacy-policy.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
                 </div>
                 <div class="screen-title">隱私權政策</div>
+            </div>
+            </div>
+        </div>
+        
+        <!-- 訪客體驗流程 -->
+        <div id="guest-flow" class="mb-12">
+            <h2 class="text-3xl font-bold text-orange-600 text-center mb-4">🎭 訪客體驗流程</h2>
+            <p class="text-center text-gray-600 mb-8">讓用戶在註冊前先體驗應用核心功能，建立信任並促進轉換</p>
+            <div class="flex flex-wrap justify-center">
+                
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/guest-welcome.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title text-orange-600">訪客歡迎頁面</div>
+                    <div class="text-sm text-gray-500 mt-1 max-w-xs text-center">介紹應用功能特色，建立使用動機</div>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/guest-home.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title text-orange-600">訪客首頁</div>
+                    <div class="text-sm text-gray-500 mt-1 max-w-xs text-center">限制功能展示，引導體驗核心功能</div>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/guest-mode-selector.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title text-orange-600">訪客模式選擇</div>
+                    <div class="text-sm text-gray-500 mt-1 max-w-xs text-center">選擇調氣模式，每種模式5分鐘體驗</div>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/guest-ritual.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title text-orange-600">訪客調氣體驗</div>
+                    <div class="text-sm text-gray-500 mt-1 max-w-xs text-center">限時5分鐘的調氣體驗，時間結束提示註冊</div>
+                </div>
+                
+                <div class="flex flex-col items-center">
+                    <div class="phone-frame">
+                        <iframe src="screens/guest-settings.html" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+                    </div>
+                    <div class="screen-title text-orange-600">訪客設定頁面</div>
+                    <div class="text-sm text-gray-500 mt-1 max-w-xs text-center">顯示訪客狀態，提供升級引導</div>
+                </div>
+                
+            </div>
+            
+            <!-- 訪客流程圖 -->
+            <div class="mt-8 bg-gradient-to-r from-orange-100 to-yellow-100 rounded-lg p-6 max-w-5xl mx-auto">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4 text-center">🔄 訪客體驗流程圖</h3>
+                <div class="flex justify-center items-center flex-wrap gap-4 mb-6">
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-orange-200">
+                        <div class="text-sm font-semibold text-orange-700">1. 登入頁面</div>
+                        <div class="text-xs text-gray-600">點擊「訪客體驗」</div>
+                    </div>
+                    <div class="text-orange-400 text-2xl">→</div>
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-orange-200">
+                        <div class="text-sm font-semibold text-orange-700">2. 歡迎介紹</div>
+                        <div class="text-xs text-gray-600">了解功能價值</div>
+                    </div>
+                    <div class="text-orange-400 text-2xl">→</div>
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-orange-200">
+                        <div class="text-sm font-semibold text-orange-700">3. 首頁體驗</div>
+                        <div class="text-xs text-gray-600">限制功能展示</div>
+                    </div>
+                    <div class="text-orange-400 text-2xl">→</div>
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-orange-200">
+                        <div class="text-sm font-semibold text-orange-700">4. 模式選擇</div>
+                        <div class="text-xs text-gray-600">選擇體驗模式</div>
+                    </div>
+                    <div class="text-orange-400 text-2xl">→</div>
+                    <div class="bg-white rounded-lg p-3 shadow-sm border-2 border-orange-200">
+                        <div class="text-sm font-semibold text-orange-700">5. 調氣體驗</div>
+                        <div class="text-xs text-gray-600">5分鐘限時體驗</div>
+                    </div>
+                    <div class="text-orange-400 text-2xl">→</div>
+                    <div class="bg-gradient-to-r from-orange-300 to-yellow-300 rounded-lg p-3 shadow-sm border-2 border-orange-400">
+                        <div class="text-sm font-semibold text-white">6. 轉換註冊</div>
+                        <div class="text-xs text-orange-100">引導正式註冊</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 訪客流程說明 -->
+            <div class="mt-6 bg-orange-50 rounded-lg p-6 max-w-4xl mx-auto">
+                <h3 class="text-xl font-semibold text-orange-800 mb-4">💡 訪客模式設計理念</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div>
+                        <h4 class="font-semibold text-orange-700 mb-2">🎯 核心目標</h4>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>• 降低使用門檻，無需註冊即可體驗</li>
+                            <li>• 建立產品信任，讓用戶感受真實價值</li>
+                            <li>• 促進轉換註冊，通過限制引導升級</li>
+                            <li>• 維持品牌一致性，專業的視覺體驗</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-orange-700 mb-2">⚡ 功能特色</h4>
+                        <ul class="space-y-1 text-gray-700">
+                            <li>• 5分鐘時間限制，每種模式獨立計算</li>
+                            <li>• 數據模糊顯示，需註冊解鎖完整功能</li>
+                            <li>• 多層次轉換提示，溫和引導註冊</li>
+                            <li>• 體驗進度追蹤，智慧推送升級時機</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

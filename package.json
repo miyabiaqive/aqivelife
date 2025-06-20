@@ -1,0 +1,38 @@
+{
+  "name": "aqivelife-app",
+  "version": "1.0.0",
+  "description": "AqiveLife - 調氣應用程式原型",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python3 -m http.server 8000",
+    "start": "python3 -m http.server 8000",
+    "build": "echo 'No build needed for static site'",
+    "preview": "python3 -m http.server 8000",
+    "deploy:vercel": "vercel --prod",
+    "deploy:netlify": "netlify deploy --prod --dir=.",
+    "deploy:surge": "surge . --domain aqivelife-app.surge.sh"
+  },
+  "keywords": [
+    "aqivelife",
+    "wellness",
+    "meditation",
+    "qi",
+    "mobile-app",
+    "prototype"
+  ],
+  "author": "AqiveLife Team",
+  "license": "MIT",
+  "homepage": ".",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yourusername/aqivelife-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/aqivelife-app/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+} 
